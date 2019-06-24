@@ -1,4 +1,5 @@
 #include<iostream>
+#include<map>
 
 #include "../engunits/length.h"
 
@@ -7,9 +8,8 @@ int main() {
     using namespace std;
 
     meters m=5;
+    feet f = 10;
+
     
-    if (4<m<7) {
-    cout << m << endl;
-    }
     return 0;
 }
