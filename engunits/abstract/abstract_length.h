@@ -2,20 +2,26 @@
 #define __ENGUNITS_ABSTRACT_LENGTH_H
 
 #include "../../engunits/abstract/abstract_base.h"
+#include "../../engunits/length_conversion_map.h"
 
 namespace EngUnits{
 
 class LengthUnit: public PhysicalUnit<> {
 
     protected:
-        LengthUnit() : PhysicalUnit<>{} {};
-        LengthUnit(const double value) : PhysicalUnit<>{value} {};
+        using PhysicalUnit<>::PhysicalUnit;
+        static double get_conversion(std::string unit) { return conversion::lengthConversionMap[unit]; }
 
     public:
-        virtual double true_val() const {};
+        explicit LengthUnit(const LengthUnit &other) : PhysicalUnit<>{double(other)} {};
+        explicit LengthUnit(const LengthUnit &&other) : PhysicalUnit<>{double(other)} {};
+
+        virtual double get_conversion() const override { return 1; };
+        virtual std::string get_suffix() const override { return ""; }
 
         virtual LengthUnit &operator=(const double value) {this->val=value; return *this;}
-        virtual LengthUnit &operator=(const LengthUnit &other) { this->val = other.val; return *this;}
+        virtual LengthUnit &operator=(const LengthUnit &other) { this->val = other.true_val(); return *this;}
+        virtual LengthUnit &operator=(const LengthUnit &&other) { this->val = other.true_val(); return *this;}        
         virtual operator bool() const {return (this->val);}
         virtual operator double() const { return (this->val); }
 
@@ -70,6 +76,10 @@ class LengthUnit: public PhysicalUnit<> {
         friend ProxyComp operator<(const double value, LengthUnit self) {return LengthUnit(value) < self;}
         friend ProxyComp operator>(const double value, LengthUnit self) {return LengthUnit(value) > self;}
 
+        friend std::ostream &operator<<(std::ostream &os, const LengthUnit &self) {
+            os << std::scientific << self.true_val() << self.get_suffix(); 
+            return os;
+        }
 };
 }
 

@@ -5,6 +5,5 @@
 int main () {
     using namespace EngUnits;
 
-
     return 0;
 }

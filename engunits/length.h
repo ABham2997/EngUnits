@@ -2,6 +2,7 @@
 #define __ENGUNITS_LENGTH_H
 
 #include<iostream>
+#include<string>
 
 #include "../engunits/abstract/abstract_length.h"
 #include "../engunits/length_conversion_map.h"
@@ -10,18 +11,26 @@ namespace EngUnits::length{
 
 class meters : public LengthUnit {
     public:
-        meters() : LengthUnit{} {};
-        meters(const double value) : LengthUnit{value} {};
+        using LengthUnit::LengthUnit;
 
-        friend std::ostream &operator<<(std::ostream &os, const meters &self) { os << std::scientific<<double(self)<<"m"; return os;}
+        double get_conversion() const override { return conversion::lengthConversionMap["meters"]; }
+        std::string get_suffix() const override { return "m"; }
+};
+
+class inches : public LengthUnit {
+    public:
+        using LengthUnit::LengthUnit;
+
+        double get_conversion() const override { return conversion::lengthConversionMap["inches"]; }
+        std::string get_suffix() const override { return "in"; }
 };
 
 class feet : public LengthUnit {
     public:
-        feet() : LengthUnit{} {};
-        feet(const double value) : LengthUnit{value} {};
+        using LengthUnit::LengthUnit;
 
-        friend std::ostream &operator<<(std::ostream &os, const feet &self) { os << std::scientific<<double(self)<<"ft"; return os;}
+        double get_conversion() const override { return conversion::lengthConversionMap["feet"]; }
+        std::string get_suffix() const override { return "ft"; }
 };
 
 }
