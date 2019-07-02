@@ -5,32 +5,32 @@
 #include<string>
 
 #include "../engunits/abstract/abstract_length.h"
-#include "../engunits/length_conversion_map.h"
+#include "../engunits/length_conversion.h"
 
 namespace EngUnits::length{
 
-class meters : public LengthUnit {
-    public:
-        using LengthUnit::LengthUnit;
+struct meters : public LengthUnit {
+    using LengthUnit::LengthUnit;
+    meters(const double value) : LengthUnit{value, this->get_conversion()} {};
 
-        double get_conversion() const override { return conversion::lengthConversionMap["meters"]; }
-        std::string get_suffix() const override { return "m"; }
+    double get_conversion() const override { return conversion::METERS; }
+    std::string get_suffix() const override { return "m"; }
 };
 
-class inches : public LengthUnit {
-    public:
-        using LengthUnit::LengthUnit;
+struct inches : public LengthUnit {
+    using LengthUnit::LengthUnit;
+    inches(const double value) : LengthUnit{value, this->get_conversion()} {};
 
-        double get_conversion() const override { return conversion::lengthConversionMap["inches"]; }
-        std::string get_suffix() const override { return "in"; }
+    double get_conversion() const override { return conversion::INCHES; }
+    std::string get_suffix() const override { return "in"; }
 };
 
-class feet : public LengthUnit {
-    public:
-        using LengthUnit::LengthUnit;
+struct feet : public LengthUnit {
+    using LengthUnit::LengthUnit;
+    feet(const double value) : LengthUnit{value, this->get_conversion()} {};
 
-        double get_conversion() const override { return conversion::lengthConversionMap["feet"]; }
-        std::string get_suffix() const override { return "ft"; }
+    double get_conversion() const override { return conversion::FEET; }
+    std::string get_suffix() const override { return "ft"; }
 };
 
 }

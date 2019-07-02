@@ -3,6 +3,10 @@
 
 #include "../engunits/length.h"
 
+void print_bool (bool b){
+    std::cout<< (b ? "true" : "false") << std::endl;
+}
+
 int main() {
     using namespace EngUnits::length;
     using namespace std;
@@ -11,10 +15,13 @@ int main() {
     m = 5;
     feet f = 10;
     f += m;
-    inches i = 12;
+    inches i = 13;
     feet ff(i);
     if ((m-2)<m<(m+2)!=m){
         cout << ff << endl;
     }
+    meters mb{5};
+    feet fb{5};
+
     return 0;
 }

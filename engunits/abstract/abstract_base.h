@@ -2,11 +2,12 @@
 #define __ENGUNITS_ABSTRACT_BASE_H
 
 #include<string>
+#include<iostream>
 
-namespace EngUnits{
+namespace EngUnits::core{
 
 template<typename T=double>
-class PhysicalUnit{ 
+class PhysicalUnit{
     protected:
         T val;
 
@@ -17,7 +18,6 @@ class PhysicalUnit{
 
                 ProxyComp(const T value, bool bb) : val{value}, b{bb} {};
         
-                operator bool() { return this->b; }
                 operator T() { return this->val; }
 
                 ProxyComp operator==(const T value) { this->b=(this->val==value && this->b) ; this->val=value; return *this; }
@@ -40,15 +40,20 @@ class PhysicalUnit{
                 friend ProxyComp operator>(const T value, ProxyComp self) {return ProxyComp(self.val, value>self.val);}
         };
 
-        virtual T get_conversion() const { return 1; }
+        virtual T get_conversion() const = 0;
         virtual std::string get_suffix() const = 0;
 
     public:
         PhysicalUnit<T>():val{} {};
-        PhysicalUnit<T>(const T value):val{value*get_conversion()} {};
+        PhysicalUnit<T>(const T value, const T conversion=1): val{value*conversion} {};
         PhysicalUnit<T>(const ProxyComp &&other):val{other.val()} {};
 
-        T true_val() const { return this->val / get_conversion(); }
+        T true_val() const { return this->val / this->get_conversion(); }
+
+        friend std::ostream &operator<<(std::ostream &os, const PhysicalUnit<> &self) {
+            os << std::scientific << self.true_val() << self.get_suffix(); 
+            return os;
+        }
 };
 }
 #endif
