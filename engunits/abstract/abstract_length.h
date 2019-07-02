@@ -4,75 +4,55 @@
 #include "../../engunits/abstract/abstract_base.h"
 
 namespace EngUnits::length{
-
-class LengthUnit: public core::PhysicalUnit<> {
-    
-    protected:
-        using core::PhysicalUnit<>::PhysicalUnit;
-
+template<typename Child> //TODO: constrain to children of this class
+class LengthUnit: public core::PhysicalUnit<'L'> {
     public:
-        explicit LengthUnit(const LengthUnit &other) : core::PhysicalUnit<>{other.true_val(), other.get_conversion()} {};
-        explicit LengthUnit(const LengthUnit &&other) : core::PhysicalUnit<>{other.true_val(), other.get_conversion()} {};
+        using core::PhysicalUnit<'L'>::PhysicalUnit;
+        LengthUnit<Child>(const double value) : PhysicalUnit<'L'>{value, Child::conversion} {};
+        template <typename T>
+        LengthUnit<Child>(const LengthUnit<T> &other) : core::PhysicalUnit<'L'>{other.true_val(), other.Child::conversion} {};
+        template<typename T>
+        LengthUnit<Child>(const LengthUnit<T> &&other) : core::PhysicalUnit<'L'>{other.true_val(), other.Child::conversion} {};
 
-        virtual double get_conversion() const override { return 1; }
-        virtual std::string get_suffix() const override { return ""; }
+        double true_val() const override { return this->val / Child::conversion; }
 
-        LengthUnit &operator=(const double value) {this->val=value*get_conversion(); return *this;}
-        LengthUnit &operator=(const LengthUnit &other) { this->val = other.true_val()*get_conversion(); return *this;}
-        LengthUnit &operator=(const LengthUnit &&other) { this->val = other.true_val()*get_conversion(); return *this;}        
+        LengthUnit<Child> &operator=(const double value) {this->val=value*Child::conversion; return *this;}
+        LengthUnit<Child> &operator=(const LengthUnit<Child> &other) { this->val = other.true_val()*Child::conversion; return *this;}
+        LengthUnit<Child> &operator=(const LengthUnit<Child> &&other) { this->val = other.true_val()*Child::conversion; return *this;}        
         operator bool() const {return (this->val);}
 
-        LengthUnit operator*(const double value) const { return LengthUnit(this->val*value);}
-        LengthUnit operator+(const double value) const {return LengthUnit(this->val+value);}
-        LengthUnit operator-(const double value) const {return LengthUnit(this->val-value);}
-        LengthUnit operator/(const double value) const {return LengthUnit(this->val/value);}
-        LengthUnit &operator*=(const double value) {this->val*=value;return *this;}
-        LengthUnit &operator+=(const double value) {this->val+=value;return *this;}
-        LengthUnit &operator-=(const double value) {this->val-=value;return *this;}
-        LengthUnit &operator/=(const double value) {this->val/=value;return *this;}
-        LengthUnit operator*(LengthUnit other) const { return LengthUnit(this->val*other.val);}
-        LengthUnit operator+(LengthUnit other) const {return LengthUnit(this->val+other.val);}
-        LengthUnit operator-(LengthUnit other) const {return LengthUnit(this->val-other.val);}
-        LengthUnit operator/(LengthUnit other) const {return LengthUnit(this->val/other.val);}
-        LengthUnit &operator*=(LengthUnit other) {this->val*=other.val;return *this;}
-        LengthUnit &operator+=(LengthUnit other) {this->val+=other.val;return *this;}
-        LengthUnit &operator-=(LengthUnit other) {this->val-=other.val;return *this;}
-        LengthUnit &operator/=(LengthUnit other) {this->val/=other.val;return *this;}
-        friend LengthUnit operator*(const double value, LengthUnit self) { return self * value; }
-        friend LengthUnit operator+(const double value, LengthUnit self) { return self + value; }
-        friend LengthUnit operator-(const double value, LengthUnit self) { return LengthUnit(value-self.val); }
-        friend LengthUnit operator/(const double value, LengthUnit self) { return LengthUnit(value/self.val); }
+        LengthUnit<Child> operator*(const double value) const { return LengthUnit<Child>(this->val*value);}
+        LengthUnit<Child> operator+(const double value) const {return LengthUnit<Child>(this->val+value);}
+        LengthUnit<Child> operator-(const double value) const {return LengthUnit<Child>(this->val-value);}
+        LengthUnit<Child> operator/(const double value) const {return LengthUnit<Child>(this->val/value);}
+        LengthUnit<Child> &operator*=(const double value) {this->val*=value;return *this;}
+        LengthUnit<Child> &operator+=(const double value) {this->val+=value;return *this;}
+        LengthUnit<Child> &operator-=(const double value) {this->val-=value;return *this;}
+        LengthUnit<Child> &operator/=(const double value) {this->val/=value;return *this;}
+        template<typename T> LengthUnit<Child> operator*(LengthUnit<T> other) const { return LengthUnit<Child>(this->val*other.val);}
+        template<typename T> LengthUnit<Child> operator+(LengthUnit<T> other) const {return LengthUnit<Child>(this->val+other.val);}
+        template<typename T> LengthUnit<Child> operator-(LengthUnit<T> other) const {return LengthUnit<Child>(this->val-other.val);}
+        template<typename T> LengthUnit<Child> operator/(LengthUnit<T> other) const {return LengthUnit<Child>(this->val/other.val);}
+        template<typename T> LengthUnit<Child> &operator*=(LengthUnit<T> other) {this->val*=other.val;return *this;}
+        template<typename T> LengthUnit<Child> &operator+=(LengthUnit<T> other) {this->val+=other.val;return *this;}
+        template<typename T> LengthUnit<Child> &operator-=(LengthUnit<T> other) {this->val-=other.val;return *this;}
+        template<typename T> LengthUnit<Child> &operator/=(LengthUnit<T> other) {this->val/=other.val;return *this;}
+        template<typename T> friend LengthUnit<Child> operator*(const double value, LengthUnit<T> self) { return self * value; }
+        template<typename T> friend LengthUnit<Child> operator+(const double value, LengthUnit<T> self) { return self + value; }
+        template<typename T> friend LengthUnit<Child> operator-(const double value, LengthUnit<T> self) { return LengthUnit<Child>(value-self.val); }
+        template<typename T> friend LengthUnit<Child> operator/(const double value, LengthUnit<T> self) { return LengthUnit<Child>(value/self.val); }
 
-        void operator++() {this->val++;}
-        void operator++(int i) { ++this->val; }
-        void operator--() {this->val--;}
-        void operator--(int i) { --this->val; }
+        friend ProxyComp operator==(const double value, LengthUnit<Child> self) { return LengthUnit<Child>(value) == self; }
+        friend ProxyComp operator!=(const double value, LengthUnit<Child> self) {return LengthUnit<Child>(value) != self;}
+        friend ProxyComp operator<=(const double value, LengthUnit<Child> self) {return LengthUnit<Child>(value) <= self;}
+        friend ProxyComp operator>=(const double value, LengthUnit<Child> self) {return LengthUnit<Child>(value) >= self;}
+        friend ProxyComp operator<(const double value, LengthUnit<Child> self) {return LengthUnit<Child>(value) < self;}
+        friend ProxyComp operator>(const double value, LengthUnit<Child> self) {return LengthUnit<Child>(value) > self;}
 
-        ProxyComp operator==(const double value) {return ProxyComp(value, (this->val)==value);}
-        ProxyComp operator!=(const double value) {return ProxyComp(value, (this->val)!=value);}
-        ProxyComp operator<=(const double value) {return ProxyComp(value, (this->val)<=value);}
-        ProxyComp operator>=(const double value) {return ProxyComp(value, (this->val)>=value);}
-        ProxyComp operator<(const double value) {return ProxyComp(value, (this->val)<value);}
-        ProxyComp operator>(const double value) {return ProxyComp(value, (this->val)>value);}
-        ProxyComp operator==(const LengthUnit &other) { return *this == other.val; }
-        ProxyComp operator!=(const LengthUnit &other) {return *this!=other.val;}
-        ProxyComp operator<=(const LengthUnit &other) {return *this<=other.val;}
-        ProxyComp operator>=(const LengthUnit &other) {return *this>=other.val;}
-        ProxyComp operator<(const LengthUnit &other) {return *this<other.val;}
-        ProxyComp operator>(const LengthUnit &other) {return *this>other.val;}
-        ProxyComp operator==(const ProxyComp other) {return *this==other.val;}
-        ProxyComp operator!=(const ProxyComp other) {return *this!=other.val;}
-        ProxyComp operator<=(const ProxyComp other) {return *this<=other.val;}
-        ProxyComp operator>=(const ProxyComp other) {return *this>=other.val;}
-        ProxyComp operator<(const ProxyComp other) {return *this<other.val;}
-        ProxyComp operator>(const ProxyComp other) {return *this>other.val;}
-        friend ProxyComp operator==(const double value, LengthUnit self) { return LengthUnit(value) == self; }
-        friend ProxyComp operator!=(const double value, LengthUnit self) {return LengthUnit(value) != self;}
-        friend ProxyComp operator<=(const double value, LengthUnit self) {return LengthUnit(value) <= self;}
-        friend ProxyComp operator>=(const double value, LengthUnit self) {return LengthUnit(value) >= self;}
-        friend ProxyComp operator<(const double value, LengthUnit self) {return LengthUnit(value) < self;}
-        friend ProxyComp operator>(const double value, LengthUnit self) {return LengthUnit(value) > self;}
-
+        friend std::ostream &operator<<(std::ostream &os, const LengthUnit<Child> &self) {
+            os << std::scientific << self.true_val() << Child::suffix; 
+            return os;
+        }
 };
 }
 

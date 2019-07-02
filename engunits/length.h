@@ -9,30 +9,32 @@
 
 namespace EngUnits::length{
 
-struct meters : public LengthUnit {
-    using LengthUnit::LengthUnit;
-    meters(const double value) : LengthUnit{value, this->get_conversion()} {};
+class meters : public LengthUnit<meters> {
+    public:
+        using LengthUnit<meters>::LengthUnit;
 
-    double get_conversion() const override { return conversion::METERS; }
-    std::string get_suffix() const override { return "m"; }
+        static constexpr double conversion = conversion::METERS; //literal defined elsewhere for clarity
+
+        static constexpr char suffix[] = "m";
 };
 
-struct inches : public LengthUnit {
-    using LengthUnit::LengthUnit;
-    inches(const double value) : LengthUnit{value, this->get_conversion()} {};
+class inches : public LengthUnit<inches> {
+    public:
+        using LengthUnit<inches>::LengthUnit;
 
-    double get_conversion() const override { return conversion::INCHES; }
-    std::string get_suffix() const override { return "in"; }
+        static constexpr double conversion = conversion::INCHES;
+
+        static constexpr char suffix[] = "in";
 };
 
-struct feet : public LengthUnit {
-    using LengthUnit::LengthUnit;
-    feet(const double value) : LengthUnit{value, this->get_conversion()} {};
+class feet : public LengthUnit<feet> {
+    public:
+        using LengthUnit<feet>::LengthUnit;
 
-    double get_conversion() const override { return conversion::FEET; }
-    std::string get_suffix() const override { return "ft"; }
+        static constexpr double conversion = conversion::FEET;
+
+        static constexpr char suffix[] = "ft";
 };
-
 }
 
 #endif

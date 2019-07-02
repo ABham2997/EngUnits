@@ -2,6 +2,7 @@
 #define __ENGUNITS_CONVERSION_H
 
 namespace EngUnits::length::conversion{
+//Conversions have been aggregated here to make them easier to view and manipulate
 
 //conversions have been standardised to SI units: all values are conversion factors from meters
 constexpr double METERS = 1;

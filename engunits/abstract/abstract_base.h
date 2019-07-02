@@ -6,7 +6,7 @@
 
 namespace EngUnits::core{
 
-template<typename T=double>
+template<char ID, typename T=double>
 class PhysicalUnit{
     protected:
         T val;
@@ -26,12 +26,12 @@ class PhysicalUnit{
                 ProxyComp operator>=(const T value) {this->b=(this->val>=value && this->b) ; this->val=value; return *this;}
                 ProxyComp operator<(const T value) {this->b=(this->val<value && this->b) ; this->val=value; return *this;}
                 ProxyComp operator>(const T value) {this->b=(this->val>value && this->b) ; this->val=value; return *this;}
-                ProxyComp operator==(const PhysicalUnit<T> &other) { return *this == other.val; }
-                ProxyComp operator!=(const PhysicalUnit<T> &other) { return *this != other.val; }
-                ProxyComp operator<=(const PhysicalUnit<T> &other) { return *this <= other.val; }
-                ProxyComp operator>=(const PhysicalUnit<T> &other) { return *this >= other.val; }
-                ProxyComp operator<(const PhysicalUnit<T> &other) { return *this < other.val; }
-                ProxyComp operator>(const PhysicalUnit<T> &other) { return *this > other.val; }
+                ProxyComp operator==(const PhysicalUnit<ID, T> &other) { return *this == other.val; }
+                ProxyComp operator!=(const PhysicalUnit<ID, T> &other) { return *this != other.val; }
+                ProxyComp operator<=(const PhysicalUnit<ID, T> &other) { return *this <= other.val; }
+                ProxyComp operator>=(const PhysicalUnit<ID, T> &other) { return *this >= other.val; }
+                ProxyComp operator<(const PhysicalUnit<ID, T> &other) { return *this < other.val; }
+                ProxyComp operator>(const PhysicalUnit<ID, T> &other) { return *this > other.val; }
                 friend ProxyComp operator==(const T value, ProxyComp self) {return ProxyComp(self.val, value==self.val); }
                 friend ProxyComp operator!=(const T value, ProxyComp self) {return ProxyComp(self.val, value!=self.val);}
                 friend ProxyComp operator<=(const T value, ProxyComp self) {return ProxyComp(self.val, value<=self.val);}
@@ -40,20 +40,37 @@ class PhysicalUnit{
                 friend ProxyComp operator>(const T value, ProxyComp self) {return ProxyComp(self.val, value>self.val);}
         };
 
-        virtual T get_conversion() const = 0;
-        virtual std::string get_suffix() const = 0;
-
     public:
-        PhysicalUnit<T>():val{} {};
-        PhysicalUnit<T>(const T value, const T conversion=1): val{value*conversion} {};
-        PhysicalUnit<T>(const ProxyComp &&other):val{other.val()} {};
+        PhysicalUnit<ID, T>():val{} {};
+        PhysicalUnit<ID, T>(const T value, const double conversion): val{value*conversion} {};
+        PhysicalUnit<ID, T>(const ProxyComp &&other):val{other.val()} {};
 
-        T true_val() const { return this->val / this->get_conversion(); }
+        virtual T true_val() const = 0; //this function ensures this base class remains purely abstract
 
-        friend std::ostream &operator<<(std::ostream &os, const PhysicalUnit<> &self) {
-            os << std::scientific << self.true_val() << self.get_suffix(); 
-            return os;
-        }
+        void operator++() {this->val++;}
+        void operator++(int i) { ++this->val; }
+        void operator--() {this->val--;}
+        void operator--(int i) { --this->val; }
+
+        ProxyComp operator==(const double value) {return ProxyComp(value, (this->val)==value);}
+        ProxyComp operator!=(const double value) {return ProxyComp(value, (this->val)!=value);}
+        ProxyComp operator<=(const double value) {return ProxyComp(value, (this->val)<=value);}
+        ProxyComp operator>=(const double value) {return ProxyComp(value, (this->val)>=value);}
+        ProxyComp operator<(const double value) {return ProxyComp(value, (this->val)<value);}
+        ProxyComp operator>(const double value) {return ProxyComp(value, (this->val)>value);}
+        ProxyComp operator==(const PhysicalUnit<ID, T> &other) { return *this == other.val; }
+        ProxyComp operator!=(const PhysicalUnit<ID, T> &other) {return *this!=other.val;}
+        ProxyComp operator<=(const PhysicalUnit<ID, T> &other) {return *this<=other.val;}
+        ProxyComp operator>=(const PhysicalUnit<ID, T> &other) {return *this>=other.val;}
+        ProxyComp operator<(const PhysicalUnit<ID, T> &other) {return *this<other.val;}
+        ProxyComp operator>(const PhysicalUnit<ID, T> &other) {return *this>other.val;}
+        ProxyComp operator==(const ProxyComp other) {return *this==other.val;}
+        ProxyComp operator!=(const ProxyComp other) {return *this!=other.val;}
+        ProxyComp operator<=(const ProxyComp other) {return *this<=other.val;}
+        ProxyComp operator>=(const ProxyComp other) {return *this>=other.val;}
+        ProxyComp operator<(const ProxyComp other) {return *this<other.val;}
+        ProxyComp operator>(const ProxyComp other) {return *this>other.val;}
+
 };
 }
 #endif
