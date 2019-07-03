@@ -1,5 +1,5 @@
-#ifndef __ENGUNITS_CONVERSION_H
-#define __ENGUNITS_CONVERSION_H
+#ifndef __ENGUNITS_LENGTH_CONVERSION_H
+#define __ENGUNITS_LENGTH_CONVERSION_H
 
 namespace EngUnits::conversion{
 //Conversions have been aggregated here to make them easier to view and change
@@ -21,6 +21,6 @@ constexpr double L_EXAMETERS = 1e+18;
 constexpr double L_PETAMETERS = 1e+15;
 constexpr double L_NAUTICAL_MILE = 1852;
 
-} // namespace EngUnits::length::conversion
+} // namespace EngUnits::conversion
 
 #endif

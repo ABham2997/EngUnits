@@ -13,7 +13,7 @@ class meters : public abstract::LengthUnit<meters> {
     public:
         using abstract::LengthUnit<meters>::LengthUnit;
 
-        static constexpr double conversion = conversion::L_METERS; //literal defined elsewhere for clarity
+        static constexpr double conversion = conversion::L_METERS; //literal defined in length_conversion file for clarity
 
         static std::string suffix() { return "m"; }
 };
