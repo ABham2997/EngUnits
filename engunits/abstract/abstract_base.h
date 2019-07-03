@@ -8,7 +8,9 @@ namespace EngUnits::abstract{
 /* The immediate derived class of this class should only interact with itself, not with other immediate derivations of
     this class. However, all derivations of this class share a lot in common. For e.g. lengths should only interact
     with other lengths (by interact, I mean adding, subtracting, comparing etc.) Lengths should not interact with masses,
-    volumes etc. */
+    volumes etc. Curiosuly Recurring Template Pattern(CRTP) would not work at this level, as it does for the immediate derived classes
+    since the immediate derived classes take advantage of (CRTP). Therefore, using it at this level would prevent the required
+    interaction (meters would only be able to interact with meters, not feet etc.) */
 template<char ID, typename T=double>
 class PhysicalUnit{
     protected:
@@ -45,7 +47,7 @@ class PhysicalUnit{
 
     public:
         PhysicalUnit<ID, T>():val{} {};
-        PhysicalUnit<ID, T>(const T value, const double conversion=1): val{value*conversion} {};
+        PhysicalUnit<ID, T>(const T value): val{value} {};
         PhysicalUnit<ID, T>(const ProxyComp &&other):val{other.val()} {};
 
         virtual T SI_val() const = 0; //this function ensures this base class remains purely abstract
@@ -78,5 +80,6 @@ class PhysicalUnit{
         ProxyComp operator>(const ProxyComp other) {return *this>other.val;}
 
 };
+
 }
 #endif

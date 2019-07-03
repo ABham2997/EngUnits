@@ -1,6 +1,8 @@
 #ifndef __ENGUNITS_ABSTRACT_LENGTH_H
 #define __ENGUNITS_ABSTRACT_LENGTH_H
 
+#include<iostream>
+
 #include "../../engunits/abstract/abstract_base.h"
 
 namespace EngUnits::abstract{
@@ -10,20 +12,20 @@ class LengthUnit: public PhysicalUnit<'L'> {
         using PhysicalUnit<'L'>::PhysicalUnit;
 
     public:
-        LengthUnit<Child>(const double value) : PhysicalUnit<'L'>{value, Child::conversion} {};
-        LengthUnit<Child>(const LengthUnit<Child> &other) : PhysicalUnit<'L'>{other.SI_val()} {};
-        LengthUnit<Child>(const LengthUnit<Child> &&other) : PhysicalUnit<'L'>{other.SI_val()} {};
+        LengthUnit<Child>(const double value) : PhysicalUnit<'L'>{value} {};
+        LengthUnit<Child>(const LengthUnit<Child> &other) : PhysicalUnit<'L'>{other.val} {};
+        LengthUnit<Child>(const LengthUnit<Child> &&other) : PhysicalUnit<'L'>{other.val} {};
         template <typename T>
-        LengthUnit<Child>(const LengthUnit<T> &other) : PhysicalUnit<'L'>{other.abs_val(), T::conversion} {};
+        LengthUnit<Child>(const LengthUnit<T> &other) : PhysicalUnit<'L'>{(other.SI_val()/Child::conversion)} {};
         template<typename T>
-        LengthUnit<Child>(const LengthUnit<T> &&other) : PhysicalUnit<'L'>{other.abs_val(), T::conversion} {};
+        LengthUnit<Child>(const LengthUnit<T> &&other) : PhysicalUnit<'L'>{(other.SI_val()/Child::conversion)} {};
 
-        double abs_val() const override { return this->val / Child::conversion; }
-        double SI_val() const override { return this->val; }
+        double abs_val() const override { return this->val; }
+        double SI_val() const override { return this->val*Child::conversion; }
 
-        LengthUnit<Child> &operator=(const double value) {this->val=value*Child::conversion; return *this;}
-        LengthUnit<Child> &operator=(const LengthUnit<Child> &other) { this->val = other.abs_val()*Child::conversion; return *this;}
-        LengthUnit<Child> &operator=(const LengthUnit<Child> &&other) { this->val = other.abs_val()*Child::conversion; return *this;}        
+        LengthUnit<Child> &operator=(const double value) {this->val=value; return *this;}
+        LengthUnit<Child> &operator=(const LengthUnit<Child> &other) { this->val = other.val; return *this;}
+        LengthUnit<Child> &operator=(const LengthUnit<Child> &&other) { this->val = other.val; return *this;}        
 
         LengthUnit<Child> operator*(const double value) const { return LengthUnit<Child>(this->val*value);}
         LengthUnit<Child> operator+(const double value) const {return LengthUnit<Child>(this->val+value);}
