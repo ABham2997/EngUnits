@@ -25,12 +25,18 @@ int main() {
     fp += 20;
     assert(fp.abs_val() == 40);
     assert((meters{} + 5).abs_val() == 5);
-    auto mpres = mp + 10;
+    auto mpres = 10+mp;
     assert(mpres.abs_val() == 30);
-    auto fpres = fp + 20;
-    assert(fp.abs_val() == 60);
-
+    auto fpres = 20+fp;
+    assert(fpres.abs_val() == 60);
+    double dub = 100;
     cout << "success" << endl;
+    cout << endl;
+
+    cout << "---Testing Arithmetic Operations with Other Units---" << endl;
+    cout << "Addition: ";
+    meters mma{10};
+    feet ffa{10};
 
     cout << endl;
     cout << "All Tests Successfully Completed" << endl;

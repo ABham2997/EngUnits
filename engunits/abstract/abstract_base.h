@@ -23,7 +23,7 @@ class PhysicalUnit{
 
                 ProxyComp(const T value, bool bb) : val{value}, b{bb} {};
         
-                operator T() { return this->val; }
+                operator bool() { return this->val; }
 
                 ProxyComp operator==(const T value) { this->b=(this->val==value && this->b) ; this->val=value; return *this; }
                 ProxyComp operator!=(const T value) {this->b=(this->val!=value && this->b) ; this->val=value; return *this;}
