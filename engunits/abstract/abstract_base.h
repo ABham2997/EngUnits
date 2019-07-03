@@ -4,8 +4,11 @@
 #include<string>
 #include<iostream>
 
-namespace EngUnits::core{
-
+namespace EngUnits::abstract{
+/* The immediate derived class of this class should only interact with itself, not with other immediate derivations of
+    this class. However, all derivations of this class share a lot in common. For e.g. lengths should only interact
+    with other lengths (by interact, I mean adding, subtracting, comparing etc.) Lengths should not interact with masses,
+    volumes etc. */
 template<char ID, typename T=double>
 class PhysicalUnit{
     protected:
@@ -42,15 +45,18 @@ class PhysicalUnit{
 
     public:
         PhysicalUnit<ID, T>():val{} {};
-        PhysicalUnit<ID, T>(const T value, const double conversion): val{value*conversion} {};
+        PhysicalUnit<ID, T>(const T value, const double conversion=1): val{value*conversion} {};
         PhysicalUnit<ID, T>(const ProxyComp &&other):val{other.val()} {};
 
-        virtual T true_val() const = 0; //this function ensures this base class remains purely abstract
+        virtual T SI_val() const = 0; //this function ensures this base class remains purely abstract
+        virtual T abs_val() const = 0;//same for this function
 
         void operator++() {this->val++;}
         void operator++(int i) { ++this->val; }
         void operator--() {this->val--;}
         void operator--(int i) { --this->val; }
+
+        operator bool() const {return (this->val);}
 
         ProxyComp operator==(const double value) {return ProxyComp(value, (this->val)==value);}
         ProxyComp operator!=(const double value) {return ProxyComp(value, (this->val)!=value);}

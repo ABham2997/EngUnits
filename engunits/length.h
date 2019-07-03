@@ -9,31 +9,31 @@
 
 namespace EngUnits::length{
 
-class meters : public LengthUnit<meters> {
+class meters : public abstract::LengthUnit<meters> {
     public:
-        using LengthUnit<meters>::LengthUnit;
+        using abstract::LengthUnit<meters>::LengthUnit;
 
         static constexpr double conversion = conversion::METERS; //literal defined elsewhere for clarity
 
-        static constexpr char suffix[] = "m";
+        static std::string suffix() { return "m"; }
 };
 
-class inches : public LengthUnit<inches> {
+class inches : public abstract::LengthUnit<inches> {
     public:
-        using LengthUnit<inches>::LengthUnit;
+        using abstract::LengthUnit<inches>::LengthUnit;
 
         static constexpr double conversion = conversion::INCHES;
 
-        static constexpr char suffix[] = "in";
+        static std::string suffix() { return "in"; }
 };
 
-class feet : public LengthUnit<feet> {
+class feet : public abstract::LengthUnit<feet> {
     public:
-        using LengthUnit<feet>::LengthUnit;
+        using abstract::LengthUnit<feet>::LengthUnit;
 
         static constexpr double conversion = conversion::FEET;
 
-        static constexpr char suffix[] = "ft";
+        static std::string suffix() {return "ft";}
 };
 }
 

@@ -3,23 +3,27 @@
 
 #include "../../engunits/abstract/abstract_base.h"
 
-namespace EngUnits::length{
+namespace EngUnits::abstract{
 template<typename Child> //TODO: constrain to children of this class
-class LengthUnit: public core::PhysicalUnit<'L'> {
-    public:
-        using core::PhysicalUnit<'L'>::PhysicalUnit;
-        LengthUnit<Child>(const double value) : PhysicalUnit<'L'>{value, Child::conversion} {};
-        template <typename T>
-        LengthUnit<Child>(const LengthUnit<T> &other) : core::PhysicalUnit<'L'>{other.true_val(), other.Child::conversion} {};
-        template<typename T>
-        LengthUnit<Child>(const LengthUnit<T> &&other) : core::PhysicalUnit<'L'>{other.true_val(), other.Child::conversion} {};
+class LengthUnit: public PhysicalUnit<'L'> {
+    protected:
+        using PhysicalUnit<'L'>::PhysicalUnit;
 
-        double true_val() const override { return this->val / Child::conversion; }
+    public:
+        LengthUnit<Child>(const double value) : PhysicalUnit<'L'>{value, Child::conversion} {};
+        LengthUnit<Child>(const LengthUnit<Child> &other) : PhysicalUnit<'L'>{other.SI_val()} {};
+        LengthUnit<Child>(const LengthUnit<Child> &&other) : PhysicalUnit<'L'>{other.SI_val()} {};
+        template <typename T>
+        LengthUnit<Child>(const LengthUnit<T> &other) : PhysicalUnit<'L'>{other.abs_val(), T::conversion} {};
+        template<typename T>
+        LengthUnit<Child>(const LengthUnit<T> &&other) : PhysicalUnit<'L'>{other.abs_val(), T::conversion} {};
+
+        double abs_val() const override { return this->val / Child::conversion; }
+        double SI_val() const override { return this->val; }
 
         LengthUnit<Child> &operator=(const double value) {this->val=value*Child::conversion; return *this;}
-        LengthUnit<Child> &operator=(const LengthUnit<Child> &other) { this->val = other.true_val()*Child::conversion; return *this;}
-        LengthUnit<Child> &operator=(const LengthUnit<Child> &&other) { this->val = other.true_val()*Child::conversion; return *this;}        
-        operator bool() const {return (this->val);}
+        LengthUnit<Child> &operator=(const LengthUnit<Child> &other) { this->val = other.abs_val()*Child::conversion; return *this;}
+        LengthUnit<Child> &operator=(const LengthUnit<Child> &&other) { this->val = other.abs_val()*Child::conversion; return *this;}        
 
         LengthUnit<Child> operator*(const double value) const { return LengthUnit<Child>(this->val*value);}
         LengthUnit<Child> operator+(const double value) const {return LengthUnit<Child>(this->val+value);}
@@ -41,7 +45,8 @@ class LengthUnit: public core::PhysicalUnit<'L'> {
         template<typename T> friend LengthUnit<Child> operator+(const double value, LengthUnit<T> self) { return self + value; }
         template<typename T> friend LengthUnit<Child> operator-(const double value, LengthUnit<T> self) { return LengthUnit<Child>(value-self.val); }
         template<typename T> friend LengthUnit<Child> operator/(const double value, LengthUnit<T> self) { return LengthUnit<Child>(value/self.val); }
-
+        
+        using ProxyComp = typename PhysicalUnit<'L'>::ProxyComp;
         friend ProxyComp operator==(const double value, LengthUnit<Child> self) { return LengthUnit<Child>(value) == self; }
         friend ProxyComp operator!=(const double value, LengthUnit<Child> self) {return LengthUnit<Child>(value) != self;}
         friend ProxyComp operator<=(const double value, LengthUnit<Child> self) {return LengthUnit<Child>(value) <= self;}
@@ -50,7 +55,7 @@ class LengthUnit: public core::PhysicalUnit<'L'> {
         friend ProxyComp operator>(const double value, LengthUnit<Child> self) {return LengthUnit<Child>(value) > self;}
 
         friend std::ostream &operator<<(std::ostream &os, const LengthUnit<Child> &self) {
-            os << std::scientific << self.true_val() << Child::suffix; 
+            os << std::scientific << self.abs_val() << Child::suffix(); 
             return os;
         }
 };
