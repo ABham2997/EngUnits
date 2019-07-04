@@ -34,14 +34,12 @@ class LengthUnit: public abstract::PhysicalUnit<LengthUnit<Child>, Child> {
         Child operator+(const double value) const {return Child(this->val+value);}
         Child operator-(const double value) const {return Child(this->val-value);}
         Child operator/(const double value) const {return Child(this->val/value);}
-        Child operator*(LengthUnit<Child> other) const = delete;
-        Child operator+(LengthUnit<Child> other) const { return Child(this->val + other.val); }
-        Child operator-(LengthUnit<Child> other) const {return Child(this->val-other.val);}
-        Child operator/(LengthUnit<Child> other) const = delete;
-        template<typename T> Child operator*(LengthUnit<T> other) = delete;
-        template<typename T> Child operator+(LengthUnit<T> other) const {return *this+Child(other);}
-        template<typename T> Child operator-(LengthUnit<T> other) const {return *this-Child(other);}
-        template<typename T> Child operator/(LengthUnit<T> other) = delete;
+        template<typename T> double operator*(const LengthUnit<T> other) const {return this->val*Child(other).val;}
+        template<typename T> double operator/(const LengthUnit<T> other) const {return this->val/Child(other).val;}
+        template<typename C, typename G> double operator*(const abstract::PhysicalUnit<C,G> &other) const {return this->val*other.abs_val();}
+        template<typename C, typename G> double operator/(const abstract::PhysicalUnit<C,G> &other) const {return this->val/other.abs_val();}
+        template<typename T> Child operator+(const LengthUnit<T> other) const {return *this+Child(other).val;}
+        template<typename T> Child operator-(const LengthUnit<T> other) const {return *this-Child(other).val;}
         LengthUnit<Child> &operator*=(const double value) {this->val*=value;return *this;}
         LengthUnit<Child> &operator+=(LengthUnit<Child> other) {this->val+=other.val;return *this;}
         LengthUnit<Child> &operator-=(LengthUnit<Child> other) {this->val-=other.val;return *this;}

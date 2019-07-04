@@ -59,15 +59,15 @@ class PhysicalUnit{
 
         operator bool() const {return (this->val);}
 
-        friend double &operator*=(double &value, Child self) { value*=self.val; return value; }
-        friend double &operator-=(double &value, Child self) { value-=self.val; return value; }
-        friend double &operator+=(double &value, Child self) { value+=self.val; return value; }
-        friend double &operator/=(double &value, Child self) { value/=self.val; return value; }
+        friend T &operator*=(T &value, Child self) { value*=self.val; return value; }
+        friend T &operator-=(T &value, Child self) { value-=self.val; return value; }
+        friend T &operator+=(T &value, Child self) { value+=self.val; return value; }
+        friend T &operator/=(T &value, Child self) { value/=self.val; return value; }
 
-        friend Child operator*(const double value, Child self) { return Child(value*self.val); }
-        friend Child operator+(const double value, Child self) { return Child(value+self.val); }
-        friend Child operator-(const double value, Child self) { return Child(value-self.val); }
-        friend Child operator/(const double value, Child self) { return Child(value/self.val); }
+        friend Grandchild operator*(const T value, Child self) { return Grandchild(value*self.val); }
+        friend Grandchild operator+(const T value, Child self) { return Grandchild(value+self.val); }
+        friend Grandchild operator-(const T value, Child self) { return Grandchild(value-self.val); }
+        friend Grandchild operator/(const T value, Child self) { return Grandchild(value/self.val); }
 
         ProxyComp operator==(const double value) {return ProxyComp(value, (this->val)==value);}
         ProxyComp operator!=(const double value) {return ProxyComp(value, (this->val)!=value);}
@@ -96,8 +96,13 @@ class PhysicalUnit{
         friend ProxyComp operator>(const double value, Child self) {return Child(value) > self;}
 
         friend std::ostream &operator<<(std::ostream &os, const PhysicalUnit<Child, Grandchild, T> &self) {
-            os << std::scientific << self.val << Grandchild::suffix(); 
-            return os;
+            if (self.val<10000 && self.val>0.01){
+                os << self.val << Grandchild::suffix(); 
+                return os;
+            }
+            else {
+                os << std::scientific << self.val << Grandchild::suffix();
+            }
         }
 
 };

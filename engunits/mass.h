@@ -9,27 +9,27 @@
 
 namespace EngUnits::mass{
 
-class kilograms : public abstract::MassUnit<kilograms> {
+class kilograms : public MassUnit<kilograms> {
     public:
-        using abstract::MassUnit<kilograms>::MassUnit;
+        using MassUnit<kilograms>::MassUnit;
 
         static constexpr double conversion = conversion::M_KILOGRAMS;
 
         static std::string suffix() { return "kg"; }
 };
 
-class pounds : public abstract::MassUnit<pounds> {
+class pounds : public MassUnit<pounds> {
     public:
-        using abstract::MassUnit<pounds>::MassUnit;
+        using MassUnit<pounds>::MassUnit;
 
         static constexpr double conversion = conversion::M_POUNDS;
 
         static std::string suffix() { return "lbf"; }
 };
 
-class ounces : public abstract::MassUnit<ounces> {
+class ounces : public MassUnit<ounces> {
     public:
-        using abstract::MassUnit<ounces>::MassUnit;
+        using MassUnit<ounces>::MassUnit;
 
         static constexpr double conversion = conversion::M_OUNCES;
 
