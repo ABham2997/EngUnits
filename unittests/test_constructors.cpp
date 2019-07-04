@@ -5,7 +5,6 @@
 #include<sstream>
 
 #include "../engunits/length.h"
-#include "../engunits/mass.h"
 
 void print_bool (bool b){
     std::cout<< (b ? "true" : "false") << std::endl;
@@ -21,7 +20,6 @@ void almost_equal(double self, double other) {
 
 int main() {
     using namespace EngUnits::length;
-    using namespace EngUnits::mass;
     using namespace std;
 
     cout << "---Testing Constructors---" << endl;

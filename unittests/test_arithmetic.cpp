@@ -30,6 +30,8 @@ int main() {
     auto fpres = 20+fp;
     assert(fpres.abs_val() == 60);
     double dub = 100;
+    dub += mp+15;
+    assert(dub == 135);
     cout << "success" << endl;
     cout << endl;
 
@@ -37,9 +39,23 @@ int main() {
     cout << "Addition: ";
     meters mma{10};
     feet ffa{10};
+    mma += ffa;
+    ffa += mma+ffa;
+
+    meters mma2{0.2323};
+    feet ffa2{5203};
+    inches inna2{1022};
+
+    mma2 = (5+ mma2 + ffa2 + inna2 + 10 + inna2);
+
+    cout << endl;
+
+    cout << "---Random Tests---" << endl;
+
 
     cout << endl;
     cout << "All Tests Successfully Completed" << endl;
+    cout << endl;
 
     return 0;
 }
