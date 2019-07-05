@@ -1,4 +1,4 @@
-# EngUnits
+# EngUnits --IN PROGRESS--
 EngUnits is a C++ header-only library of engineering unit types(meters, stones, feet, kilograms etc.) and tools, with an emphasis on type safety, efficiency, readability and ease of extension and use. This library is ideal for scientific or engineering problems where consistency and type safety between unit types is required (e.g, a length and a mass cannot be added, a volume and a velocity cannot be compared, dividing pressure by pressure does not yield pressure etc.)
 
 There is built-in support for:
@@ -99,5 +99,3 @@ length::meters m = meters{10}*maths::sin(r);
 
 std::cout << m << "\n"; //prints "10m"
 ```
-
-**IN PROGRESS**
