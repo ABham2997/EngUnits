@@ -59,6 +59,7 @@ class MyLength: public LengthUnit<MyLength> {
 }
 ```
 
+
 Thats less than 7 lines of code! Using your custom unit:
 ```c++
 using namespace engunits::length;
@@ -74,6 +75,7 @@ custom = m;
 std::cout << custom << "\n" //prints "1MyLen"
 ```
 
+
 Also included is a library of constants...
 ```c++
 using namespace engunits;
@@ -82,7 +84,7 @@ mass::kilograms MEarth{5.9722e+24};
 
 mass::kilograms MMoon{7.342e+22};
 
-length::kilometers R{384'400};
+length::meters R{3.844e+8};
 
 force::Newtons grav = constants::G*MEarth*MMoon*(R^-2);
 ```
