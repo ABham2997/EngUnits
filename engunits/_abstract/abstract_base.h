@@ -37,12 +37,12 @@ class PhysicalUnit{
                 ProxyComp operator>=(const Child &other) { return *this >= other.val; }
                 ProxyComp operator<(const Child &other) { return *this < other.val; }
                 ProxyComp operator>(const Child &other) { return *this > other.val; }
-                friend ProxyComp operator==(const T value, ProxyComp self) {return ProxyComp(self.val, value==self.val); }
-                friend ProxyComp operator!=(const T value, ProxyComp self) {return ProxyComp(self.val, value!=self.val);}
-                friend ProxyComp operator<=(const T value, ProxyComp self) {return ProxyComp(self.val, value<=self.val);}
-                friend ProxyComp operator>=(const T value, ProxyComp self) {return ProxyComp(self.val, value>=self.val);}
-                friend ProxyComp operator<(const T value, ProxyComp self) {return ProxyComp(self.val, value<self.val);}
-                friend ProxyComp operator>(const T value, ProxyComp self) {return ProxyComp(self.val, value>self.val);}
+                // friend ProxyComp operator==(const T value, ProxyComp self) {return ProxyComp(self.val, value==self.val); }
+                // friend ProxyComp operator!=(const T value, ProxyComp self) {return ProxyComp(self.val, value!=self.val);}
+                // friend ProxyComp operator<=(const T value, ProxyComp self) {return ProxyComp(self.val, value<=self.val);}
+                // friend ProxyComp operator>=(const T value, ProxyComp self) {return ProxyComp(self.val, value>=self.val);}
+                // friend ProxyComp operator<(const T value, ProxyComp self) {return ProxyComp(self.val, value<self.val);}
+                // friend ProxyComp operator>(const T value, ProxyComp self) {return ProxyComp(self.val, value>self.val);}
         };
 
     public:
@@ -69,26 +69,6 @@ class PhysicalUnit{
         friend Grandchild operator+(const T value, Child self) { return Grandchild(value+self.val); }
         friend Grandchild operator-(const T value, Child self) { return Grandchild(value-self.val); }
         friend Grandchild operator/(const T value, Child self) { return Grandchild(value/self.val); }
-
-        // ProxyComp operator==(const double value) {return ProxyComp(value, (this->val)==value);}
-        // ProxyComp operator!=(const double value) {return ProxyComp(value, (this->val)!=value);}
-        // ProxyComp operator<=(const double value) {return ProxyComp(value, (this->val)<=value);}
-        // ProxyComp operator>=(const double value) {return ProxyComp(value, (this->val)>=value);}
-        // ProxyComp operator<(const double value) {return ProxyComp(value, (this->val)<value);}
-        // ProxyComp operator>(const double value) {return ProxyComp(value, (this->val)>value);}
-        ProxyComp operator==(const ProxyComp other) {return *this==other.val;}
-        ProxyComp operator!=(const ProxyComp other) {return *this!=other.val;}
-        ProxyComp operator<=(const ProxyComp other) {return *this<=other.val;}
-        ProxyComp operator>=(const ProxyComp other) {return *this>=other.val;}
-        ProxyComp operator<(const ProxyComp other) {return *this<other.val;}
-        ProxyComp operator>(const ProxyComp other) {return *this>other.val;}
-
-        friend ProxyComp operator==(const T value, Child self) {return Child(value) == self;}
-        friend ProxyComp operator!=(const T value, Child self) {return Child(value) != self;}
-        friend ProxyComp operator<=(const T value, Child self) {return Child(value) <= self;}
-        friend ProxyComp operator>=(const T value, Child self) {return Child(value) >= self;}
-        friend ProxyComp operator<(const T value, Child self) {return Child(value) < self;}
-        friend ProxyComp operator>(const T value, Child self) {return Child(value) > self;}
 
         friend std::ostream &operator<<(std::ostream &os, const PhysicalUnit<Child, Grandchild, T> &self) {
             if (self.val>10000 || self.val<0.01){

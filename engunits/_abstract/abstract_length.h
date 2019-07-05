@@ -48,12 +48,26 @@ class LengthUnit: public abstract::PhysicalUnit<LengthUnit<Child>, Child> {
         LengthUnit<Child> &operator/=(LengthUnit<Child> other) {this->val/=other.val;return *this;}
 
         using ProxyComp = typename abstract::PhysicalUnit<LengthUnit<Child>, Child>::ProxyComp;
-        ProxyComp operator==(const LengthUnit<Child> &other) {return *this==other.val;}
-        ProxyComp operator!=(const LengthUnit<Child> &other) {return *this!=other.val;}
-        ProxyComp operator<=(const LengthUnit<Child> &other) {return *this<=other.val;}
-        ProxyComp operator>=(const LengthUnit<Child> &other) {return *this>=other.val;}
-        ProxyComp operator<(const LengthUnit<Child> &other) {return *this<other.val;}
-        ProxyComp operator>(const LengthUnit<Child> &other) {return *this>other.val;}
+        // ProxyComp operator==(const double value) {return ProxyComp(value, (this->val)==value);}
+        // ProxyComp operator!=(const double value) {return ProxyComp(value, (this->val)!=value);}
+        // ProxyComp operator<=(const double value) {return ProxyComp(value, (this->val)<=value);}
+        // ProxyComp operator>=(const double value) {return ProxyComp(value, (this->val)>=value);}
+        // ProxyComp operator<(const double value) {return ProxyComp(value, (this->val)<value);}
+        // ProxyComp operator>(const double value) {return ProxyComp(value, (this->val)>value);}
+
+        template<typename T> ProxyComp operator==(const LengthUnit<T> &other) {return ProxyComp(other.abs_val(), (this->val)==other.abs_val());}
+        template<typename T> ProxyComp operator!=(const LengthUnit<T> &other) {return ProxyComp(other.abs_val(), (this->val)!=other.abs_val());}
+        template<typename T> ProxyComp operator<=(const LengthUnit<T> &other) {return ProxyComp(other.abs_val(), (this->val)<=other.abs_val());}
+        template<typename T> ProxyComp operator>=(const LengthUnit<T> &other) {return ProxyComp(other.abs_val(), (this->val)>=other.abs_val());}
+        template<typename T> ProxyComp operator<(const LengthUnit<T> &other) {return ProxyComp(other.abs_val(), (this->val)<other.abs_val());}
+        template<typename T> ProxyComp operator>(const LengthUnit<T> &other) {return ProxyComp(other.abs_val(), (this->val)>other.abs_val());}
+
+        // ProxyComp operator==(const ProxyComp other) {return *this==other.val;}
+        // ProxyComp operator!=(const ProxyComp other) {return *this!=other.val;}
+        // ProxyComp operator<=(const ProxyComp other) {return *this<=other.val;}
+        // ProxyComp operator>=(const ProxyComp other) {return *this>=other.val;}
+        // ProxyComp operator<(const ProxyComp other) {return *this<other.val;}
+        // ProxyComp operator>(const ProxyComp other) {return *this>other.val;}
         
 };
 }
