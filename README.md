@@ -86,7 +86,7 @@ mass::kilograms MMoon{7.342e+22};
 
 length::meters R{3.844e+8};
 
-force::Newtons grav = constants::G*MEarth*MMoon*(R^-2);
+force::Newtons FGrav = constants::G*MEarth*MMoon*(R^-2);
 ```
 
 ...and a library of mathematical equations...
