@@ -76,7 +76,7 @@ std::cout << custom << "\n" //prints "1MyLen"
 
 Also included is a library of constants...
 ```c++
-using namespace engunits::constants;
+using namespace engunits;
 
 mass::kilograms MEarth{5.9722e+24};
 
@@ -84,18 +84,18 @@ mass::kilograms MMoon{7.342e+22};
 
 length::kilometers R{384'400};
 
-force::Newtons grav = G*MEarth*MMoon*(R^-2);
+force::Newtons grav = constants::G*MEarth*MMoon*(R^-2);
 ```
 
 ...and a library of mathematical equations...
 ```c++
-using namespace engunits::maths;
+using namespace engunits;
 
 angle::radians r{constants::pi/2};
 
-length::meters m = meters{10}*sin(r);
+length::meters m = meters{10}*maths::sin(r);
 
 std::cout << m << "\n"; //prints "10m"
 ```
 
-*IN PROGRESS*
+**IN PROGRESS**
