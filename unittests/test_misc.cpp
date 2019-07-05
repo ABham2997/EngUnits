@@ -5,7 +5,7 @@
 #include "../engunits/length.h"
 
 int main () {
-    using namespace EngUnits::length;
+    using namespace engunits::length;
     using namespace std;
     cout << "---Testing Misc---" << endl;
     cout << "cout: ";

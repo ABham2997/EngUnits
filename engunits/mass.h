@@ -7,7 +7,7 @@
 #include "../engunits/_abstract/abstract_mass.h"
 #include "../engunits/_conversion/mass_conversion.h"
 
-namespace EngUnits::mass{
+namespace engunits::mass{
 
 class kilograms : public MassUnit<kilograms> {
     public:
@@ -15,7 +15,7 @@ class kilograms : public MassUnit<kilograms> {
 
         static constexpr double conversion = conversion::M_KILOGRAMS;
 
-        static std::string suffix() { return "kg"; }
+        static std::string symbol() { return "kg"; }
 };
 
 class pounds : public MassUnit<pounds> {
@@ -24,7 +24,7 @@ class pounds : public MassUnit<pounds> {
 
         static constexpr double conversion = conversion::M_POUNDS;
 
-        static std::string suffix() { return "lbf"; }
+        static std::string symbol() { return "lbf"; }
 };
 
 class ounces : public MassUnit<ounces> {
@@ -33,7 +33,7 @@ class ounces : public MassUnit<ounces> {
 
         static constexpr double conversion = conversion::M_OUNCES;
 
-        static std::string suffix() {return "oz";}
+        static std::string symbol() {return "oz";}
 };
 }
 

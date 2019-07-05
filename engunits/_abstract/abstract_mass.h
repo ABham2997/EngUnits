@@ -3,7 +3,7 @@
 
 #include "../../engunits/_abstract/abstract_base.h"
 
-namespace EngUnits::mass{
+namespace engunits::mass{
 //Child of this class is GrandChild of base class(PhysicalUnit)
 template<typename Child> //TODO: constrain to children of this class
 class MassUnit: public abstract::PhysicalUnit<MassUnit<Child>, Child> {

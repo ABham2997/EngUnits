@@ -1,7 +1,7 @@
 #ifndef __ENGUNITS_LENGTH_CONVERSION_H
 #define __ENGUNITS_LENGTH_CONVERSION_H
 
-namespace EngUnits::conversion{
+namespace engunits::conversion{
 //Conversions have been aggregated here to make them easier to view and change
 
 //conversions have been standardised to SI units: all values are conversion factors from meters (how many meters make up the unit)
@@ -21,6 +21,6 @@ constexpr double L_EXAMETERS = 1e+18;
 constexpr double L_PETAMETERS = 1e+15;
 constexpr double L_NAUTICAL_MILE = 1852;
 
-} // namespace EngUnits::conversion
+} // namespace engunits::conversion
 
 #endif

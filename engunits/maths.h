@@ -6,7 +6,7 @@
 #include "../engunits/_conversion/conversion_funcs.h"
 #include "../engunits/_abstract/abstract_base.h"
 
-namespace EngUnits::maths{
+namespace engunits::maths{
 
 double cos(const double value) { return std::cos(value); }
 double sin(const double value) { return std::sin(value); }
@@ -18,6 +18,6 @@ double sin(const abstract::PhysicalUnit<S, T, G> unit) { return std::sin(convers
 template <typename S, typename T, typename G>
 double tan(const abstract::PhysicalUnit<S, T, G> unit) { return std::tan(conversion::double_cast(unit)); }
 
-} // namespace EngUnits::maths
+} // namespace engunits::maths
 
 #endif

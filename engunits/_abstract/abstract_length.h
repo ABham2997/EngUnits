@@ -6,7 +6,7 @@
 #include "../../engunits/_abstract/abstract_base.h"
 #include "../../engunits/_conversion/conversion_funcs.h"
 
-namespace EngUnits::length{
+namespace engunits::length{
 //Child of this class is GrandChild of base class(PhysicalUnit)
 template<typename Child> //TODO: constrain to children of this class
 class LengthUnit: public abstract::PhysicalUnit<LengthUnit<Child>, Child> {
@@ -46,6 +46,14 @@ class LengthUnit: public abstract::PhysicalUnit<LengthUnit<Child>, Child> {
         LengthUnit<Child> &operator+=(LengthUnit<Child> other) {this->val+=other.val;return *this;}
         LengthUnit<Child> &operator-=(LengthUnit<Child> other) {this->val-=other.val;return *this;}
         LengthUnit<Child> &operator/=(LengthUnit<Child> other) {this->val/=other.val;return *this;}
+
+        using ProxyComp = typename abstract::PhysicalUnit<LengthUnit<Child>, Child>::ProxyComp;
+        ProxyComp operator==(const LengthUnit<Child> &other) {return *this==other.val;}
+        ProxyComp operator!=(const LengthUnit<Child> &other) {return *this!=other.val;}
+        ProxyComp operator<=(const LengthUnit<Child> &other) {return *this<=other.val;}
+        ProxyComp operator>=(const LengthUnit<Child> &other) {return *this>=other.val;}
+        ProxyComp operator<(const LengthUnit<Child> &other) {return *this<other.val;}
+        ProxyComp operator>(const LengthUnit<Child> &other) {return *this>other.val;}
         
 };
 }

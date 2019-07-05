@@ -1,7 +1,7 @@
 #ifndef __ENGUNITS_CONVERSION_FUNCS_H
 #define __ENGUNITS_CONVERSION_FUNCS_H
 
-namespace EngUnits::conversion {
+namespace engunits::conversion {
 
 template<typename S>
 double double_cast(S self) {

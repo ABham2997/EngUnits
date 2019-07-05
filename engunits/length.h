@@ -7,15 +7,15 @@
 #include "../engunits/_abstract/abstract_length.h"
 #include "../engunits/_conversion/length_conversion.h"
 
-namespace EngUnits::length{
+namespace engunits::length{
 
 class meters : public LengthUnit<meters> {
     public:
         using LengthUnit<meters>::LengthUnit;
 
-        static constexpr double conversion = conversion::L_METERS; //literal defined in length_conversion file for clarity
+        static constexpr double conversion = conversion::L_METERS;
 
-        static std::string suffix() { return "m"; }
+        static std::string symbol() { return "m"; }
 };
 
 class inches : public LengthUnit<inches> {
@@ -24,7 +24,7 @@ class inches : public LengthUnit<inches> {
 
         static constexpr double conversion = conversion::L_INCHES;
 
-        static std::string suffix() { return "in"; }
+        static std::string symbol() { return "in"; }
 };
 
 class feet : public LengthUnit<feet> {
@@ -33,7 +33,7 @@ class feet : public LengthUnit<feet> {
 
         static constexpr double conversion = conversion::L_FEET;
 
-        static std::string suffix() {return "ft";}
+        static std::string symbol() {return "ft";}
 };
 }
 

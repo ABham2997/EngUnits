@@ -1,7 +1,7 @@
 #ifndef __ENGUNITS_MASS_CONVERSION_H
 #define __ENGUNITS_MASS_CONVERSION_H
 
-namespace EngUnits::conversion{
+namespace engunits::conversion{
 //Conversions have been aggregated here to make them easier to view and change
 
 //conversions have been standardised to SI units: all values are conversion factors from kilograms (how many kilograms make up the unit)
@@ -16,6 +16,6 @@ constexpr double M_STONES = 6.35029;
 constexpr double M_POUNDS = 0.453592;
 constexpr double M_OUNCES = 0.0283495;
 
-} // namespace EngUnits::conversion
+} // namespace engunits::conversion
 
 #endif

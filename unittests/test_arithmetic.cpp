@@ -13,7 +13,7 @@ void almost_equal(double self, double other) {
 
 int main() {
     using namespace std;
-    using namespace EngUnits::length;
+    using namespace engunits::length;
 
     cout << "---Testing Arithmetic Operations with Doubles---" << endl;
     cout << "Addition: ";
