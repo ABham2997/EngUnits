@@ -3,8 +3,9 @@
 
 #include<string>
 #include<iostream>
+#include<cmath>
 
-#include "../../engunits/conversion/conversion_funcs.h"
+#include "../../engunits/_conversion/conversion_funcs.h"
 
 namespace EngUnits::abstract{
 template<typename Child, typename Grandchild, typename T=double>
@@ -56,8 +57,9 @@ class PhysicalUnit{
         void operator++(int i) { ++this->val; }
         void operator--() {this->val--;}
         void operator--(int i) { --this->val; }
-
         operator bool() const {return (this->val);}
+        T operator^(const double value) const { return std::pow(this->val,value); }
+        int operator%(const int value) const { return int(this->val) % value; }
 
         friend T &operator*=(T &value, Child self) { value*=self.val; return value; }
         friend T &operator-=(T &value, Child self) { value-=self.val; return value; }

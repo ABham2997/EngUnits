@@ -4,8 +4,8 @@
 #include<iostream>
 #include<string>
 
-#include "../engunits/abstract/abstract_length.h"
-#include "../engunits/conversion/length_conversion.h"
+#include "../engunits/_abstract/abstract_length.h"
+#include "../engunits/_conversion/length_conversion.h"
 
 namespace EngUnits::length{
 

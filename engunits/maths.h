@@ -3,8 +3,8 @@
 
 #include <cmath>
 
-#include "../engunits/conversion/conversion_funcs.h"
-#include "../engunits/abstract/abstract_base.h"
+#include "../engunits/_conversion/conversion_funcs.h"
+#include "../engunits/_abstract/abstract_base.h"
 
 namespace EngUnits::maths{
 
