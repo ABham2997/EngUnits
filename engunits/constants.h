@@ -7,7 +7,6 @@ namespace engunits::constant{
     constexpr double pi = 3.14159265359;
     constexpr double g = 9.87;
     constexpr double G = 6.672e-11;
-    
 
 } // namespace engunits::const
 

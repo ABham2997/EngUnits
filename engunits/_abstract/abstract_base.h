@@ -89,8 +89,8 @@ class PhysicalUnit{
         double operator/(const Grandchild other) const { return this->val / other.val; }
         template<typename T> double operator*(const Child<T> other) const {return *this*Grandchild(other);}
         template<typename T> double operator/(const Child<T> other) const {return *this/Grandchild(other);}
-        //template<typename C, typename G> double operator*(const PhysicalUnit<C,G> &other) const {return this->val*other.val;}
-        //template<typename C, typename G> double operator/(const PhysicalUnit<C,G> &other) const {return this->val/other.val;}
+        template<template<typename> typename C, typename G> double operator*(const PhysicalUnit<C,G> &other) const {return this->val*other.val;}
+        template<template<typename> typename C, typename G> double operator/(const PhysicalUnit<C,G> &other) const {return this->val/other.val;}
         template<typename T> Grandchild operator+(const Child<T> other) const {return *this+Grandchild(other).val;}
         template<typename T> Grandchild operator-(const Child<T> other) const {return *this-Grandchild(other).val;}
 

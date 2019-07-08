@@ -11,12 +11,12 @@ namespace engunits::maths{
 double cos(const double value) { return std::cos(value); }
 double sin(const double value) { return std::sin(value); }
 double tan(const double value) { return std::tan(value); }
-template <typename S, typename T, typename G>
-double cos(const abstract::PhysicalUnit<S, T, G> unit) { return std::cos(conversion::double_cast(unit)); }
-template <typename S, typename T, typename G>
-double sin(const abstract::PhysicalUnit<S, T, G> unit) { return std::sin(conversion::double_cast(unit)); }
-template <typename S, typename T, typename G>
-double tan(const abstract::PhysicalUnit<S, T, G> unit) { return std::tan(conversion::double_cast(unit)); }
+template <template<typename> typename S, typename T>
+double cos(const abstract::PhysicalUnit<S, T> unit) { return std::cos(conversion::double_cast(unit)); }
+template <template<typename> typename S, typename T>
+double sin(const abstract::PhysicalUnit<S, T> unit) { return std::sin(conversion::double_cast(unit)); }
+template <template<typename> typename S, typename T>
+double tan(const abstract::PhysicalUnit<S, T> unit) { return std::tan(conversion::double_cast(unit)); }
 
 } // namespace engunits::maths
 
