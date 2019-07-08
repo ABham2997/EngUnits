@@ -18,9 +18,9 @@ using namespace engunits;
 
 length::meters m = 5;
 
-area::sqmeters a = m^2;
+area::sqmeters a = m^2; //a equals m to the power of 2
 
-std::cout << a << "\n"; //prints "25m2"
+std::cout << a << '\n'; //prints "25m2"
 ```
 
 - seamless accurate conversion between unit types of the same measurement type
@@ -31,7 +31,7 @@ inches i{12};
 
 feet f{i};
 
-std::cout << f << "\n"; //prints "1ft"
+std::cout << f << '\n'; //prints "1ft"
 ```
 
 - rigorous enforcement of physical measurement rules
@@ -66,13 +66,13 @@ using namespace engunits::length;
 
 MyLength custom{10};
 
-std::cout << custom << "\n"; //prints "10MyLen"
+std::cout << custom << '\n'; //prints "10MyLen"
 
 meters m{12345};
 
 custom = m;
 
-std::cout << custom << "\n" //prints "1MyLen"
+std::cout << custom << '\n' //prints "1MyLen"
 ```
 
 
@@ -97,5 +97,5 @@ angle::radians r{constants::pi/2};
 
 length::meters m = meters{10}*maths::sin(r);
 
-std::cout << m << "\n"; //prints "10m"
+std::cout << m << '\n'; //prints "10m"
 ```
