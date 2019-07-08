@@ -9,17 +9,17 @@
 namespace engunits::length{
 //Child of this class is GrandChild of base class(PhysicalUnit)
 template<typename Child> //TODO: constrain to children of this class
-class LengthUnit: public abstract::PhysicalUnit<LengthUnit<Child>, Child> {
+class LengthUnit: public abstract::PhysicalUnit<LengthUnit, Child> {
     protected:
-        using abstract::PhysicalUnit<LengthUnit<Child>, Child>::PhysicalUnit;
+        using abstract::PhysicalUnit<LengthUnit, Child>::PhysicalUnit;
 
     public:
-        LengthUnit<Child>(const LengthUnit<Child> &other) : abstract::PhysicalUnit<LengthUnit<Child>, Child>{other.val} {};
-        LengthUnit<Child>(const LengthUnit<Child> &&other) : abstract::PhysicalUnit<LengthUnit<Child>, Child>{other.val} {};
+        LengthUnit<Child>(const LengthUnit<Child> &other) : abstract::PhysicalUnit<LengthUnit, Child>{other.val} {};
+        LengthUnit<Child>(const LengthUnit<Child> &&other) : abstract::PhysicalUnit<LengthUnit, Child>{other.val} {};
         template <typename T>
-        LengthUnit<Child>(const LengthUnit<T> &other) : abstract::PhysicalUnit<LengthUnit<Child>, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        LengthUnit<Child>(const LengthUnit<T> &other) : abstract::PhysicalUnit<LengthUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        LengthUnit<Child>(const LengthUnit<T> &&other) : abstract::PhysicalUnit<LengthUnit<Child>, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        LengthUnit<Child>(const LengthUnit<T> &&other) : abstract::PhysicalUnit<LengthUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
         double abs_val() const override { return this->val; }
         double SI_val() const override { return this->val*Child::conversion; }
@@ -28,46 +28,7 @@ class LengthUnit: public abstract::PhysicalUnit<LengthUnit<Child>, Child> {
         LengthUnit<Child> &operator=(const LengthUnit<Child> &other) { this->val = other.val; return *this;}
         LengthUnit<Child> &operator=(const LengthUnit<Child> &&other) { this->val = other.val; return *this;}     
         template<typename T> LengthUnit<Child> &operator=(const LengthUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> LengthUnit<Child> &operator=(const LengthUnit<T> &&other) { this->val = other.val; return *this;}      
-
-        Child operator*(const double value) const {return Child(this->val*value);}
-        Child operator+(const double value) const {return Child(this->val+value);}
-        Child operator-(const double value) const {return Child(this->val-value);}
-        Child operator/(const double value) const {return Child(this->val/value);}
-        double operator*(const Child other) const { return this->val * other.val; }
-        double operator/(const Child other) const { return this->val / other.val; }
-        template<typename T> double operator*(const LengthUnit<T> other) const {return *this*Child(other);}
-        template<typename T> double operator/(const LengthUnit<T> other) const {return *this/Child(other);}
-        template<typename C, typename G> double operator*(const abstract::PhysicalUnit<C,G> &other) const {return this->val*other.abs_val();}
-        template<typename C, typename G> double operator/(const abstract::PhysicalUnit<C,G> &other) const {return this->val/other.abs_val();}
-        template<typename T> Child operator+(const LengthUnit<T> other) const {return *this+Child(other).val;}
-        template<typename T> Child operator-(const LengthUnit<T> other) const {return *this-Child(other).val;}
-        LengthUnit<Child> &operator*=(LengthUnit<Child> other) {this->val*=other.val;return *this;}
-        LengthUnit<Child> &operator+=(LengthUnit<Child> other) {this->val+=other.val;return *this;}
-        LengthUnit<Child> &operator-=(LengthUnit<Child> other) {this->val-=other.val;return *this;}
-        LengthUnit<Child> &operator/=(LengthUnit<Child> other) {this->val/=other.val;return *this;}
-
-        using ProxyComp = typename abstract::PhysicalUnit<LengthUnit<Child>, Child>::ProxyComp;
-        ProxyComp operator==(const double value) {return ProxyComp(value, (this->val)==value);}
-        ProxyComp operator!=(const double value) {return ProxyComp(value, (this->val)!=value);}
-        ProxyComp operator<=(const double value) {return ProxyComp(value, (this->val)<=value);}
-        ProxyComp operator>=(const double value) {return ProxyComp(value, (this->val)>=value);}
-        ProxyComp operator<(const double value) {return ProxyComp(value, (this->val)<value);}
-        ProxyComp operator>(const double value) {return ProxyComp(value, (this->val)>value);}
-
-        template<typename T> ProxyComp operator==(const LengthUnit<T> &other) {return ProxyComp(other.abs_val(), (this->val)==other.abs_val());}
-        template<typename T> ProxyComp operator!=(const LengthUnit<T> &other) {return ProxyComp(other.abs_val(), (this->val)!=other.abs_val());}
-        template<typename T> ProxyComp operator<=(const LengthUnit<T> &other) {return ProxyComp(other.abs_val(), (this->val)<=other.abs_val());}
-        template<typename T> ProxyComp operator>=(const LengthUnit<T> &other) {return ProxyComp(other.abs_val(), (this->val)>=other.abs_val());}
-        template<typename T> ProxyComp operator<(const LengthUnit<T> &other) {return ProxyComp(other.abs_val(), (this->val)<other.abs_val());}
-        template<typename T> ProxyComp operator>(const LengthUnit<T> &other) {return ProxyComp(other.abs_val(), (this->val)>other.abs_val());}
-
-        ProxyComp &operator==(const ProxyComp &&other) {return *this==other.val;}
-        ProxyComp &operator!=(const ProxyComp &&other) {return *this!=other.val;}
-        ProxyComp &operator<=(const ProxyComp &&other) {return *this<=other.val;}
-        ProxyComp &operator>=(const ProxyComp &&other) {return *this>=other.val;}
-        ProxyComp &operator<(const ProxyComp &&other) {return *this<other.val;}
-        ProxyComp &operator>(const ProxyComp &&other) {return *this>other.val;}
+        template<typename T> LengthUnit<Child> &operator=(const LengthUnit<T> &&other) { this->val = other.val; return *this;}
         
 };
 }

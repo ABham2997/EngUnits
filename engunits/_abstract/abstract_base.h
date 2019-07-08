@@ -8,46 +8,52 @@
 #include "../../engunits/_conversion/conversion_funcs.h"
 
 namespace engunits::abstract{
-template<typename Child, typename Grandchild, typename T=double>
+template<template<typename> typename Child, typename Grandchild>
 class PhysicalUnit{
     private:
         template <typename S> friend double conversion::double_cast(S arg);
 
     protected:
-        T val;
+        double val;
 
         class ProxyComp {
             public:
-                T val;
+                double val;
                 bool b;
 
-                ProxyComp(const T value, bool bb) : val{value}, b{bb} {};
+                ProxyComp(const double value, bool bb) : val{value}, b{bb} {};
         
                 operator bool() { return this->b; }
 
-                ProxyComp &operator==(const T value) {this->b=(this->val==value && this->b) ; this->val=value; return *this; }
-                ProxyComp &operator!=(const T value) {this->b=(this->val!=value && this->b) ; this->val=value; return *this;}
-                ProxyComp &operator<=(const T value) {this->b=(this->val<=value && this->b) ; this->val=value; return *this;}
-                ProxyComp &operator>=(const T value) {this->b=(this->val>=value && this->b) ; this->val=value; return *this;}
-                ProxyComp &operator<(const T value) {this->b=(this->val<value && this->b) ; this->val=value; return *this;}
-                ProxyComp &operator>(const T value) {this->b=(this->val>value && this->b) ; this->val=value; return *this;}
-                ProxyComp &operator==(const Child &other) { return *this == other.val; }
-                ProxyComp &operator!=(const Child &other) { return *this != other.val; }
-                ProxyComp &operator<=(const Child &other) { return *this <= other.val; }
-                ProxyComp &operator>=(const Child &other) { return *this >= other.val; }
-                ProxyComp &operator<(const Child &other) { return *this < other.val; }
-                ProxyComp &operator>(const Child &other) { return *this > other.val; }
-                friend ProxyComp &operator==(const T value, ProxyComp &&self){ 
+                ProxyComp &operator==(const double value) {b=(this->val==value && b) ; this->val=value; return *this; }
+                ProxyComp &operator!=(const double value) {b=(this->val!=value && b) ; this->val=value; return *this;}
+                ProxyComp &operator<=(const double value) {b=(this->val<=value && b) ; this->val=value; return *this;}
+                ProxyComp &operator>=(const double value) {b=(this->val>=value && b) ; this->val=value; return *this;}
+                ProxyComp &operator<(const double value) {b=(this->val<value && b) ; this->val=value; return *this;}
+                ProxyComp &operator>(const double value) {b=(this->val>value && b) ; this->val=value; return *this;}
+                ProxyComp &operator==(const Grandchild other) { *this == other.val; return *this;}
+                ProxyComp &operator!=(const Grandchild other) { *this != other.val; return *this;}
+                ProxyComp &operator<=(const Grandchild other) { *this <= other.val; return *this;}
+                ProxyComp &operator>=(const Grandchild other) { *this >= other.val; return *this;}
+                ProxyComp &operator<(const Grandchild other) { *this < other.val; return *this;}
+                ProxyComp &operator>(const Grandchild other) { *this > other.val; return *this;}
+                template<typename T> ProxyComp &operator==(const Child<T> other) { *this == Grandchild{other}; return *this;}
+                template<typename T> ProxyComp &operator!=(const Child<T> other) { *this != Grandchild{other}; return *this;}
+                template<typename T> ProxyComp &operator<=(const Child<T> other) { *this <= Grandchild{other}; return *this;}
+                template<typename T> ProxyComp &operator>=(const Child<T> other) { *this >= Grandchild{other}; return *this;}
+                template<typename T> ProxyComp &operator<(const Child<T> other) { *this < Grandchild{other}; return *this;}
+                template<typename T> ProxyComp &operator>(const Child<T> other) { *this > Grandchild{other}; return *this;}
+                friend ProxyComp &operator==(const double value, ProxyComp &&self){ 
                     self.b=(value==self.val && self.b); self.val=value; return self;}
-                friend ProxyComp &operator!=(const T value, ProxyComp &&self){ 
+                friend ProxyComp &operator!=(const double value, ProxyComp &&self){ 
                     self.b=(value!=self.val && self.b); self.val=value; return self;}
-                friend ProxyComp &operator<=(const T value, ProxyComp &&self){ 
+                friend ProxyComp &operator<=(const double value, ProxyComp &&self){ 
                     self.b=(value<=self.val && self.b); self.val=value; return self;}
-                friend ProxyComp &operator>=(const T value, ProxyComp &&self){ 
+                friend ProxyComp &operator>=(const double value, ProxyComp &&self){ 
                     self.b=(value>=self.val && self.b); self.val=value; return self;}
-                friend ProxyComp &operator<(const T value, ProxyComp &&self){ 
+                friend ProxyComp &operator<(const double value, ProxyComp &&self){ 
                     self.b=(value<self.val && self.b); self.val=value; return self;}
-                friend ProxyComp &operator>(const T value, ProxyComp &&self){ 
+                friend ProxyComp &operator>(const double value, ProxyComp &&self){ 
                     self.b=(value>self.val && self.b); self.val=value; return self;}
 
                 friend std::ostream &operator<<(std::ostream &os, const ProxyComp &self) {
@@ -57,30 +63,48 @@ class PhysicalUnit{
         };
 
     public:
-        PhysicalUnit<Child, Grandchild, T>():val{} {};
-        PhysicalUnit<Child, Grandchild, T>(const T value): val{value} {};
-        PhysicalUnit<Child, Grandchild, T>(const ProxyComp other) : val{other.val} {};
+        PhysicalUnit<Child, Grandchild>():val{} {};
+        PhysicalUnit<Child, Grandchild>(const double value): val{value} {};
+        PhysicalUnit<Child, Grandchild>(const ProxyComp other) : val{other.val} {};
 
-        virtual T SI_val() const = 0; //this function ensures this base class remains purely abstract
-        virtual T abs_val() const = 0;
+        virtual double SI_val() const = 0; //this function ensures this base class remains purely abstract
+        virtual double abs_val() const = 0;
 
         void operator++() {this->val++;}
         void operator++(int i) { ++this->val; }
         void operator--() {this->val--;}
         void operator--(int i) { --this->val; }
         operator bool() const {return (this->val);}
-        T operator^(const double value) const { return std::pow(this->val,value); }
+        double operator^(const double value) const { return std::pow(this->val,value); }
         int operator%(const int value) const { return int(this->val) % value; }
 
-        friend T &operator*=(T &value, Child self) { value*=self.val; return value; }
-        friend T &operator-=(T &value, Child self) { value-=self.val; return value; }
-        friend T &operator+=(T &value, Child self) { value+=self.val; return value; }
-        friend T &operator/=(T &value, Child self) { value/=self.val; return value; }
+        Grandchild operator*(const double value) const {return Grandchild(this->val*value);}
+        Grandchild operator+(const double value) const {return Grandchild(this->val+value);}
+        Grandchild operator-(const double value) const {return Grandchild(this->val-value);}
+        Grandchild operator/(const double value) const {return Grandchild(this->val/value);}
+        double operator*(const Grandchild other) const { return this->val * other.val; }
+        double operator/(const Grandchild other) const { return this->val / other.val; }
+        template<typename T> double operator*(const Child<T> other) const {return *this*Grandchild(other);}
+        template<typename T> double operator/(const Child<T> other) const {return *this/Grandchild(other);}
+        //template<typename C, typename G> double operator*(const PhysicalUnit<C,G> &other) const {return this->val*other.val;}
+        //template<typename C, typename G> double operator/(const PhysicalUnit<C,G> &other) const {return this->val/other.val;}
+        template<typename T> Grandchild operator+(const Child<T> other) const {return *this+Grandchild(other).val;}
+        template<typename T> Grandchild operator-(const Child<T> other) const {return *this-Grandchild(other).val;}
 
-        friend Grandchild operator*(const T value, Child self) { return Grandchild(value*self.val); }
-        friend Grandchild operator+(const T value, Child self) { return Grandchild(value+self.val); }
-        friend Grandchild operator-(const T value, Child self) { return Grandchild(value-self.val); }
-        friend Grandchild operator/(const T value, Child self) { return Grandchild(value/self.val); }
+        PhysicalUnit<Child, Grandchild> &operator*=(Child<Grandchild> other) {this->val*=other.val;return *this;}
+        PhysicalUnit<Child, Grandchild> &operator+=(Child<Grandchild> other) {this->val+=other.val;return *this;}
+        PhysicalUnit<Child, Grandchild> &operator-=(Child<Grandchild> other) {this->val-=other.val;return *this;}
+        PhysicalUnit<Child, Grandchild> &operator/=(Child<Grandchild> other) {this->val/=other.val;return *this;}
+
+        friend double &operator*=(double &value, Child<Grandchild> self) { value*=self.val; return value; }
+        friend double &operator-=(double &value, Child<Grandchild> self) { value-=self.val; return value; }
+        friend double &operator+=(double &value, Child<Grandchild> self) { value+=self.val; return value; }
+        friend double &operator/=(double &value, Child<Grandchild> self) { value/=self.val; return value; }
+
+        friend Grandchild operator*(const double value, Child<Grandchild> self) { return Grandchild(value*self.val); }
+        friend Grandchild operator+(const double value, Child<Grandchild> self) { return Grandchild(value+self.val); }
+        friend Grandchild operator-(const double value, Child<Grandchild> self) { return Grandchild(value-self.val); }
+        friend Grandchild operator/(const double value, Child<Grandchild> self) { return Grandchild(value/self.val); }
 
         friend ProxyComp operator==(const double value, const Grandchild &self) {return ProxyComp(self.val, value==self.val); }
         friend ProxyComp operator!=(const double value, const Grandchild &self) {return ProxyComp(self.val, value!=self.val);}
@@ -89,7 +113,28 @@ class PhysicalUnit{
         friend ProxyComp operator<(const double value, const Grandchild &self) {return ProxyComp(self.val, value<self.val);}
         friend ProxyComp operator>(const double value, const Grandchild &self) {return ProxyComp(self.val, value>self.val);}
 
-        friend std::ostream &operator<<(std::ostream &os, const PhysicalUnit<Child, Grandchild, T> &self) {
+        ProxyComp operator==(const double value) {return ProxyComp(value, (this->val)==value);}
+        ProxyComp operator!=(const double value) {return ProxyComp(value, (this->val)!=value);}
+        ProxyComp operator<=(const double value) {return ProxyComp(value, (this->val)<=value);}
+        ProxyComp operator>=(const double value) {return ProxyComp(value, (this->val)>=value);}
+        ProxyComp operator<(const double value) {return ProxyComp(value, (this->val)<value);}
+        ProxyComp operator>(const double value) {return ProxyComp(value, (this->val)>value);}
+
+        template<typename T> ProxyComp operator==(const Child<T> &other) {return ProxyComp(Grandchild{other}.val, (this->val)==Grandchild{other}.val);}
+        template<typename T> ProxyComp operator!=(const Child<T> &other) {return ProxyComp(Grandchild{other}.val, (this->val)!=Grandchild{other}.val);}
+        template<typename T> ProxyComp operator<=(const Child<T> &other) {return ProxyComp(Grandchild{other}.val, (this->val)<=Grandchild{other}.val);}
+        template<typename T> ProxyComp operator>=(const Child<T> &other) {return ProxyComp(Grandchild{other}.val, (this->val)>=Grandchild{other}.val);}
+        template<typename T> ProxyComp operator<(const Child<T> &other) {return ProxyComp(Grandchild{other}.val, (this->val)<Grandchild{other}.val);}
+        template<typename T> ProxyComp operator>(const Child<T> &other) {return ProxyComp(Grandchild{other}.val, (this->val)>Grandchild{other}.val);}
+
+        ProxyComp &operator==(const ProxyComp &&other) {return *this==other.val;}
+        ProxyComp &operator!=(const ProxyComp &&other) {return *this!=other.val;}
+        ProxyComp &operator<=(const ProxyComp &&other) {return *this<=other.val;}
+        ProxyComp &operator>=(const ProxyComp &&other) {return *this>=other.val;}
+        ProxyComp &operator<(const ProxyComp &&other) {return *this<other.val;}
+        ProxyComp &operator>(const ProxyComp &&other) {return *this>other.val;}
+
+        friend std::ostream &operator<<(std::ostream &os, const PhysicalUnit<Child, Grandchild> &self) {
             if (self.val>10000 || self.val<0.01){
                 os << std::scientific;
             }
