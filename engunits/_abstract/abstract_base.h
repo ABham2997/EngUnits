@@ -13,9 +13,6 @@ class PhysicalUnit{
     private:
         template <typename S> friend double conversion::double_cast(S arg);
 
-    protected:
-        double val;
-
         class ProxyComp {
             public:
                 double val;
@@ -31,18 +28,21 @@ class PhysicalUnit{
                 ProxyComp &operator>=(const double value) {b=(this->val>=value && b) ; this->val=value; return *this;}
                 ProxyComp &operator<(const double value) {b=(this->val<value && b) ; this->val=value; return *this;}
                 ProxyComp &operator>(const double value) {b=(this->val>value && b) ; this->val=value; return *this;}
+
                 ProxyComp &operator==(const Grandchild other) { *this == other.val; return *this;}
                 ProxyComp &operator!=(const Grandchild other) { *this != other.val; return *this;}
                 ProxyComp &operator<=(const Grandchild other) { *this <= other.val; return *this;}
                 ProxyComp &operator>=(const Grandchild other) { *this >= other.val; return *this;}
                 ProxyComp &operator<(const Grandchild other) { *this < other.val; return *this;}
                 ProxyComp &operator>(const Grandchild other) { *this > other.val; return *this;}
+
                 template<typename T> ProxyComp &operator==(const Child<T> other) { *this == Grandchild{other}; return *this;}
                 template<typename T> ProxyComp &operator!=(const Child<T> other) { *this != Grandchild{other}; return *this;}
                 template<typename T> ProxyComp &operator<=(const Child<T> other) { *this <= Grandchild{other}; return *this;}
                 template<typename T> ProxyComp &operator>=(const Child<T> other) { *this >= Grandchild{other}; return *this;}
                 template<typename T> ProxyComp &operator<(const Child<T> other) { *this < Grandchild{other}; return *this;}
                 template<typename T> ProxyComp &operator>(const Child<T> other) { *this > Grandchild{other}; return *this;}
+                
                 friend ProxyComp &operator==(const double value, ProxyComp &&self){ 
                     self.b=(value==self.val && self.b); self.val=value; return self;}
                 friend ProxyComp &operator!=(const double value, ProxyComp &&self){ 
@@ -61,6 +61,9 @@ class PhysicalUnit{
                     return os;
                 }
         };
+
+    protected:
+        double val;
 
     public:
         PhysicalUnit<Child, Grandchild>():val{} {};

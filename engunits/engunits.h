@@ -4,7 +4,7 @@
 #define __ENGUNITS_ENGUNITS_H
 
 //#include "../engunits/constants.h"
-//#include "../engunits/mass.h"
+#include "../engunits/mass.h"
 //#include "../engunits/equations.h"
 #include "../engunits/length.h"
 //#include "../engunits/maths.h"
