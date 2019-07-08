@@ -70,8 +70,9 @@ class PhysicalUnit{
         PhysicalUnit<Child, Grandchild>(const double value): val{value} {};
         PhysicalUnit<Child, Grandchild>(const ProxyComp other) : val{other.val} {};
 
-        virtual double SI_val() const = 0; //this function ensures this base class remains purely abstract
-        virtual double abs_val() const = 0;
+        virtual std::string type() const = 0; //this function ensures this base class remains purely abstract
+        double SI_val() const { return this->val; } 
+        double abs_val() const { return this->val*Grandchild::conversion; };
 
         void operator++() {this->val++;}
         void operator++(int i) { ++this->val; }

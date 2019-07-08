@@ -2,6 +2,7 @@
 #define __ENGUNITS_ABSTRACT_LENGTH_H
 
 #include<iostream>
+#include<string>
 
 #include "../../engunits/_abstract/abstract_base.h"
 #include "../../engunits/_conversion/conversion_funcs.h"
@@ -21,8 +22,7 @@ class LengthUnit: public abstract::PhysicalUnit<LengthUnit, Child> {
         template<typename T>
         LengthUnit<Child>(const LengthUnit<T> &&other) : abstract::PhysicalUnit<LengthUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        double abs_val() const override { return this->val; }
-        double SI_val() const override { return this->val*Child::conversion; }
+        std::string type() const override { return "length"; }
 
         LengthUnit<Child> &operator=(const double value) {this->val=value; return *this;}
         LengthUnit<Child> &operator=(const LengthUnit<Child> &other) { this->val = other.val; return *this;}
