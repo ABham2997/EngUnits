@@ -22,7 +22,7 @@ class AccelerationUnit: public abstract::PhysicalUnit<AccelerationUnit, Child> {
         template<typename T>
         AccelerationUnit<Child>(const AccelerationUnit<T> &&other) : abstract::PhysicalUnit<AccelerationUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        double SI_val() const override { return this->val; } 
+        double si_val() const override { return this->val; } 
         double abs_val() const override { return this->val*Grandchild::conversion; };
 
         AccelerationUnit<Child> &operator=(const double value) {this->val=value; return *this;}

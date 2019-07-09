@@ -22,7 +22,7 @@ class DataStorageUnit: public abstract::PhysicalUnit<DataStorageUnit, Child> {
         template<typename T>
         DataStorageUnit<Child>(const DataStorageUnit<T> &&other) : abstract::PhysicalUnit<DataStorageUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        double SI_val() const override { return this->val; } 
+        double si_val() const override { return this->val; } 
         double abs_val() const override { return this->val*Grandchild::conversion; };
 
         DataStorageUnit<Child> &operator=(const double value) {this->val=value; return *this;}

@@ -65,7 +65,7 @@ class PhysicalUnit{
         PhysicalUnit<Child, Grandchild>(const double value): val{value} {};
         PhysicalUnit<Child, Grandchild>(const ProxyComp other) : val{other.val} {};
 
-        virtual double SI_val() const = 0;
+        virtual double si_val() const = 0;
         virtual double abs_val() const = 0;
 
         void operator++(int) {this->val++;}

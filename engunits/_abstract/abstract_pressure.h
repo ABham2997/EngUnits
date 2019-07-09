@@ -22,7 +22,7 @@ class PressureUnit: public abstract::PhysicalUnit<PressureUnit, Child> {
         template<typename T>
         PressureUnit<Child>(const PressureUnit<T> &&other) : abstract::PhysicalUnit<PressureUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        double SI_val() const override { return this->val; } 
+        double si_val() const override { return this->val; } 
         double abs_val() const override { return this->val*Grandchild::conversion; };
 
         PressureUnit<Child> &operator=(const double value) {this->val=value; return *this;}

@@ -22,7 +22,7 @@ class TemperatureUnit: public abstract::PhysicalUnit<TemperatureUnit, Child> {
         template<typename T>
         TemperatureUnit<Child>(const TemperatureUnit<T> &&other) : abstract::PhysicalUnit<TemperatureUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        double SI_val() const override { return this->val; } 
+        double si_val() const override { return this->val; } 
         double abs_val() const override { return this->val*Grandchild::conversion; };
 
         TemperatureUnit<Child> &operator=(const double value) {this->val=value; return *this;}

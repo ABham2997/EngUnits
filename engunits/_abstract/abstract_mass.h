@@ -22,7 +22,7 @@ class MassUnit: public abstract::PhysicalUnit<MassUnit, Child> {
         template<typename T>
         MassUnit<Child>(const MassUnit<T> &&other) : abstract::PhysicalUnit<MassUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        double SI_val() const override { return this->val; } 
+        double si_val() const override { return this->val; } 
         double abs_val() const override { return this->val*Grandchild::conversion; };
 
         MassUnit<Child> &operator=(const double value) {this->val=value; return *this;}
