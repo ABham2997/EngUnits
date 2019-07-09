@@ -66,13 +66,13 @@ class PhysicalUnit{
         PhysicalUnit<Child, Grandchild>(const ProxyComp other) : val{other.val} {};
 
         virtual double si_val() const = 0;
-        virtual double abs_val() const = 0;
+        virtual double scalar() const = 0;
 
         void operator++(int) {this->val++;}
         void operator++() { ++this->val; }
         void operator--(int) {this->val--;}
         void operator--() { --this->val; }
-        operator bool() const {return (this->val);}
+        operator bool() const { return (this->val); }
         double operator^(const double value) const { return std::pow(this->val,value); }
         int operator%(const int value) const { return int(this->val) % value; }
 

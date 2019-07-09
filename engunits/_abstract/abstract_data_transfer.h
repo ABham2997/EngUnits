@@ -22,8 +22,8 @@ class DataTransferUnit: public abstract::PhysicalUnit<DataTransferUnit, Child> {
         template<typename T>
         DataTransferUnit<Child>(const DataTransferUnit<T> &&other) : abstract::PhysicalUnit<DataTransferUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        double si_val() const override { return this->val; } 
-        double abs_val() const override { return this->val*Grandchild::conversion; };
+        double scalar() const override { return this->val; } 
+        double si_val() const override { return this->val*Child::conversion; };
 
         DataTransferUnit<Child> &operator=(const double value) {this->val=value; return *this;}
         DataTransferUnit<Child> &operator=(const DataTransferUnit<Child> &other) { this->val = other.val; return *this;}

@@ -22,8 +22,8 @@ class LengthUnit: public abstract::PhysicalUnit<LengthUnit, Child> {
         template<typename T>
         LengthUnit<Child>(const LengthUnit<T> &&other) : abstract::PhysicalUnit<LengthUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        double si_val() const override { return this->val; } 
-        double abs_val() const override { return this->val*Grandchild::conversion; };
+        double scalar() const override { return this->val; } 
+        double si_val() const override { return this->val*Child::conversion; };
 
         LengthUnit<Child> &operator=(const double value) {this->val=value; return *this;}
         LengthUnit<Child> &operator=(const LengthUnit<Child> &other) { this->val = other.val; return *this;}

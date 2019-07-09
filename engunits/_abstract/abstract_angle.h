@@ -22,8 +22,8 @@ class AngleUnit: public abstract::PhysicalUnit<AngleUnit, Child> {
         template<typename T>
         AngleUnit<Child>(const AngleUnit<T> &&other) : abstract::PhysicalUnit<AngleUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        double si_val() const override { return this->val; } 
-        double abs_val() const override { return this->val*Grandchild::conversion; };
+        double scalar() const override { return this->val; } 
+        double si_val() const override { return this->val*Child::conversion; };
 
         AngleUnit<Child> &operator=(const double value) {this->val=value; return *this;}
         AngleUnit<Child> &operator=(const AngleUnit<Child> &other) { this->val = other.val; return *this;}

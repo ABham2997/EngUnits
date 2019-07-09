@@ -22,8 +22,8 @@ class VolumeUnit: public abstract::PhysicalUnit<VolumeUnit, Child> {
         template<typename T>
         VolumeUnit<Child>(const VolumeUnit<T> &&other) : abstract::PhysicalUnit<VolumeUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        double si_val() const override { return this->val; } 
-        double abs_val() const override { return this->val*Grandchild::conversion; };
+        double scalar() const override { return this->val; } 
+        double si_val() const override { return this->val*Child::conversion; };
 
         VolumeUnit<Child> &operator=(const double value) {this->val=value; return *this;}
         VolumeUnit<Child> &operator=(const VolumeUnit<Child> &other) { this->val = other.val; return *this;}
