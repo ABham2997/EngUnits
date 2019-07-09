@@ -1,8 +1,5 @@
 //#including this file will include all user facing modules
 
-#ifndef __ENGUNITS_ENGUNITS_H
-#define __ENGUNITS_ENGUNITS_H
-
 #include "../engunits/angle.h"
 #include "../engunits/equations.h"
 #include "../engunits/fuel_economy.h"
@@ -21,5 +18,3 @@
 #include "../engunits/time.h"
 #include "../engunits/pressure.h"
 #include "../engunits/data_transfer.h"
-
-#endif
