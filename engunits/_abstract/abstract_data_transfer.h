@@ -1,5 +1,5 @@
-#ifndef __ENGUNITS_ABSTRACT_LENGTH_H
-#define __ENGUNITS_ABSTRACT_LENGTH_H
+#ifndef __ENGUNITS_ABSTRACT_DATA_TRANSFER_H
+#define __ENGUNITS_ABSTRACT_DATA_TRANSFER_H
 
 #include<iostream>
 #include<string>
@@ -10,26 +10,26 @@
 namespace engunits::data_transfer{
 //Child of this class is GrandChild of base class(PhysicalUnit)
 template<typename Child> //TODO: constrain to children of this class
-class DataTransfer: public abstract::PhysicalUnit<DataTransfer, Child> {
+class DataTransferUnit: public abstract::PhysicalUnit<DataTransferUnit, Child> {
     protected:
-        using abstract::PhysicalUnit<DataTransfer, Child>::PhysicalUnit;
+        using abstract::PhysicalUnit<DataTransferUnit, Child>::PhysicalUnit;
 
     public:
-        DataTransfer<Child>(const DataTransfer<Child> &other) : abstract::PhysicalUnit<DataTransfer, Child>{other.val} {};
-        DataTransfer<Child>(const DataTransfer<Child> &&other) : abstract::PhysicalUnit<DataTransfer, Child>{other.val} {};
+        DataTransferUnit<Child>(const DataTransferUnit<Child> &other) : abstract::PhysicalUnit<DataTransferUnit, Child>{other.val} {};
+        DataTransferUnit<Child>(const DataTransferUnit<Child> &&other) : abstract::PhysicalUnit<DataTransferUnit, Child>{other.val} {};
         template <typename T>
-        DataTransfer<Child>(const DataTransfer<T> &other) : abstract::PhysicalUnit<DataTransfer, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        DataTransferUnit<Child>(const DataTransferUnit<T> &other) : abstract::PhysicalUnit<DataTransferUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        DataTransfer<Child>(const DataTransfer<T> &&other) : abstract::PhysicalUnit<DataTransfer, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        DataTransferUnit<Child>(const DataTransferUnit<T> &&other) : abstract::PhysicalUnit<DataTransferUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
         double SI_val() const override { return this->val; } 
         double abs_val() const override { return this->val*Grandchild::conversion; };
 
-        DataTransfer<Child> &operator=(const double value) {this->val=value; return *this;}
-        DataTransfer<Child> &operator=(const DataTransfer<Child> &other) { this->val = other.val; return *this;}
-        DataTransfer<Child> &operator=(const DataTransfer<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> DataTransfer<Child> &operator=(const DataTransfer<T> &other) { this->val = other.val; return *this;}
-        template<typename T> DataTransfer<Child> &operator=(const DataTransfer<T> &&other) { this->val = other.val; return *this;}
+        DataTransferUnit<Child> &operator=(const double value) {this->val=value; return *this;}
+        DataTransferUnit<Child> &operator=(const DataTransferUnit<Child> &other) { this->val = other.val; return *this;}
+        DataTransferUnit<Child> &operator=(const DataTransferUnit<Child> &&other) { this->val = other.val; return *this;}     
+        template<typename T> DataTransferUnit<Child> &operator=(const DataTransferUnit<T> &other) { this->val = other.val; return *this;}
+        template<typename T> DataTransferUnit<Child> &operator=(const DataTransferUnit<T> &&other) { this->val = other.val; return *this;}
         
 };
 }

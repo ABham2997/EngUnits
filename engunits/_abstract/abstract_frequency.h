@@ -1,5 +1,5 @@
-#ifndef __ENGUNITS_ABSTRACT_LENGTH_H
-#define __ENGUNITS_ABSTRACT_LENGTH_H
+#ifndef __ENGUNITS_ABSTRACT_FREQUENCY_H
+#define __ENGUNITS_ABSTRACT_FREQUENCY_H
 
 #include<iostream>
 #include<string>
@@ -10,26 +10,26 @@
 namespace engunits::frequency{
 //Child of this class is GrandChild of base class(PhysicalUnit)
 template<typename Child> //TODO: constrain to children of this class
-class Frequency: public abstract::PhysicalUnit<Frequency, Child> {
+class FrequencyUnit: public abstract::PhysicalUnit<FrequencyUnit, Child> {
     protected:
-        using abstract::PhysicalUnit<Frequency, Child>::PhysicalUnit;
+        using abstract::PhysicalUnit<FrequencyUnit, Child>::PhysicalUnit;
 
     public:
-        Frequency<Child>(const Frequency<Child> &other) : abstract::PhysicalUnit<Frequency, Child>{other.val} {};
-        Frequency<Child>(const Frequency<Child> &&other) : abstract::PhysicalUnit<Frequency, Child>{other.val} {};
+        FrequencyUnit<Child>(const FrequencyUnit<Child> &other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
+        FrequencyUnit<Child>(const FrequencyUnit<Child> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
         template <typename T>
-        Frequency<Child>(const Frequency<T> &other) : abstract::PhysicalUnit<Frequency, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        FrequencyUnit<Child>(const FrequencyUnit<T> &other) : abstract::PhysicalUnit<FrequencyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        Frequency<Child>(const Frequency<T> &&other) : abstract::PhysicalUnit<Frequency, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        FrequencyUnit<Child>(const FrequencyUnit<T> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
         double SI_val() const override { return this->val; } 
         double abs_val() const override { return this->val*Grandchild::conversion; };
 
-        Frequency<Child> &operator=(const double value) {this->val=value; return *this;}
-        Frequency<Child> &operator=(const Frequency<Child> &other) { this->val = other.val; return *this;}
-        Frequency<Child> &operator=(const Frequency<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> Frequency<Child> &operator=(const Frequency<T> &other) { this->val = other.val; return *this;}
-        template<typename T> Frequency<Child> &operator=(const Frequency<T> &&other) { this->val = other.val; return *this;}
+        FrequencyUnit<Child> &operator=(const double value) {this->val=value; return *this;}
+        FrequencyUnit<Child> &operator=(const FrequencyUnit<Child> &other) { this->val = other.val; return *this;}
+        FrequencyUnit<Child> &operator=(const FrequencyUnit<Child> &&other) { this->val = other.val; return *this;}     
+        template<typename T> FrequencyUnit<Child> &operator=(const FrequencyUnit<T> &other) { this->val = other.val; return *this;}
+        template<typename T> FrequencyUnit<Child> &operator=(const FrequencyUnit<T> &&other) { this->val = other.val; return *this;}
         
 };
 }

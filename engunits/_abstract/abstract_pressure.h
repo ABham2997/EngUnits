@@ -1,5 +1,5 @@
-#ifndef __ENGUNITS_ABSTRACT_LENGTH_H
-#define __ENGUNITS_ABSTRACT_LENGTH_H
+#ifndef __ENGUNITS_ABSTRACT_PRESSURE_H
+#define __ENGUNITS_ABSTRACT_PRESSURE_H
 
 #include<iostream>
 #include<string>
@@ -10,26 +10,26 @@
 namespace engunits::pressure{
 //Child of this class is GrandChild of base class(PhysicalUnit)
 template<typename Child> //TODO: constrain to children of this class
-class Pressure: public abstract::PhysicalUnit<Pressure, Child> {
+class PressureUnit: public abstract::PhysicalUnit<PressureUnit, Child> {
     protected:
-        using abstract::PhysicalUnit<Pressure, Child>::PhysicalUnit;
+        using abstract::PhysicalUnit<PressureUnit, Child>::PhysicalUnit;
 
     public:
-        Pressure<Child>(const Pressure<Child> &other) : abstract::PhysicalUnit<Pressure, Child>{other.val} {};
-        Pressure<Child>(const Pressure<Child> &&other) : abstract::PhysicalUnit<Pressure, Child>{other.val} {};
+        PressureUnit<Child>(const PressureUnit<Child> &other) : abstract::PhysicalUnit<PressureUnit, Child>{other.val} {};
+        PressureUnit<Child>(const PressureUnit<Child> &&other) : abstract::PhysicalUnit<PressureUnit, Child>{other.val} {};
         template <typename T>
-        Pressure<Child>(const Pressure<T> &other) : abstract::PhysicalUnit<Pressure, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        PressureUnit<Child>(const PressureUnit<T> &other) : abstract::PhysicalUnit<PressureUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        Pressure<Child>(const Pressure<T> &&other) : abstract::PhysicalUnit<Pressure, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        PressureUnit<Child>(const PressureUnit<T> &&other) : abstract::PhysicalUnit<PressureUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
         double SI_val() const override { return this->val; } 
         double abs_val() const override { return this->val*Grandchild::conversion; };
 
-        Pressure<Child> &operator=(const double value) {this->val=value; return *this;}
-        Pressure<Child> &operator=(const Pressure<Child> &other) { this->val = other.val; return *this;}
-        Pressure<Child> &operator=(const Pressure<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> Pressure<Child> &operator=(const Pressure<T> &other) { this->val = other.val; return *this;}
-        template<typename T> Pressure<Child> &operator=(const Pressure<T> &&other) { this->val = other.val; return *this;}
+        PressureUnit<Child> &operator=(const double value) {this->val=value; return *this;}
+        PressureUnit<Child> &operator=(const PressureUnit<Child> &other) { this->val = other.val; return *this;}
+        PressureUnit<Child> &operator=(const PressureUnit<Child> &&other) { this->val = other.val; return *this;}     
+        template<typename T> PressureUnit<Child> &operator=(const PressureUnit<T> &other) { this->val = other.val; return *this;}
+        template<typename T> PressureUnit<Child> &operator=(const PressureUnit<T> &&other) { this->val = other.val; return *this;}
         
 };
 }

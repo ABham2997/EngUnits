@@ -1,5 +1,5 @@
-#ifndef __ENGUNITS_ABSTRACT_LENGTH_H
-#define __ENGUNITS_ABSTRACT_LENGTH_H
+#ifndef __ENGUNITS_ABSTRACT_SPEED_H
+#define __ENGUNITS_ABSTRACT_SPEED_H
 
 #include<iostream>
 #include<string>
@@ -10,26 +10,26 @@
 namespace engunits::speed{
 //Child of this class is GrandChild of base class(PhysicalUnit)
 template<typename Child> //TODO: constrain to children of this class
-class Speed: public abstract::PhysicalUnit<Speed, Child> {
+class SpeedUnit: public abstract::PhysicalUnit<SpeedUnit, Child> {
     protected:
-        using abstract::PhysicalUnit<Speed, Child>::PhysicalUnit;
+        using abstract::PhysicalUnit<SpeedUnit, Child>::PhysicalUnit;
 
     public:
-        Speed<Child>(const Speed<Child> &other) : abstract::PhysicalUnit<Speed, Child>{other.val} {};
-        Speed<Child>(const Speed<Child> &&other) : abstract::PhysicalUnit<Speed, Child>{other.val} {};
+        SpeedUnit<Child>(const SpeedUnit<Child> &other) : abstract::PhysicalUnit<SpeedUnit, Child>{other.val} {};
+        SpeedUnit<Child>(const SpeedUnit<Child> &&other) : abstract::PhysicalUnit<SpeedUnit, Child>{other.val} {};
         template <typename T>
-        Speed<Child>(const Speed<T> &other) : abstract::PhysicalUnit<Speed, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        SpeedUnit<Child>(const SpeedUnit<T> &other) : abstract::PhysicalUnit<SpeedUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        Speed<Child>(const Speed<T> &&other) : abstract::PhysicalUnit<Speed, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        SpeedUnit<Child>(const SpeedUnit<T> &&other) : abstract::PhysicalUnit<SpeedUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
         double SI_val() const override { return this->val; } 
         double abs_val() const override { return this->val*Grandchild::conversion; };
 
-        Speed<Child> &operator=(const double value) {this->val=value; return *this;}
-        Speed<Child> &operator=(const Speed<Child> &other) { this->val = other.val; return *this;}
-        Speed<Child> &operator=(const Speed<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> Speed<Child> &operator=(const Speed<T> &other) { this->val = other.val; return *this;}
-        template<typename T> Speed<Child> &operator=(const Speed<T> &&other) { this->val = other.val; return *this;}
+        SpeedUnit<Child> &operator=(const double value) {this->val=value; return *this;}
+        SpeedUnit<Child> &operator=(const SpeedUnit<Child> &other) { this->val = other.val; return *this;}
+        SpeedUnit<Child> &operator=(const SpeedUnit<Child> &&other) { this->val = other.val; return *this;}     
+        template<typename T> SpeedUnit<Child> &operator=(const SpeedUnit<T> &other) { this->val = other.val; return *this;}
+        template<typename T> SpeedUnit<Child> &operator=(const SpeedUnit<T> &&other) { this->val = other.val; return *this;}
         
 };
 }

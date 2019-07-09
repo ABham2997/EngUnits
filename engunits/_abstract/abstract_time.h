@@ -1,5 +1,5 @@
-#ifndef __ENGUNITS_ABSTRACT_LENGTH_H
-#define __ENGUNITS_ABSTRACT_LENGTH_H
+#ifndef __ENGUNITS_ABSTRACT_TIME_H
+#define __ENGUNITS_ABSTRACT_TIME_H
 
 #include<iostream>
 #include<string>
@@ -10,26 +10,26 @@
 namespace engunits::time{
 //Child of this class is GrandChild of base class(PhysicalUnit)
 template<typename Child> //TODO: constrain to children of this class
-class Time: public abstract::PhysicalUnit<Time, Child> {
+class TimeUnit: public abstract::PhysicalUnit<TimeUnit, Child> {
     protected:
-        using abstract::PhysicalUnit<Time, Child>::PhysicalUnit;
+        using abstract::PhysicalUnit<TimeUnit, Child>::PhysicalUnit;
 
     public:
-        Time<Child>(const Time<Child> &other) : abstract::PhysicalUnit<Time, Child>{other.val} {};
-        Time<Child>(const Time<Child> &&other) : abstract::PhysicalUnit<Time, Child>{other.val} {};
+        TimeUnit<Child>(const TimeUnit<Child> &other) : abstract::PhysicalUnit<TimeUnit, Child>{other.val} {};
+        TimeUnit<Child>(const TimeUnit<Child> &&other) : abstract::PhysicalUnit<TimeUnit, Child>{other.val} {};
         template <typename T>
-        Time<Child>(const Time<T> &other) : abstract::PhysicalUnit<Time, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        TimeUnit<Child>(const TimeUnit<T> &other) : abstract::PhysicalUnit<TimeUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        Time<Child>(const Time<T> &&other) : abstract::PhysicalUnit<Time, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        TimeUnit<Child>(const TimeUnit<T> &&other) : abstract::PhysicalUnit<TimeUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
         double SI_val() const override { return this->val; } 
         double abs_val() const override { return this->val*Grandchild::conversion; };
 
-        Time<Child> &operator=(const double value) {this->val=value; return *this;}
-        Time<Child> &operator=(const Time<Child> &other) { this->val = other.val; return *this;}
-        Time<Child> &operator=(const Time<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> Time<Child> &operator=(const Time<T> &other) { this->val = other.val; return *this;}
-        template<typename T> Time<Child> &operator=(const Time<T> &&other) { this->val = other.val; return *this;}
+        TimeUnit<Child> &operator=(const double value) {this->val=value; return *this;}
+        TimeUnit<Child> &operator=(const TimeUnit<Child> &other) { this->val = other.val; return *this;}
+        TimeUnit<Child> &operator=(const TimeUnit<Child> &&other) { this->val = other.val; return *this;}     
+        template<typename T> TimeUnit<Child> &operator=(const TimeUnit<T> &other) { this->val = other.val; return *this;}
+        template<typename T> TimeUnit<Child> &operator=(const TimeUnit<T> &&other) { this->val = other.val; return *this;}
         
 };
 }
