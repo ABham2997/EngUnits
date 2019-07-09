@@ -55,11 +55,6 @@ class PhysicalUnit{
                     self.b=(value<self.val && self.b); self.val=value; return self;}
                 friend ProxyComp &operator>(const double value, ProxyComp &&self){ 
                     self.b=(value>self.val && self.b); self.val=value; return self;}
-
-                friend std::ostream &operator<<(std::ostream &os, const ProxyComp &self) {
-                    os << self.val << ":" << (self.b?"true":"false");
-                    return os;
-                }
         };
 
     protected:
@@ -70,14 +65,13 @@ class PhysicalUnit{
         PhysicalUnit<Child, Grandchild>(const double value): val{value} {};
         PhysicalUnit<Child, Grandchild>(const ProxyComp other) : val{other.val} {};
 
-        virtual std::string type() const = 0; //this function ensures this base class remains purely abstract
-        double SI_val() const { return this->val; } 
-        double abs_val() const { return this->val*Grandchild::conversion; };
+        virtual double SI_val() const = 0;
+        virtual double abs_val() const = 0;
 
-        void operator++() {this->val++;}
-        void operator++(int i) { ++this->val; }
-        void operator--() {this->val--;}
-        void operator--(int i) { --this->val; }
+        void operator++(int) {this->val++;}
+        void operator++() { ++this->val; }
+        void operator--(int) {this->val--;}
+        void operator--() { --this->val; }
         operator bool() const {return (this->val);}
         double operator^(const double value) const { return std::pow(this->val,value); }
         int operator%(const int value) const { return int(this->val) % value; }
@@ -92,23 +86,25 @@ class PhysicalUnit{
         template<typename T> double operator/(const Child<T> other) const {return *this/Grandchild(other);}
         template<template<typename> typename C, typename G> double operator*(const PhysicalUnit<C,G> &other) const {return this->val*other.val;}
         template<template<typename> typename C, typename G> double operator/(const PhysicalUnit<C,G> &other) const {return this->val/other.val;}
+        template<template<typename> typename C, typename G> double operator*(const PhysicalUnit<C,G> &&other) const {return this->val*other.val;}
+        template<template<typename> typename C, typename G> double operator/(const PhysicalUnit<C,G> &&other) const {return this->val/other.val;}
         template<typename T> Grandchild operator+(const Child<T> other) const {return *this+Grandchild(other).val;}
         template<typename T> Grandchild operator-(const Child<T> other) const {return *this-Grandchild(other).val;}
 
-        PhysicalUnit<Child, Grandchild> &operator*=(Child<Grandchild> other) {this->val*=other.val;return *this;}
-        PhysicalUnit<Child, Grandchild> &operator+=(Child<Grandchild> other) {this->val+=other.val;return *this;}
-        PhysicalUnit<Child, Grandchild> &operator-=(Child<Grandchild> other) {this->val-=other.val;return *this;}
-        PhysicalUnit<Child, Grandchild> &operator/=(Child<Grandchild> other) {this->val/=other.val;return *this;}
+        PhysicalUnit<Child, Grandchild> &operator*=(Grandchild other) {this->val*=other.val;return *this;}
+        PhysicalUnit<Child, Grandchild> &operator+=(Grandchild other) {this->val+=other.val;return *this;}
+        PhysicalUnit<Child, Grandchild> &operator-=(Grandchild other) {this->val-=other.val;return *this;}
+        PhysicalUnit<Child, Grandchild> &operator/=(Grandchild other) {this->val/=other.val;return *this;}
 
-        friend double &operator*=(double &value, Child<Grandchild> self) { value*=self.val; return value; }
-        friend double &operator-=(double &value, Child<Grandchild> self) { value-=self.val; return value; }
-        friend double &operator+=(double &value, Child<Grandchild> self) { value+=self.val; return value; }
-        friend double &operator/=(double &value, Child<Grandchild> self) { value/=self.val; return value; }
+        friend double &operator*=(double &value, Grandchild self) { value*=self.val; return value; }
+        friend double &operator-=(double &value, Grandchild self) { value-=self.val; return value; }
+        friend double &operator+=(double &value, Grandchild self) { value+=self.val; return value; }
+        friend double &operator/=(double &value, Grandchild self) { value/=self.val; return value; }
 
-        friend Grandchild operator*(const double value, Child<Grandchild> self) { return Grandchild(value*self.val); }
-        friend Grandchild operator+(const double value, Child<Grandchild> self) { return Grandchild(value+self.val); }
-        friend Grandchild operator-(const double value, Child<Grandchild> self) { return Grandchild(value-self.val); }
-        friend Grandchild operator/(const double value, Child<Grandchild> self) { return Grandchild(value/self.val); }
+        friend Grandchild operator*(const double value, Grandchild self) { return Grandchild(value*self.val); }
+        friend Grandchild operator+(const double value, Grandchild self) { return Grandchild(value+self.val); }
+        friend Grandchild operator-(const double value, Grandchild self) { return Grandchild(value-self.val); }
+        friend Grandchild operator/(const double value, Grandchild self) { return Grandchild(value/self.val); }
 
         friend ProxyComp operator==(const double value, const Grandchild &self) {return ProxyComp(self.val, value==self.val); }
         friend ProxyComp operator!=(const double value, const Grandchild &self) {return ProxyComp(self.val, value!=self.val);}

@@ -4,7 +4,7 @@
 namespace engunits::conversion{
 //Conversions have been aggregated here to make them easier to view and change
 
-//conversions have been standardised to SI units: all values are conversion factors from square meters (how many square meters make up the unit)
+//conversions have been standardised to SI units: all values are conversion factors from bits (how many bits make up the unit)
 constexpr double DTR_BITS = 1;
 constexpr double DTR_KILOBITS = 1024.0;
 constexpr double DTR_MEGABITS = 1048576.0;

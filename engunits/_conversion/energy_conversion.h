@@ -4,7 +4,7 @@
 namespace engunits::conversion{
 //Conversions have been aggregated here to make them easier to view and change
 
-//conversions have been standardised to SI units: all values are conversion factors from meters (how many meters make up the unit)
+//conversions have been standardised to SI units: all values are conversion factors from Joules (how many Joules make up the unit)
 constexpr double E_JOULES = 1;
 constexpr double E_KILOJOULES = 1000;
 constexpr double E_GRAMCALORIES = 4.184;

@@ -3,3 +3,6 @@ test
 engunits/_conversion/a.py
 engunits/_conversion/a.txt
 engunits/_conversion/b.txt
+engunits/_conversion/c.txt
+engunits/_abstract/a.py
+engunits/a.py

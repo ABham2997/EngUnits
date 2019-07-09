@@ -1,30 +1,35 @@
-#ifndef __ENGUNITS_ABSTRACT_MASS_H
-#define __ENGUNITS_ABSTRACT_MASS_H
+#ifndef __ENGUNITS_ABSTRACT_LENGTH_H
+#define __ENGUNITS_ABSTRACT_LENGTH_H
+
+#include<iostream>
+#include<string>
 
 #include "../../engunits/_abstract/abstract_base.h"
+#include "../../engunits/_conversion/conversion_funcs.h"
 
 namespace engunits::mass{
 //Child of this class is GrandChild of base class(PhysicalUnit)
 template<typename Child> //TODO: constrain to children of this class
-class MassUnit: public abstract::PhysicalUnit<MassUnit, Child> {
+class Mass: public abstract::PhysicalUnit<Mass, Child> {
     protected:
-        using abstract::PhysicalUnit<MassUnit, Child>::PhysicalUnit;
+        using abstract::PhysicalUnit<Mass, Child>::PhysicalUnit;
 
     public:
-        MassUnit<Child>(const MassUnit<Child> &other) : abstract::PhysicalUnit<MassUnit, Child>{other.val} {};
-        MassUnit<Child>(const MassUnit<Child> &&other) : abstract::PhysicalUnit<MassUnit, Child>{other.val} {};
+        Mass<Child>(const Mass<Child> &other) : abstract::PhysicalUnit<Mass, Child>{other.val} {};
+        Mass<Child>(const Mass<Child> &&other) : abstract::PhysicalUnit<Mass, Child>{other.val} {};
         template <typename T>
-        MassUnit<Child>(const MassUnit<T> &other) : abstract::PhysicalUnit<MassUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        Mass<Child>(const Mass<T> &other) : abstract::PhysicalUnit<Mass, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        MassUnit<Child>(const MassUnit<T> &&other) : abstract::PhysicalUnit<MassUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        Mass<Child>(const Mass<T> &&other) : abstract::PhysicalUnit<Mass, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        std::string type() const override { return "mass"; }
+        double SI_val() const override { return this->val; } 
+        double abs_val() const override { return this->val*Grandchild::conversion; };
 
-        MassUnit<Child> &operator=(const double value) {this->val=value; return *this;}
-        MassUnit<Child> &operator=(const MassUnit<Child> &other) { this->val = other.val; return *this;}
-        MassUnit<Child> &operator=(const MassUnit<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> MassUnit<Child> &operator=(const MassUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> MassUnit<Child> &operator=(const MassUnit<T> &&other) { this->val = other.val; return *this;}
+        Mass<Child> &operator=(const double value) {this->val=value; return *this;}
+        Mass<Child> &operator=(const Mass<Child> &other) { this->val = other.val; return *this;}
+        Mass<Child> &operator=(const Mass<Child> &&other) { this->val = other.val; return *this;}     
+        template<typename T> Mass<Child> &operator=(const Mass<T> &other) { this->val = other.val; return *this;}
+        template<typename T> Mass<Child> &operator=(const Mass<T> &&other) { this->val = other.val; return *this;}
         
 };
 }
