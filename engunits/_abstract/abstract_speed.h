@@ -5,7 +5,7 @@
 #include<string>
 
 #include "../../engunits/_abstract/abstract_base.h"
-#include "../../engunits/_conversion/conversion_funcs.h"
+#include "../../engunits/_abstract/core.h"
 
 namespace engunits::speed{
 //Child of this class is GrandChild of base class(PhysicalUnit)
@@ -18,9 +18,9 @@ class SpeedUnit: public abstract::PhysicalUnit<SpeedUnit, Child> {
         SpeedUnit<Child>(const SpeedUnit<Child> &other) : abstract::PhysicalUnit<SpeedUnit, Child>{other.val} {};
         SpeedUnit<Child>(SpeedUnit<Child> &&other) : abstract::PhysicalUnit<SpeedUnit, Child>{other.val} {};
         template <typename T>
-        SpeedUnit<Child>(const SpeedUnit<T> &other) : abstract::PhysicalUnit<SpeedUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        SpeedUnit<Child>(const SpeedUnit<T> &other) : abstract::PhysicalUnit<SpeedUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
-        SpeedUnit<Child>(SpeedUnit<T> &&other) : abstract::PhysicalUnit<SpeedUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        SpeedUnit<Child>(SpeedUnit<T> &&other) : abstract::PhysicalUnit<SpeedUnit, Child>{(convert<Child>(other))} {};
 
         virtual std::string symbol() const = 0;
 

@@ -5,7 +5,7 @@
 #include<string>
 
 #include "../../engunits/_abstract/abstract_base.h"
-#include "../../engunits/_conversion/conversion_funcs.h"
+#include "../../engunits/_abstract/core.h"
 
 namespace engunits::frequency{
 //Child of this class is GrandChild of base class(PhysicalUnit)
@@ -18,9 +18,9 @@ class FrequencyUnit: public abstract::PhysicalUnit<FrequencyUnit, Child> {
         FrequencyUnit<Child>(const FrequencyUnit<Child> &other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
         FrequencyUnit<Child>(FrequencyUnit<Child> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
         template <typename T>
-        FrequencyUnit<Child>(const FrequencyUnit<T> &other) : abstract::PhysicalUnit<FrequencyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        FrequencyUnit<Child>(const FrequencyUnit<T> &other) : abstract::PhysicalUnit<FrequencyUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
-        FrequencyUnit<Child>(FrequencyUnit<T> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        FrequencyUnit<Child>(FrequencyUnit<T> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{(convert<Child>(other))} {};
 
         virtual std::string symbol() const = 0;
 

@@ -5,7 +5,7 @@
 #include<string>
 
 #include "../../engunits/_abstract/abstract_base.h"
-#include "../../engunits/_conversion/conversion_funcs.h"
+#include "../../engunits/_abstract/core.h"
 
 namespace engunits::time{
 //Child of this class is GrandChild of base class(PhysicalUnit)
@@ -18,9 +18,9 @@ class TimeUnit: public abstract::PhysicalUnit<TimeUnit, Child> {
         TimeUnit<Child>(const TimeUnit<Child> &other) : abstract::PhysicalUnit<TimeUnit, Child>{other.val} {};
         TimeUnit<Child>(TimeUnit<Child> &&other) : abstract::PhysicalUnit<TimeUnit, Child>{other.val} {};
         template <typename T>
-        TimeUnit<Child>(const TimeUnit<T> &other) : abstract::PhysicalUnit<TimeUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        TimeUnit<Child>(const TimeUnit<T> &other) : abstract::PhysicalUnit<TimeUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
-        TimeUnit<Child>(TimeUnit<T> &&other) : abstract::PhysicalUnit<TimeUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        TimeUnit<Child>(TimeUnit<T> &&other) : abstract::PhysicalUnit<TimeUnit, Child>{(convert<Child>(other))} {};
 
         virtual std::string symbol() const = 0;
 

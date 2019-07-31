@@ -5,7 +5,7 @@
 #include<string>
 
 #include "../../engunits/_abstract/abstract_base.h"
-#include "../../engunits/_conversion/conversion_funcs.h"
+#include "../../engunits/_abstract/core.h"
 
 namespace engunits::mass{
 //Child of this class is GrandChild of base class(PhysicalUnit)
@@ -18,9 +18,9 @@ class MassUnit: public abstract::PhysicalUnit<MassUnit, Child> {
         MassUnit<Child>(const MassUnit<Child> &other) : abstract::PhysicalUnit<MassUnit, Child>{other.val} {};
         MassUnit<Child>(MassUnit<Child> &&other) : abstract::PhysicalUnit<MassUnit, Child>{other.val} {};
         template <typename T>
-        MassUnit<Child>(const MassUnit<T> &other) : abstract::PhysicalUnit<MassUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        MassUnit<Child>(const MassUnit<T> &other) : abstract::PhysicalUnit<MassUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
-        MassUnit<Child>(MassUnit<T> &&other) : abstract::PhysicalUnit<MassUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        MassUnit<Child>(MassUnit<T> &&other) : abstract::PhysicalUnit<MassUnit, Child>{(convert<Child>(other))} {};
 
         virtual std::string symbol() const = 0;
 

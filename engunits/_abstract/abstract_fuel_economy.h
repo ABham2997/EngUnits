@@ -5,7 +5,7 @@
 #include<string>
 
 #include "../../engunits/_abstract/abstract_base.h"
-#include "../../engunits/_conversion/conversion_funcs.h"
+#include "../../engunits/_abstract/core.h"
 
 namespace engunits::fuel_economy{
 //Child of this class is GrandChild of base class(PhysicalUnit)
@@ -18,9 +18,9 @@ class FuelEconomyUnit: public abstract::PhysicalUnit<FuelEconomyUnit, Child> {
         FuelEconomyUnit<Child>(const FuelEconomyUnit<Child> &other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{other.val} {};
         FuelEconomyUnit<Child>(FuelEconomyUnit<Child> &&other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{other.val} {};
         template <typename T>
-        FuelEconomyUnit<Child>(const FuelEconomyUnit<T> &other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        FuelEconomyUnit<Child>(const FuelEconomyUnit<T> &other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
-        FuelEconomyUnit<Child>(FuelEconomyUnit<T> &&other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        FuelEconomyUnit<Child>(FuelEconomyUnit<T> &&other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{(convert<Child>(other))} {};
 
         virtual std::string symbol() const = 0;
 

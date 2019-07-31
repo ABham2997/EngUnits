@@ -5,7 +5,7 @@
 #include<string>
 
 #include "../../engunits/_abstract/abstract_base.h"
-#include "../../engunits/_conversion/conversion_funcs.h"
+#include "../../engunits/_abstract/core.h"
 
 namespace engunits::temperature{
 //Child of this class is GrandChild of base class(PhysicalUnit)
@@ -18,9 +18,9 @@ class TemperatureUnit: public abstract::PhysicalUnit<TemperatureUnit, Child> {
         TemperatureUnit<Child>(const TemperatureUnit<Child> &other) : abstract::PhysicalUnit<TemperatureUnit, Child>{other.val} {};
         TemperatureUnit<Child>(TemperatureUnit<Child> &&other) : abstract::PhysicalUnit<TemperatureUnit, Child>{other.val} {};
         template <typename T>
-        TemperatureUnit<Child>(const TemperatureUnit<T> &other) : abstract::PhysicalUnit<TemperatureUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        TemperatureUnit<Child>(const TemperatureUnit<T> &other) : abstract::PhysicalUnit<TemperatureUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
-        TemperatureUnit<Child>(TemperatureUnit<T> &&other) : abstract::PhysicalUnit<TemperatureUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        TemperatureUnit<Child>(TemperatureUnit<T> &&other) : abstract::PhysicalUnit<TemperatureUnit, Child>{(convert<Child>(other))} {};
 
         virtual std::string symbol() const = 0;
 

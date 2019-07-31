@@ -4,17 +4,14 @@
 #include<string>
 #include<iostream>
 #include<cmath>
+#include<sstream>
 #include<type_traits>
-
-#include "../../engunits/_conversion/conversion_funcs.h"
 
 namespace engunits::abstract{
 template<template<typename> typename Child, typename Grandchild>
 class PhysicalUnit{
     private:
         using ValType = double;
-
-        template <typename S> friend double conversion::double_cast(S arg);
 
         class ProxyComp {
             public:
@@ -70,11 +67,18 @@ class PhysicalUnit{
 
         virtual std::string symbol() const = 0;
 
-        ValType si_val() const { return this->val * Grandchild::conversion; }
-        ValType scalar() const { return this->val; }
+        constexpr ValType si_val() const { return this->val * Grandchild::conversion; }
+        constexpr ValType scalar() const { return this->val; }
 
-        template <typename Other, typename=std::enable_if_t<std::is_constructible<Other,decltype(val)>::value>>
+        template <typename Other, typename=std::enable_if_t<std::is_constructible<Other,ValType>::value>>
         Other cast_to() { return Other{val}; }
+
+        std::string to_string(bool scientific=true) {
+            std::stringstream ss;
+            if (scientific) ss << std::scientific;
+            ss << (*this);
+            return ss.str();
+        }
 
         Grandchild operator++(int) {val++; return Grandchild{val};} //this is not good, needs improvement, should be ref return type
         Grandchild operator++() { ++val; return Grandchild{val-1};}
@@ -148,6 +152,5 @@ class PhysicalUnit{
         }
 
 };
-
-}
+}//namespace engunits::abstract
 #endif

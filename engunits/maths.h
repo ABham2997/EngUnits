@@ -3,7 +3,6 @@
 
 #include <cmath>
 
-#include "../engunits/_conversion/conversion_funcs.h"
 #include "../engunits/_abstract/abstract_base.h"
 
 namespace engunits::maths{
@@ -23,11 +22,11 @@ double atanh(const double value) { return std::atanh(value); }
 
 
 template <template<typename> typename S, typename T>
-double cos(const abstract::PhysicalUnit<S, T> unit) { return std::cos(conversion::double_cast(unit)); }
+double cos(const abstract::PhysicalUnit<S, T> unit) { return std::cos(unit.scalar()); }
 template <template<typename> typename S, typename T>
-double sin(const abstract::PhysicalUnit<S, T> unit) { return std::sin(conversion::double_cast(unit)); }
+double sin(const abstract::PhysicalUnit<S, T> unit) { return std::sin(unit.scalar()); }
 template <template<typename> typename S, typename T>
-double tan(const abstract::PhysicalUnit<S, T> unit) { return std::tan(conversion::double_cast(unit)); }
+double tan(const abstract::PhysicalUnit<S, T> unit) { return std::tan(unit.scalar()); }
 
 } // namespace engunits::maths
 
