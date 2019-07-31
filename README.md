@@ -20,7 +20,7 @@ length::meters m = 5;
 
 area::sqmeters a = m^2; //a equals m to the power of 2
 
-std::cout << a << '\n'; //prints "25m2"
+std::cout << a << '\n'; //prints "25 m2"
 ```
 
 - seamless accurate conversion between unit types of the same measurement type
@@ -31,7 +31,7 @@ inches i{12};
 
 feet f{i};
 
-std::cout << f << '\n'; //prints "1ft"
+std::cout << f << '\n'; //prints "1 ft"
 ```
 
 - rigorous enforcement of physical measurement rules
@@ -54,25 +54,37 @@ class MyLength: public LengthUnit<MyLength> {
         
         static constexpr double conversion = 12345; //conversion to si(how many meters make up this unit)
         
-        static std::string symbol() {return "MyLen";} //your unit symbol
-};  
-}
-```
+        std::string symbol() const override {return "MyLen";} //your unit symbol
+};
+
+namespace literals{
+MyLength operator""_MyLen(long double value) {return value;}//OPTIONAL literal operator function 
+}//literals are kept in a nested namespace to prevent pollution of literals
+
+} //namespace engunits::length
+
+``` 
 
 
-Thats less than 7 lines of code! Using your custom unit:
+Thats less than 10 lines of code! Heres how you can use your custom unit:
 ```c++
 using namespace engunits::length;
+using namespace engunits::length::literals;
 
 MyLength custom{10};
 
-std::cout << custom << '\n'; //prints "10MyLen"
+std::cout << custom << '\n'; //prints "10 MyLen"
 
 meters m{12345};
 
 custom = m;
 
-std::cout << custom << '\n' //prints "1MyLen"
+std::cout << custom << '\n' //prints "1 MyLen"
+
+auto literal = 250.0_MyLen;
+
+std::cout << literal << '\n' //prints "250 MyLen"
+
 ```
 
 
@@ -97,5 +109,5 @@ angle::radians r{constants::pi/2};
 
 length::meters m = meters{10}*maths::sin(r);
 
-std::cout << m << '\n'; //prints "10m"
+std::cout << m << '\n'; //prints "10 m"
 ```

@@ -22,8 +22,7 @@ class FuelEconomyUnit: public abstract::PhysicalUnit<FuelEconomyUnit, Child> {
         template<typename T>
         FuelEconomyUnit<Child>(const FuelEconomyUnit<T> &&other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        double scalar() const override { return this->val; } 
-        double si_val() const override { return this->val*Child::conversion; };
+        virtual std::string symbol() const = 0;
 
         FuelEconomyUnit<Child> &operator=(const double value) {this->val=value; return *this;}
         FuelEconomyUnit<Child> &operator=(const FuelEconomyUnit<Child> &other) { this->val = other.val; return *this;}

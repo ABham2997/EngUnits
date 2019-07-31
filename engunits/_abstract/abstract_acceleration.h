@@ -22,8 +22,7 @@ class AccelerationUnit: public abstract::PhysicalUnit<AccelerationUnit, Child> {
         template<typename T>
         AccelerationUnit<Child>(const AccelerationUnit<T> &&other) : abstract::PhysicalUnit<AccelerationUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        double scalar() const override { return this->val; } 
-        double si_val() const override { return this->val*Child::conversion; };
+        virtual std::string symbol() const = 0;
 
         AccelerationUnit<Child> &operator=(const double value) {this->val=value; return *this;}
         AccelerationUnit<Child> &operator=(const AccelerationUnit<Child> &other) { this->val = other.val; return *this;}

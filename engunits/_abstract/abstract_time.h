@@ -22,8 +22,7 @@ class TimeUnit: public abstract::PhysicalUnit<TimeUnit, Child> {
         template<typename T>
         TimeUnit<Child>(const TimeUnit<T> &&other) : abstract::PhysicalUnit<TimeUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        double scalar() const override { return this->val; } 
-        double si_val() const override { return this->val*Child::conversion; };
+        virtual std::string symbol() const = 0;
 
         TimeUnit<Child> &operator=(const double value) {this->val=value; return *this;}
         TimeUnit<Child> &operator=(const TimeUnit<Child> &other) { this->val = other.val; return *this;}

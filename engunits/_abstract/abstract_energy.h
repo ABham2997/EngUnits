@@ -22,8 +22,7 @@ class EnergyUnit: public abstract::PhysicalUnit<EnergyUnit, Child> {
         template<typename T>
         EnergyUnit<Child>(const EnergyUnit<T> &&other) : abstract::PhysicalUnit<EnergyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        double scalar() const override { return this->val; } 
-        double si_val() const override { return this->val*Child::conversion; };
+        virtual std::string symbol() const = 0;
 
         EnergyUnit<Child> &operator=(const double value) {this->val=value; return *this;}
         EnergyUnit<Child> &operator=(const EnergyUnit<Child> &other) { this->val = other.val; return *this;}

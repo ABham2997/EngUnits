@@ -15,7 +15,7 @@ class meters : public LengthUnit<meters> {
 
         static constexpr double conversion = conversion::L_METERS;
 
-        static std::string symbol() { return "m"; }
+        std::string symbol() const override { return "m"; }
 };
 
 class inches : public LengthUnit<inches> {
@@ -24,7 +24,7 @@ class inches : public LengthUnit<inches> {
 
         static constexpr double conversion = conversion::L_INCHES;
 
-        static std::string symbol() { return "in"; }
+        std::string symbol() const override { return "in"; }
 };
 
 class feet : public LengthUnit<feet> {
@@ -33,8 +33,13 @@ class feet : public LengthUnit<feet> {
 
         static constexpr double conversion = conversion::L_FEET;
 
-        static std::string symbol() {return "ft";}
+        std::string symbol() const override {return "ft";}
 };
+
+namespace literals{
+feet operator""_ft(long double value) { return value; }
+}
+
 }
 
 #endif

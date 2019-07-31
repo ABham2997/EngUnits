@@ -16,20 +16,19 @@ class LengthUnit: public abstract::PhysicalUnit<LengthUnit, Child> {
 
     public:
         LengthUnit<Child>(const LengthUnit<Child> &other) : abstract::PhysicalUnit<LengthUnit, Child>{other.val} {};
-        LengthUnit<Child>(const LengthUnit<Child> &&other) : abstract::PhysicalUnit<LengthUnit, Child>{other.val} {};
+        LengthUnit<Child>(LengthUnit<Child> &&other) : abstract::PhysicalUnit<LengthUnit, Child>{other.val} {};
         template <typename T>
         LengthUnit<Child>(const LengthUnit<T> &other) : abstract::PhysicalUnit<LengthUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        LengthUnit<Child>(const LengthUnit<T> &&other) : abstract::PhysicalUnit<LengthUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        LengthUnit<Child>(LengthUnit<T> &&other) : abstract::PhysicalUnit<LengthUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        double scalar() const override { return this->val; } 
-        double si_val() const override { return this->val*Child::conversion; };
+        virtual std::string symbol() const = 0;
 
-        LengthUnit<Child> &operator=(const double value) {this->val=value; return *this;}
+        LengthUnit<Child> &operator=(double value) {this->val=value; return *this;}
         LengthUnit<Child> &operator=(const LengthUnit<Child> &other) { this->val = other.val; return *this;}
-        LengthUnit<Child> &operator=(const LengthUnit<Child> &&other) { this->val = other.val; return *this;}     
+        LengthUnit<Child> &operator=(LengthUnit<Child> &&other) { this->val = other.val; return *this;}     
         template<typename T> LengthUnit<Child> &operator=(const LengthUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> LengthUnit<Child> &operator=(const LengthUnit<T> &&other) { this->val = other.val; return *this;}
+        template<typename T> LengthUnit<Child> &operator=(LengthUnit<T> &&other) { this->val = other.val; return *this;}
         
 };
 }

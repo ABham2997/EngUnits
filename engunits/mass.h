@@ -15,7 +15,7 @@ class kilograms : public MassUnit<kilograms> {
 
         static constexpr double conversion = conversion::M_KILOGRAMS;
 
-        static std::string symbol() { return "kg"; }
+        std::string symbol() const override { return "kg"; }
 };
 
 class pounds : public MassUnit<pounds> {
@@ -24,7 +24,7 @@ class pounds : public MassUnit<pounds> {
 
         static constexpr double conversion = conversion::M_POUNDS;
 
-        static std::string symbol() { return "lbf"; }
+        std::string symbol() const override { return "lbf"; }
 };
 
 class ounces : public MassUnit<ounces> {
@@ -33,7 +33,7 @@ class ounces : public MassUnit<ounces> {
 
         static constexpr double conversion = conversion::M_OUNCES;
 
-        static std::string symbol() {return "oz";}
+        std::string symbol() const override {return "oz";}
 };
 }
 

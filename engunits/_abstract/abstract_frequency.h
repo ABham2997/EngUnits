@@ -22,8 +22,7 @@ class FrequencyUnit: public abstract::PhysicalUnit<FrequencyUnit, Child> {
         template<typename T>
         FrequencyUnit<Child>(const FrequencyUnit<T> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
-        double scalar() const override { return this->val; } 
-        double si_val() const override { return this->val*Child::conversion; };
+        virtual std::string symbol() const = 0;
 
         FrequencyUnit<Child> &operator=(const double value) {this->val=value; return *this;}
         FrequencyUnit<Child> &operator=(const FrequencyUnit<Child> &other) { this->val = other.val; return *this;}
