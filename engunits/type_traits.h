@@ -8,12 +8,11 @@ namespace engunits::traits{
 template <template <typename> typename C, typename G>
 using PhysicalUnit = typename engunits::abstract::PhysicalUnit<C, G>;
 
-template <template <typename> typename C>
-template <typename T>
-using is_unit_t = typename std::is_base_of<PhysicalUnit<C, T>, T>::type;
+template <template<typename> typename C, typename T>
+using is_unit = std::is_base_of<C, T>;
 
-template <typename T>
-constexpr bool is_unit_v = is_unit_t<T>::value;
+template <template<typename> typename C, typename T>
+constexpr bool is_unit_v = is_unit<C, T>::value;
 
 }//namespace traits
 

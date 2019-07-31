@@ -80,9 +80,9 @@ class PhysicalUnit{
             return ss.str();
         }
 
-        Grandchild operator++(int) {val++; return Grandchild{val};} //this is not good, needs improvement, should be ref return type
+        PhysicalUnit &operator++(int) {val++; *this;} //this is not good, needs improvement, should be ref return type
         Grandchild operator++() { ++val; return Grandchild{val-1};}
-        Grandchild operator--(int) {val--; return Grandchild{val};}// also not good
+        PhysicalUnit &operator--(int) {val--; return *this;}// also not good
         Grandchild operator--() { --val; return Grandchild{val+1};}
         operator bool() const { return (this->val); }
         ValType operator^(const ValType value) const { return std::pow(this->val,value); }
