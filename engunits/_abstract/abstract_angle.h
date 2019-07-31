@@ -16,19 +16,19 @@ class AngleUnit: public abstract::PhysicalUnit<AngleUnit, Child> {
 
     public:
         AngleUnit<Child>(const AngleUnit<Child> &other) : abstract::PhysicalUnit<AngleUnit, Child>{other.val} {};
-        AngleUnit<Child>(const AngleUnit<Child> &&other) : abstract::PhysicalUnit<AngleUnit, Child>{other.val} {};
+        AngleUnit<Child>(AngleUnit<Child> &&other) : abstract::PhysicalUnit<AngleUnit, Child>{other.val} {};
         template <typename T>
         AngleUnit<Child>(const AngleUnit<T> &other) : abstract::PhysicalUnit<AngleUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        AngleUnit<Child>(const AngleUnit<T> &&other) : abstract::PhysicalUnit<AngleUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        AngleUnit<Child>(AngleUnit<T> &&other) : abstract::PhysicalUnit<AngleUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
         virtual std::string symbol() const = 0;
 
-        AngleUnit<Child> &operator=(const double value) {this->val=value; return *this;}
+        AngleUnit<Child> &operator=(double value) {this->val=value; return *this;}
         AngleUnit<Child> &operator=(const AngleUnit<Child> &other) { this->val = other.val; return *this;}
-        AngleUnit<Child> &operator=(const AngleUnit<Child> &&other) { this->val = other.val; return *this;}     
+        AngleUnit<Child> &operator=(AngleUnit<Child> &&other) { this->val = other.val; return *this;}     
         template<typename T> AngleUnit<Child> &operator=(const AngleUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> AngleUnit<Child> &operator=(const AngleUnit<T> &&other) { this->val = other.val; return *this;}
+        template<typename T> AngleUnit<Child> &operator=(AngleUnit<T> &&other) { this->val = other.val; return *this;}
         
 };
 }

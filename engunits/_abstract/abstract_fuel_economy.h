@@ -16,19 +16,19 @@ class FuelEconomyUnit: public abstract::PhysicalUnit<FuelEconomyUnit, Child> {
 
     public:
         FuelEconomyUnit<Child>(const FuelEconomyUnit<Child> &other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{other.val} {};
-        FuelEconomyUnit<Child>(const FuelEconomyUnit<Child> &&other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{other.val} {};
+        FuelEconomyUnit<Child>(FuelEconomyUnit<Child> &&other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{other.val} {};
         template <typename T>
         FuelEconomyUnit<Child>(const FuelEconomyUnit<T> &other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        FuelEconomyUnit<Child>(const FuelEconomyUnit<T> &&other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        FuelEconomyUnit<Child>(FuelEconomyUnit<T> &&other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
         virtual std::string symbol() const = 0;
 
-        FuelEconomyUnit<Child> &operator=(const double value) {this->val=value; return *this;}
+        FuelEconomyUnit<Child> &operator=(double value) {this->val=value; return *this;}
         FuelEconomyUnit<Child> &operator=(const FuelEconomyUnit<Child> &other) { this->val = other.val; return *this;}
-        FuelEconomyUnit<Child> &operator=(const FuelEconomyUnit<Child> &&other) { this->val = other.val; return *this;}     
+        FuelEconomyUnit<Child> &operator=(FuelEconomyUnit<Child> &&other) { this->val = other.val; return *this;}     
         template<typename T> FuelEconomyUnit<Child> &operator=(const FuelEconomyUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> FuelEconomyUnit<Child> &operator=(const FuelEconomyUnit<T> &&other) { this->val = other.val; return *this;}
+        template<typename T> FuelEconomyUnit<Child> &operator=(FuelEconomyUnit<T> &&other) { this->val = other.val; return *this;}
         
 };
 }

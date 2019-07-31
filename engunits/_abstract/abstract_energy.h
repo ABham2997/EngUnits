@@ -16,19 +16,19 @@ class EnergyUnit: public abstract::PhysicalUnit<EnergyUnit, Child> {
 
     public:
         EnergyUnit<Child>(const EnergyUnit<Child> &other) : abstract::PhysicalUnit<EnergyUnit, Child>{other.val} {};
-        EnergyUnit<Child>(const EnergyUnit<Child> &&other) : abstract::PhysicalUnit<EnergyUnit, Child>{other.val} {};
+        EnergyUnit<Child>(EnergyUnit<Child> &&other) : abstract::PhysicalUnit<EnergyUnit, Child>{other.val} {};
         template <typename T>
         EnergyUnit<Child>(const EnergyUnit<T> &other) : abstract::PhysicalUnit<EnergyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        EnergyUnit<Child>(const EnergyUnit<T> &&other) : abstract::PhysicalUnit<EnergyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        EnergyUnit<Child>(EnergyUnit<T> &&other) : abstract::PhysicalUnit<EnergyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
         virtual std::string symbol() const = 0;
 
-        EnergyUnit<Child> &operator=(const double value) {this->val=value; return *this;}
+        EnergyUnit<Child> &operator=(double value) {this->val=value; return *this;}
         EnergyUnit<Child> &operator=(const EnergyUnit<Child> &other) { this->val = other.val; return *this;}
-        EnergyUnit<Child> &operator=(const EnergyUnit<Child> &&other) { this->val = other.val; return *this;}     
+        EnergyUnit<Child> &operator=(EnergyUnit<Child> &&other) { this->val = other.val; return *this;}     
         template<typename T> EnergyUnit<Child> &operator=(const EnergyUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> EnergyUnit<Child> &operator=(const EnergyUnit<T> &&other) { this->val = other.val; return *this;}
+        template<typename T> EnergyUnit<Child> &operator=(EnergyUnit<T> &&other) { this->val = other.val; return *this;}
         
 };
 }

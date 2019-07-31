@@ -16,19 +16,19 @@ class SpeedUnit: public abstract::PhysicalUnit<SpeedUnit, Child> {
 
     public:
         SpeedUnit<Child>(const SpeedUnit<Child> &other) : abstract::PhysicalUnit<SpeedUnit, Child>{other.val} {};
-        SpeedUnit<Child>(const SpeedUnit<Child> &&other) : abstract::PhysicalUnit<SpeedUnit, Child>{other.val} {};
+        SpeedUnit<Child>(SpeedUnit<Child> &&other) : abstract::PhysicalUnit<SpeedUnit, Child>{other.val} {};
         template <typename T>
         SpeedUnit<Child>(const SpeedUnit<T> &other) : abstract::PhysicalUnit<SpeedUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        SpeedUnit<Child>(const SpeedUnit<T> &&other) : abstract::PhysicalUnit<SpeedUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        SpeedUnit<Child>(SpeedUnit<T> &&other) : abstract::PhysicalUnit<SpeedUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
         virtual std::string symbol() const = 0;
 
-        SpeedUnit<Child> &operator=(const double value) {this->val=value; return *this;}
+        SpeedUnit<Child> &operator=(double value) {this->val=value; return *this;}
         SpeedUnit<Child> &operator=(const SpeedUnit<Child> &other) { this->val = other.val; return *this;}
-        SpeedUnit<Child> &operator=(const SpeedUnit<Child> &&other) { this->val = other.val; return *this;}     
+        SpeedUnit<Child> &operator=(SpeedUnit<Child> &&other) { this->val = other.val; return *this;}     
         template<typename T> SpeedUnit<Child> &operator=(const SpeedUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> SpeedUnit<Child> &operator=(const SpeedUnit<T> &&other) { this->val = other.val; return *this;}
+        template<typename T> SpeedUnit<Child> &operator=(SpeedUnit<T> &&other) { this->val = other.val; return *this;}
         
 };
 }

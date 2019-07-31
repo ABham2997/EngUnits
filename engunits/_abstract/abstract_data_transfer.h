@@ -16,19 +16,19 @@ class DataTransferUnit: public abstract::PhysicalUnit<DataTransferUnit, Child> {
 
     public:
         DataTransferUnit<Child>(const DataTransferUnit<Child> &other) : abstract::PhysicalUnit<DataTransferUnit, Child>{other.val} {};
-        DataTransferUnit<Child>(const DataTransferUnit<Child> &&other) : abstract::PhysicalUnit<DataTransferUnit, Child>{other.val} {};
+        DataTransferUnit<Child>(DataTransferUnit<Child> &&other) : abstract::PhysicalUnit<DataTransferUnit, Child>{other.val} {};
         template <typename T>
         DataTransferUnit<Child>(const DataTransferUnit<T> &other) : abstract::PhysicalUnit<DataTransferUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        DataTransferUnit<Child>(const DataTransferUnit<T> &&other) : abstract::PhysicalUnit<DataTransferUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        DataTransferUnit<Child>(DataTransferUnit<T> &&other) : abstract::PhysicalUnit<DataTransferUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
         virtual std::string symbol() const = 0;
 
-        DataTransferUnit<Child> &operator=(const double value) {this->val=value; return *this;}
+        DataTransferUnit<Child> &operator=(double value) {this->val=value; return *this;}
         DataTransferUnit<Child> &operator=(const DataTransferUnit<Child> &other) { this->val = other.val; return *this;}
-        DataTransferUnit<Child> &operator=(const DataTransferUnit<Child> &&other) { this->val = other.val; return *this;}     
+        DataTransferUnit<Child> &operator=(DataTransferUnit<Child> &&other) { this->val = other.val; return *this;}     
         template<typename T> DataTransferUnit<Child> &operator=(const DataTransferUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> DataTransferUnit<Child> &operator=(const DataTransferUnit<T> &&other) { this->val = other.val; return *this;}
+        template<typename T> DataTransferUnit<Child> &operator=(DataTransferUnit<T> &&other) { this->val = other.val; return *this;}
         
 };
 }

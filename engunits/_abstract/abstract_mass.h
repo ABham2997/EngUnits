@@ -16,19 +16,19 @@ class MassUnit: public abstract::PhysicalUnit<MassUnit, Child> {
 
     public:
         MassUnit<Child>(const MassUnit<Child> &other) : abstract::PhysicalUnit<MassUnit, Child>{other.val} {};
-        MassUnit<Child>(const MassUnit<Child> &&other) : abstract::PhysicalUnit<MassUnit, Child>{other.val} {};
+        MassUnit<Child>(MassUnit<Child> &&other) : abstract::PhysicalUnit<MassUnit, Child>{other.val} {};
         template <typename T>
         MassUnit<Child>(const MassUnit<T> &other) : abstract::PhysicalUnit<MassUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        MassUnit<Child>(const MassUnit<T> &&other) : abstract::PhysicalUnit<MassUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        MassUnit<Child>(MassUnit<T> &&other) : abstract::PhysicalUnit<MassUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
         virtual std::string symbol() const = 0;
 
-        MassUnit<Child> &operator=(const double value) {this->val=value; return *this;}
+        MassUnit<Child> &operator=(double value) {this->val=value; return *this;}
         MassUnit<Child> &operator=(const MassUnit<Child> &other) { this->val = other.val; return *this;}
-        MassUnit<Child> &operator=(const MassUnit<Child> &&other) { this->val = other.val; return *this;}     
+        MassUnit<Child> &operator=(MassUnit<Child> &&other) { this->val = other.val; return *this;}     
         template<typename T> MassUnit<Child> &operator=(const MassUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> MassUnit<Child> &operator=(const MassUnit<T> &&other) { this->val = other.val; return *this;}
+        template<typename T> MassUnit<Child> &operator=(MassUnit<T> &&other) { this->val = other.val; return *this;}
         
 };
 }

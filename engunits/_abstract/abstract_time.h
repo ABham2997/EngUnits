@@ -16,19 +16,19 @@ class TimeUnit: public abstract::PhysicalUnit<TimeUnit, Child> {
 
     public:
         TimeUnit<Child>(const TimeUnit<Child> &other) : abstract::PhysicalUnit<TimeUnit, Child>{other.val} {};
-        TimeUnit<Child>(const TimeUnit<Child> &&other) : abstract::PhysicalUnit<TimeUnit, Child>{other.val} {};
+        TimeUnit<Child>(TimeUnit<Child> &&other) : abstract::PhysicalUnit<TimeUnit, Child>{other.val} {};
         template <typename T>
         TimeUnit<Child>(const TimeUnit<T> &other) : abstract::PhysicalUnit<TimeUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        TimeUnit<Child>(const TimeUnit<T> &&other) : abstract::PhysicalUnit<TimeUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        TimeUnit<Child>(TimeUnit<T> &&other) : abstract::PhysicalUnit<TimeUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
         virtual std::string symbol() const = 0;
 
-        TimeUnit<Child> &operator=(const double value) {this->val=value; return *this;}
+        TimeUnit<Child> &operator=(double value) {this->val=value; return *this;}
         TimeUnit<Child> &operator=(const TimeUnit<Child> &other) { this->val = other.val; return *this;}
-        TimeUnit<Child> &operator=(const TimeUnit<Child> &&other) { this->val = other.val; return *this;}     
+        TimeUnit<Child> &operator=(TimeUnit<Child> &&other) { this->val = other.val; return *this;}     
         template<typename T> TimeUnit<Child> &operator=(const TimeUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> TimeUnit<Child> &operator=(const TimeUnit<T> &&other) { this->val = other.val; return *this;}
+        template<typename T> TimeUnit<Child> &operator=(TimeUnit<T> &&other) { this->val = other.val; return *this;}
         
 };
 }

@@ -16,19 +16,19 @@ class TemperatureUnit: public abstract::PhysicalUnit<TemperatureUnit, Child> {
 
     public:
         TemperatureUnit<Child>(const TemperatureUnit<Child> &other) : abstract::PhysicalUnit<TemperatureUnit, Child>{other.val} {};
-        TemperatureUnit<Child>(const TemperatureUnit<Child> &&other) : abstract::PhysicalUnit<TemperatureUnit, Child>{other.val} {};
+        TemperatureUnit<Child>(TemperatureUnit<Child> &&other) : abstract::PhysicalUnit<TemperatureUnit, Child>{other.val} {};
         template <typename T>
         TemperatureUnit<Child>(const TemperatureUnit<T> &other) : abstract::PhysicalUnit<TemperatureUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        TemperatureUnit<Child>(const TemperatureUnit<T> &&other) : abstract::PhysicalUnit<TemperatureUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        TemperatureUnit<Child>(TemperatureUnit<T> &&other) : abstract::PhysicalUnit<TemperatureUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
         virtual std::string symbol() const = 0;
 
-        TemperatureUnit<Child> &operator=(const double value) {this->val=value; return *this;}
+        TemperatureUnit<Child> &operator=(double value) {this->val=value; return *this;}
         TemperatureUnit<Child> &operator=(const TemperatureUnit<Child> &other) { this->val = other.val; return *this;}
-        TemperatureUnit<Child> &operator=(const TemperatureUnit<Child> &&other) { this->val = other.val; return *this;}     
+        TemperatureUnit<Child> &operator=(TemperatureUnit<Child> &&other) { this->val = other.val; return *this;}     
         template<typename T> TemperatureUnit<Child> &operator=(const TemperatureUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> TemperatureUnit<Child> &operator=(const TemperatureUnit<T> &&other) { this->val = other.val; return *this;}
+        template<typename T> TemperatureUnit<Child> &operator=(TemperatureUnit<T> &&other) { this->val = other.val; return *this;}
         
 };
 }

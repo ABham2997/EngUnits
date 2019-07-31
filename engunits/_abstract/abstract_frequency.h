@@ -16,19 +16,19 @@ class FrequencyUnit: public abstract::PhysicalUnit<FrequencyUnit, Child> {
 
     public:
         FrequencyUnit<Child>(const FrequencyUnit<Child> &other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
-        FrequencyUnit<Child>(const FrequencyUnit<Child> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
+        FrequencyUnit<Child>(FrequencyUnit<Child> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
         template <typename T>
         FrequencyUnit<Child>(const FrequencyUnit<T> &other) : abstract::PhysicalUnit<FrequencyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
         template<typename T>
-        FrequencyUnit<Child>(const FrequencyUnit<T> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
+        FrequencyUnit<Child>(FrequencyUnit<T> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{(conversion::unit_cast<T,Child>(other))} {};
 
         virtual std::string symbol() const = 0;
 
-        FrequencyUnit<Child> &operator=(const double value) {this->val=value; return *this;}
+        FrequencyUnit<Child> &operator=(double value) {this->val=value; return *this;}
         FrequencyUnit<Child> &operator=(const FrequencyUnit<Child> &other) { this->val = other.val; return *this;}
-        FrequencyUnit<Child> &operator=(const FrequencyUnit<Child> &&other) { this->val = other.val; return *this;}     
+        FrequencyUnit<Child> &operator=(FrequencyUnit<Child> &&other) { this->val = other.val; return *this;}     
         template<typename T> FrequencyUnit<Child> &operator=(const FrequencyUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> FrequencyUnit<Child> &operator=(const FrequencyUnit<T> &&other) { this->val = other.val; return *this;}
+        template<typename T> FrequencyUnit<Child> &operator=(FrequencyUnit<T> &&other) { this->val = other.val; return *this;}
         
 };
 }
