@@ -7,6 +7,8 @@
 #include<sstream>
 #include<type_traits>
 
+#include "../../engunits/_abstract/core.h"
+
 namespace engunits::abstract{
 template<template<typename> typename Child, typename Grandchild>
 class PhysicalUnit{

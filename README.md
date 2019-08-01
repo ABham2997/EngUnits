@@ -1,5 +1,5 @@
 # EngUnits --IN PROGRESS--
-EngUnits is a C++ header-only library of engineering unit types(meters, stones, feet, kilograms etc.) and tools, with an emphasis on type safety, efficiency, readability and ease of extension and use. This library is ideal for scientific or engineering problems where consistency and type safety between unit types is required (e.g, a length and a mass cannot be added, a volume and a velocity cannot be compared, dividing pressure by pressure does not yield pressure etc.)
+EngUnits is a C++ compile-time header-only library of engineering unit types(meters, stones, feet, kilograms etc.) and tools, with an emphasis on type safety, efficiency, readability and ease of extension and use. This library is ideal for scientific or engineering problems where consistency and type safety between unit types is required (e.g, a length and a mass cannot be added, a volume and a velocity cannot be compared, dividing pressure by pressure does not yield pressure etc.)
 
 There is built-in support for:
 
@@ -23,7 +23,16 @@ area::sqmeters a = m^2; //a equals m to the power of 2
 std::cout << a << '\n'; //prints "25 m2"
 ```
 
-- seamless accurate conversion between unit types of the same measurement type
+- readable literal operators
+```c++
+using namespace engunits::length::literals;
+
+auto unit = 250.0_ft;
+
+std::cout << unit << '\n'; //prints "250 ft"
+```
+
+- accurate implicit conversion between unit types of the same measurement type
 ```c++
 using namespace engunits::length;
 
@@ -59,7 +68,7 @@ class MyLength: public LengthUnit<MyLength> {
 
 namespace literals{
 MyLength operator""_MyLen(long double value) {return value;}//OPTIONAL literal operator function 
-}//literals are kept in a nested namespace to prevent pollution of literals
+}//literals are kept in a nested namespace to prevent pollution of global literals
 
 } //namespace engunits::length
 
@@ -110,4 +119,33 @@ angle::radians r{constants::pi/2};
 length::meters m = meters{10}*maths::sin(r);
 
 std::cout << m << '\n'; //prints "10 m"
+```
+
+For the template metaprogrammers amongst you, there is also a traits library with the following traits...
+```c++
+engunits::traits::is_unit
+engunits::traits::is_unit_of_type
+```
+...these traits follow convention with the standard library and can be used, for example, in the following(convoluted) ways...
+```c++
+using namespace engunits;
+
+static_assert(traits::is_unit_v<feet>); //OK
+static_assert(traits::is_unit_v<int>); //Not OK
+
+template<typename Unit, int Num, std::enable_if_t<traits::is_unit_v<T>>>
+auto add_unit_num(Unit&& unit) {
+    return unit.scalar()+Num;  
+}
+
+template<typename Unit, typename UnitBase, std::enable_if_t<traits::is_unit_of_type_v<Unit, UnitBase>>>
+struct my_type : std::true_type{
+    static constexpr auto valPtr = std::declval<Unit*>();
+};
+
+template<typename Unit, typename UnitBase>
+struct my_type<Unit,UnitBase,void> : std::false_type{
+    static constexpr auto valPtr = nullptr;
+}
+
 ```
