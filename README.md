@@ -150,7 +150,7 @@ struct is_my_type<Unit,UnitBase,void> : std::false_type{
 
 template<typename Unit, typename ValType, 
     std::enable_if_t<traits::is_unit_of_type_v<Unit, LengthUnit> && std::is_arithmetic_v<ValType>>>
-Unit &add_to_length(Unit unit, ValType value) {
+Unit &add_to_length(Unit &unit, ValType value) {
     unit+=value;
     return unit;
 }
