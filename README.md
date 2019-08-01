@@ -140,12 +140,12 @@ auto add_unit_num(Unit&& unit) {
 
 template<typename Unit, typename UnitBase, std::enable_if_t<traits::is_unit_of_type_v<Unit, UnitBase>>>
 struct is_my_type : std::true_type{
-    static constexpr auto valPtr = std::declval<Unit*>();
+    static constexpr auto *valPtr = std::declval<Unit*>();
 };
 
 template<typename Unit, typename UnitBase>
 struct is_my_type<Unit,UnitBase,void> : std::false_type{
-    static constexpr auto valPtr = nullptr;
+    static constexpr auto *valPtr = nullptr;
 }
 
 template<typename Unit, typename ValType, 
