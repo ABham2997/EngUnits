@@ -138,5 +138,12 @@ static_assert(traits::is_unit_v<feet>); //OK
 static_assert(traits::is_unit_v<int>); //fails assert
 
 feet f;
-if constexpr(traits::is_unit_of_type<decltype(f),LengthUnit>::value) //...//
+if constexpr(traits::is_unit_of_type<decltype(f),LengthUnit>::value) {
+    //...//
+}
+
+template<typename T, typename=std::enable_if_t<traits::is_unit_v<T>>
+class MyUnitClass {
+    //...//
+};
 ```
