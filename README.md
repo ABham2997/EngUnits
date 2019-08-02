@@ -126,32 +126,16 @@ For the template metaprogrammers amongst you, there is also a traits library wit
 engunits::traits::is_unit
 engunits::traits::is_unit_of_type
 ```
-...these traits follow convention with the standard library and can be used, for example, in the following(convoluted) ways...
+...these traits follow convention with the standard library and can be used, for example, in the following ways...
 ```c++
+#include "engunits/type_traits.h"
+#include "engunits/length.h"
+
 using namespace engunits;
+using namespace engunits::length;
 
 static_assert(traits::is_unit_v<feet>); //OK
-static_assert(traits::is_unit_v<int>); //Not OK
+static_assert(traits::is_unit_v<int>); //fails assert
 
-template<typename Unit, int Num, std::enable_if_t<traits::is_unit_v<T>>>
-auto add_unit_num(Unit&& unit) {
-    return unit.scalar()+Num;  
-}
-
-template<typename Unit, typename UnitBase, std::enable_if_t<traits::is_unit_of_type_v<Unit, UnitBase>>>
-struct is_my_type : std::true_type{
-    static constexpr auto *valPtr = std::declval<Unit*>();
-};
-
-template<typename Unit, typename UnitBase>
-struct is_my_type<Unit,UnitBase,void> : std::false_type{
-    static constexpr auto *valPtr = nullptr;
-}
-
-template<typename Unit, typename ValType, 
-    std::enable_if_t<traits::is_unit_of_type_v<Unit, LengthUnit> && std::is_arithmetic_v<ValType>>>
-Unit &add_to_length(Unit &unit, ValType value) {
-    unit+=value;
-    return unit;
-}
+if constexpr(traits::is_unit_of_type<feet,LengthUnit>::value) //...//
 ```
