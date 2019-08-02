@@ -47,7 +47,7 @@ std::cout << f << '\n'; //prints "1 ft"
 ```c++
 using namespace engunits;
 
-mass::stones s{5};
+auto s = make_unit<mass:stones>(10); //type-checked factory function
 
 pressure::pascal p{10000};
 
@@ -128,6 +128,7 @@ engunits::traits::is_unit_of_type
 ```
 ...these traits follow convention with the standard library and can be used, for example, in the following ways...
 ```c++
+#include<type_traits>
 #include "engunits/type_traits.h"
 #include "engunits/length.h"
 
