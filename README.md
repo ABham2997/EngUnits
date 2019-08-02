@@ -137,5 +137,6 @@ using namespace engunits::length;
 static_assert(traits::is_unit_v<feet>); //OK
 static_assert(traits::is_unit_v<int>); //fails assert
 
-if constexpr(traits::is_unit_of_type<feet,LengthUnit>::value) //...//
+feet f;
+if constexpr(traits::is_unit_of_type<decltype(f),LengthUnit>::value) //...//
 ```
