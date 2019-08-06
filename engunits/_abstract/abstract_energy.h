@@ -3,9 +3,9 @@
 
 #include<iostream>
 #include<string>
+#include<type_traits>
 
 #include "../../engunits/_abstract/abstract_base.h"
-#include "../../engunits/_abstract/core.h"
 
 namespace engunits::energy{
 //Child of this class is GrandChild of base class(PhysicalUnit)
@@ -22,7 +22,7 @@ class EnergyUnit: public abstract::PhysicalUnit<EnergyUnit, Child> {
         template<typename T>
         EnergyUnit<Child>(EnergyUnit<T> &&other) : abstract::PhysicalUnit<EnergyUnit, Child>{(convert<Child>(other))} {};
 
-        virtual std::string symbol() const = 0;
+        virtual const std::string symbol() const = 0;
 
         EnergyUnit<Child> &operator=(double value) {this->val=value; return *this;}
         EnergyUnit<Child> &operator=(const EnergyUnit<Child> &other) { this->val = other.val; return *this;}

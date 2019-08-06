@@ -3,9 +3,9 @@
 
 #include<iostream>
 #include<string>
+#include<type_traits>
 
 #include "../../engunits/_abstract/abstract_base.h"
-#include "../../engunits/_abstract/core.h"
 
 namespace engunits::volume{
 //Child of this class is GrandChild of base class(PhysicalUnit)
@@ -22,7 +22,7 @@ class VolumeUnit: public abstract::PhysicalUnit<VolumeUnit, Child> {
         template<typename T>
         VolumeUnit<Child>(VolumeUnit<T> &&other) : abstract::PhysicalUnit<VolumeUnit, Child>{(convert<Child>(other))} {};
 
-        virtual std::string symbol() const = 0;
+        virtual const std::string symbol() const = 0;
 
         VolumeUnit<Child> &operator=(double value) {this->val=value; return *this;}
         VolumeUnit<Child> &operator=(const VolumeUnit<Child> &other) { this->val = other.val; return *this;}

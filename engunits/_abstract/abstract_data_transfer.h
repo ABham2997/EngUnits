@@ -3,9 +3,9 @@
 
 #include<iostream>
 #include<string>
+#include<type_traits>
 
 #include "../../engunits/_abstract/abstract_base.h"
-#include "../../engunits/_abstract/core.h"
 
 namespace engunits::data_transfer{
 //Child of this class is GrandChild of base class(PhysicalUnit)
@@ -22,7 +22,7 @@ class DataTransferUnit: public abstract::PhysicalUnit<DataTransferUnit, Child> {
         template<typename T>
         DataTransferUnit<Child>(DataTransferUnit<T> &&other) : abstract::PhysicalUnit<DataTransferUnit, Child>{(convert<Child>(other))} {};
 
-        virtual std::string symbol() const = 0;
+        virtual const std::string symbol() const = 0;
 
         DataTransferUnit<Child> &operator=(double value) {this->val=value; return *this;}
         DataTransferUnit<Child> &operator=(const DataTransferUnit<Child> &other) { this->val = other.val; return *this;}

@@ -3,9 +3,9 @@
 
 #include<iostream>
 #include<string>
+#include<type_traits>
 
 #include "../../engunits/_abstract/abstract_base.h"
-#include "../../engunits/_abstract/core.h"
 
 namespace engunits::fuel_economy{
 //Child of this class is GrandChild of base class(PhysicalUnit)
@@ -22,7 +22,7 @@ class FuelEconomyUnit: public abstract::PhysicalUnit<FuelEconomyUnit, Child> {
         template<typename T>
         FuelEconomyUnit<Child>(FuelEconomyUnit<T> &&other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{(convert<Child>(other))} {};
 
-        virtual std::string symbol() const = 0;
+        virtual const std::string symbol() const = 0;
 
         FuelEconomyUnit<Child> &operator=(double value) {this->val=value; return *this;}
         FuelEconomyUnit<Child> &operator=(const FuelEconomyUnit<Child> &other) { this->val = other.val; return *this;}

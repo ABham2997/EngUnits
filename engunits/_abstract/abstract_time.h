@@ -3,9 +3,9 @@
 
 #include<iostream>
 #include<string>
+#include<type_traits>
 
 #include "../../engunits/_abstract/abstract_base.h"
-#include "../../engunits/_abstract/core.h"
 
 namespace engunits::time{
 //Child of this class is GrandChild of base class(PhysicalUnit)
@@ -22,7 +22,7 @@ class TimeUnit: public abstract::PhysicalUnit<TimeUnit, Child> {
         template<typename T>
         TimeUnit<Child>(TimeUnit<T> &&other) : abstract::PhysicalUnit<TimeUnit, Child>{(convert<Child>(other))} {};
 
-        virtual std::string symbol() const = 0;
+        virtual const std::string symbol() const = 0;
 
         TimeUnit<Child> &operator=(double value) {this->val=value; return *this;}
         TimeUnit<Child> &operator=(const TimeUnit<Child> &other) { this->val = other.val; return *this;}

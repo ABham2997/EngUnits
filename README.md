@@ -25,7 +25,7 @@ std::cout << a << '\n'; //prints "25 m2"
 
 - readable literal operators
 ```c++
-using namespace engunits::length::literals;
+using namespace engunits::literals;
 
 auto unit = 250.0_ft;
 
@@ -65,15 +65,13 @@ class MyLength: public LengthUnit<MyLength> {
         
         std::string symbol() const override {return "MyLen";} //your unit symbol
 };
-
-namespace literals{
-MyLength operator""_MyLen(long double value) {return value;}//OPTIONAL literal operator function 
-}//literals are kept in a nested namespace to prevent pollution of global literals
-
 } //namespace engunits::length
 
-``` 
+namespace engunits::literals{
+MyLength operator""_MyLen(long double value) {return value;}//OPTIONAL literal operator 
+}//literals are kept in a separate namespace to prevent pollution of literals
 
+``` 
 
 Thats less than 10 lines of code! Heres how you can use your custom unit:
 ```c++

@@ -3,9 +3,9 @@
 
 #include<iostream>
 #include<string>
+#include<type_traits>
 
 #include "../../engunits/_abstract/abstract_base.h"
-#include "../../engunits/_abstract/core.h"
 
 namespace engunits::pressure{
 //Child of this class is GrandChild of base class(PhysicalUnit)
@@ -22,7 +22,7 @@ class PressureUnit: public abstract::PhysicalUnit<PressureUnit, Child> {
         template<typename T>
         PressureUnit<Child>(PressureUnit<T> &&other) : abstract::PhysicalUnit<PressureUnit, Child>{(convert<Child>(other))} {};
 
-        virtual std::string symbol() const = 0;
+        virtual const std::string symbol() const = 0;
 
         PressureUnit<Child> &operator=(double value) {this->val=value; return *this;}
         PressureUnit<Child> &operator=(const PressureUnit<Child> &other) { this->val = other.val; return *this;}

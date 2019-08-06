@@ -3,9 +3,9 @@
 
 #include<iostream>
 #include<string>
+#include<type_traits>
 
 #include "../../engunits/_abstract/abstract_base.h"
-#include "../../engunits/_abstract/core.h"
 
 namespace engunits::data_storage{
 //Child of this class is GrandChild of base class(PhysicalUnit)
@@ -22,7 +22,7 @@ class DataStorageUnit: public abstract::PhysicalUnit<DataStorageUnit, Child> {
         template<typename T>
         DataStorageUnit<Child>(DataStorageUnit<T> &&other) : abstract::PhysicalUnit<DataStorageUnit, Child>{(convert<Child>(other))} {};
 
-        virtual std::string symbol() const = 0;
+        virtual const std::string symbol() const = 0;
 
         DataStorageUnit<Child> &operator=(double value) {this->val=value; return *this;}
         DataStorageUnit<Child> &operator=(const DataStorageUnit<Child> &other) { this->val = other.val; return *this;}

@@ -3,9 +3,9 @@
 
 #include<iostream>
 #include<string>
+#include<type_traits>
 
 #include "../../engunits/_abstract/abstract_base.h"
-#include "../../engunits/_abstract/core.h"
 
 namespace engunits::angle{
 //Child of this class is GrandChild of base class(PhysicalUnit)
@@ -22,7 +22,7 @@ class AngleUnit: public abstract::PhysicalUnit<AngleUnit, Child> {
         template<typename T>
         AngleUnit<Child>(AngleUnit<T> &&other) : abstract::PhysicalUnit<AngleUnit, Child>{(convert<Child>(other))} {};
 
-        virtual std::string symbol() const = 0;
+        virtual const std::string symbol() const = 0;
 
         AngleUnit<Child> &operator=(double value) {this->val=value; return *this;}
         AngleUnit<Child> &operator=(const AngleUnit<Child> &other) { this->val = other.val; return *this;}

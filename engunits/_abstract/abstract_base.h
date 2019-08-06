@@ -67,7 +67,7 @@ class PhysicalUnit{
         PhysicalUnit(const ValType value): val{value} {};
         PhysicalUnit(const ProxyComp other) : val{other.val} {};
 
-        virtual std::string symbol() const = 0;
+        virtual const std::string symbol() const = 0;
 
         constexpr ValType si_val() const { return this->val * Grandchild::conversion; }
         constexpr ValType scalar() const { return this->val; }

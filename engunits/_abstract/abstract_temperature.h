@@ -3,9 +3,9 @@
 
 #include<iostream>
 #include<string>
+#include<type_traits>
 
 #include "../../engunits/_abstract/abstract_base.h"
-#include "../../engunits/_abstract/core.h"
 
 namespace engunits::temperature{
 //Child of this class is GrandChild of base class(PhysicalUnit)
@@ -22,7 +22,7 @@ class TemperatureUnit: public abstract::PhysicalUnit<TemperatureUnit, Child> {
         template<typename T>
         TemperatureUnit<Child>(TemperatureUnit<T> &&other) : abstract::PhysicalUnit<TemperatureUnit, Child>{(convert<Child>(other))} {};
 
-        virtual std::string symbol() const = 0;
+        virtual const std::string symbol() const = 0;
 
         TemperatureUnit<Child> &operator=(double value) {this->val=value; return *this;}
         TemperatureUnit<Child> &operator=(const TemperatureUnit<Child> &other) { this->val = other.val; return *this;}

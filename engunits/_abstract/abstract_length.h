@@ -22,7 +22,7 @@ class LengthUnit: public abstract::PhysicalUnit<LengthUnit, Child> {
         template<typename T>
         LengthUnit<Child>(LengthUnit<T> &&other) : abstract::PhysicalUnit<LengthUnit, Child>{(convert<Child>(other))} {};
 
-        virtual std::string symbol() const = 0;
+        virtual const std::string symbol() const = 0;
 
         LengthUnit<Child> &operator=(double value) {this->val=value; return *this;}
         LengthUnit<Child> &operator=(const LengthUnit<Child> &other) { this->val = other.val; return *this;}
