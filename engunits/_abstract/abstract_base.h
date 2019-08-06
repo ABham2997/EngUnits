@@ -72,7 +72,8 @@ class PhysicalUnit{
         constexpr ValType si_val() const { return this->val * Grandchild::conversion; }
         constexpr ValType scalar() const { return this->val; }
 
-        template <typename Other, typename=std::enable_if_t<std::is_constructible<Other,ValType>::value>>
+        template <typename Other, 
+            typename=std::enable_if_t<std::is_constructible<Other,ValType>::value&&!std::is_rvalue_reference<Other>::value>>
         Other cast_to() { return Other{val}; }
 
         std::string to_string(bool scientific=true) {
