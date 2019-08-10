@@ -6,6 +6,7 @@
 #include<cmath>
 #include<sstream>
 #include<type_traits>
+#include<limits>
 
 #include "../../engunits/_abstract/core.h"
 
@@ -74,7 +75,7 @@ class PhysicalUnit{
 
         template <typename Other, 
             typename=std::enable_if_t<std::is_constructible<Other,ValType>::value&&!std::is_rvalue_reference<Other>::value>>
-        Other cast_to() { return Other{val}; }
+        Other cast_to() { return val; }
 
         std::string to_string(bool scientific=true) {
             std::stringstream ss;
@@ -83,13 +84,14 @@ class PhysicalUnit{
             return ss.str();
         }
 
-        PhysicalUnit &operator++(int) {val++; *this;} //this is not good, needs improvement, should be ref return type
+        Grandchild &operator++(int) {val++; *static_cast<Grandchild*>(this);}
         Grandchild operator++() { ++val; return Grandchild{val-1};}
-        PhysicalUnit &operator--(int) {val--; return *this;}// also not good
+        Grandchild &operator--(int) {val--; return *static_cast<Grandchild*>(this);}
         Grandchild operator--() { --val; return Grandchild{val+1};}
+        Grandchild operator-() { return (*this) * (-1); }
+        Grandchild operator+() { return *this; }
         operator bool() const { return (this->val); }
         ValType operator^(const ValType value) const { return std::pow(this->val,value); }
-        int operator%(const int value) const { return int(this->val) % value; }
 
         Grandchild operator*(const ValType value) const {return Grandchild(this->val*value);}
         Grandchild operator+(const ValType value) const {return Grandchild(this->val+value);}
@@ -106,10 +108,10 @@ class PhysicalUnit{
         template<typename T> Grandchild operator+(const Child<T> other) const {return *this+Grandchild(other).val;}
         template<typename T> Grandchild operator-(const Child<T> other) const {return *this-Grandchild(other).val;}
 
-        PhysicalUnit<Child, Grandchild> &operator*=(Grandchild other) {this->val*=other.val;return *this;}
-        PhysicalUnit<Child, Grandchild> &operator+=(Grandchild other) {this->val+=other.val;return *this;}
-        PhysicalUnit<Child, Grandchild> &operator-=(Grandchild other) {this->val-=other.val;return *this;}
-        PhysicalUnit<Child, Grandchild> &operator/=(Grandchild other) {this->val/=other.val;return *this;}
+        Grandchild &operator*=(Grandchild other) {this->val*=other.val;return *static_cast<Grandchild*>(this);}
+        Grandchild &operator+=(Grandchild other) {this->val+=other.val;return *static_cast<Grandchild*>(this);}
+        Grandchild &operator-=(Grandchild other) {this->val-=other.val;return *static_cast<Grandchild*>(this);}
+        Grandchild &operator/=(Grandchild other) {this->val/=other.val;return *static_cast<Grandchild*>(this);}
 
         friend ValType &operator*=(ValType &value, Grandchild self) { value*=self.val; return value; }
         friend ValType &operator-=(ValType &value, Grandchild self) { value-=self.val; return value; }
