@@ -84,7 +84,7 @@ class PhysicalUnit{
             return ss.str();
         }
 
-        Grandchild &operator++(int) {val++; *static_cast<Grandchild*>(this);}
+        Grandchild &operator++(int) {val++; return *static_cast<Grandchild*>(this);}
         Grandchild operator++() { ++val; return Grandchild{val-1};}
         Grandchild &operator--(int) {val--; return *static_cast<Grandchild*>(this);}
         Grandchild operator--() { --val; return Grandchild{val+1};}
