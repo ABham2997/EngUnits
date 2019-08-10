@@ -77,7 +77,7 @@ class PhysicalUnit{
             typename=std::enable_if_t<std::is_constructible<Other,ValType>::value&&!std::is_rvalue_reference<Other>::value>>
         Other cast_to() { return val; }
 
-        std::string to_string(bool scientific=true) {
+        std::string to_string(bool scientific=false) {
             std::stringstream ss;
             if (scientific) ss << std::scientific;
             ss << (*this);
@@ -88,7 +88,7 @@ class PhysicalUnit{
         Grandchild operator++() { ++val; return Grandchild{val-1};}
         Grandchild &operator--(int) {val--; return *static_cast<Grandchild*>(this);}
         Grandchild operator--() { --val; return Grandchild{val+1};}
-        Grandchild operator-() { return (*this) * (-1); }
+        Grandchild operator-() { return this->val * (-1); }
         Grandchild operator+() { return *this; }
         operator bool() const { return (this->val); }
         ValType operator^(const ValType value) const { return std::pow(this->val,value); }

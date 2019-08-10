@@ -8,13 +8,17 @@
 #include "../../engunits/_abstract/abstract_base.h"
 
 namespace engunits::length{
+class meters; //forward declaration
+
 //Child of this class is GrandChild of base class(PhysicalUnit)
-template<typename Child> //TODO: constrain to children of this class
+template<typename Child=meters> //TODO: constrain to children of this class
 class LengthUnit: public abstract::PhysicalUnit<LengthUnit, Child> {
     protected:
         using abstract::PhysicalUnit<LengthUnit, Child>::PhysicalUnit;
 
     public:
+        using SI_type = meters;
+
         LengthUnit<Child>(const LengthUnit<Child> &other) : abstract::PhysicalUnit<LengthUnit, Child>{other.val} {};
         LengthUnit<Child>(LengthUnit<Child> &&other) : abstract::PhysicalUnit<LengthUnit, Child>{other.val} {};
         template <typename T>
