@@ -28,11 +28,13 @@ class EnergyUnit: public abstract::PhysicalUnit<EnergyUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        EnergyUnit<Child> &operator=(double value) {this->val=value; return *this;}
-        EnergyUnit<Child> &operator=(const EnergyUnit<Child> &other) { this->val = other.val; return *this;}
-        EnergyUnit<Child> &operator=(EnergyUnit<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> EnergyUnit<Child> &operator=(const EnergyUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> EnergyUnit<Child> &operator=(EnergyUnit<T> &&other) { this->val = other.val; return *this;}
+        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const EnergyUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(EnergyUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
+        template<typename T> 
+        Child &operator=(const EnergyUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        template<typename T> 
+        Child &operator=(EnergyUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
         
 };
 }

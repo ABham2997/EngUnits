@@ -28,11 +28,13 @@ class LengthUnit: public abstract::PhysicalUnit<LengthUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        LengthUnit<Child> &operator=(double value) {this->val=value; return *this;}
-        LengthUnit<Child> &operator=(const LengthUnit<Child> &other) { this->val = other.val; return *this;}
-        LengthUnit<Child> &operator=(LengthUnit<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> LengthUnit<Child> &operator=(const LengthUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> LengthUnit<Child> &operator=(LengthUnit<T> &&other) { this->val = other.val; return *this;}
+        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const LengthUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(LengthUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
+        template<typename T> 
+        Child &operator=(const LengthUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        template<typename T> 
+        Child &operator=(LengthUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
         
 };
 }

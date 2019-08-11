@@ -28,11 +28,13 @@ class DataStorageUnit: public abstract::PhysicalUnit<DataStorageUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        DataStorageUnit<Child> &operator=(double value) {this->val=value; return *this;}
-        DataStorageUnit<Child> &operator=(const DataStorageUnit<Child> &other) { this->val = other.val; return *this;}
-        DataStorageUnit<Child> &operator=(DataStorageUnit<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> DataStorageUnit<Child> &operator=(const DataStorageUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> DataStorageUnit<Child> &operator=(DataStorageUnit<T> &&other) { this->val = other.val; return *this;}
+        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const DataStorageUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(DataStorageUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
+        template<typename T> 
+        Child &operator=(const DataStorageUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        template<typename T> 
+        Child &operator=(DataStorageUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
         
 };
 }

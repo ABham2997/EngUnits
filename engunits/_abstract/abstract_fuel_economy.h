@@ -28,11 +28,13 @@ class FuelEconomyUnit: public abstract::PhysicalUnit<FuelEconomyUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        FuelEconomyUnit<Child> &operator=(double value) {this->val=value; return *this;}
-        FuelEconomyUnit<Child> &operator=(const FuelEconomyUnit<Child> &other) { this->val = other.val; return *this;}
-        FuelEconomyUnit<Child> &operator=(FuelEconomyUnit<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> FuelEconomyUnit<Child> &operator=(const FuelEconomyUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> FuelEconomyUnit<Child> &operator=(FuelEconomyUnit<T> &&other) { this->val = other.val; return *this;}
+        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const FuelEconomyUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(FuelEconomyUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
+        template<typename T> 
+        Child &operator=(const FuelEconomyUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        template<typename T> 
+        Child &operator=(FuelEconomyUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
         
 };
 }

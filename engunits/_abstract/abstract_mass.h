@@ -28,11 +28,13 @@ class MassUnit: public abstract::PhysicalUnit<MassUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        MassUnit<Child> &operator=(double value) {this->val=value; return *this;}
-        MassUnit<Child> &operator=(const MassUnit<Child> &other) { this->val = other.val; return *this;}
-        MassUnit<Child> &operator=(MassUnit<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> MassUnit<Child> &operator=(const MassUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> MassUnit<Child> &operator=(MassUnit<T> &&other) { this->val = other.val; return *this;}
+        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const MassUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(MassUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
+        template<typename T> 
+        Child &operator=(const MassUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        template<typename T> 
+        Child &operator=(MassUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
         
 };
 }

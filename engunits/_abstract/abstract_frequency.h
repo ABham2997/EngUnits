@@ -28,11 +28,13 @@ class FrequencyUnit: public abstract::PhysicalUnit<FrequencyUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        FrequencyUnit<Child> &operator=(double value) {this->val=value; return *this;}
-        FrequencyUnit<Child> &operator=(const FrequencyUnit<Child> &other) { this->val = other.val; return *this;}
-        FrequencyUnit<Child> &operator=(FrequencyUnit<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> FrequencyUnit<Child> &operator=(const FrequencyUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> FrequencyUnit<Child> &operator=(FrequencyUnit<T> &&other) { this->val = other.val; return *this;}
+        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const FrequencyUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(FrequencyUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
+        template<typename T> 
+        Child &operator=(const FrequencyUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        template<typename T> 
+        Child &operator=(FrequencyUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
         
 };
 }

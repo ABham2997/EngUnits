@@ -28,11 +28,13 @@ class PressureUnit: public abstract::PhysicalUnit<PressureUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        PressureUnit<Child> &operator=(double value) {this->val=value; return *this;}
-        PressureUnit<Child> &operator=(const PressureUnit<Child> &other) { this->val = other.val; return *this;}
-        PressureUnit<Child> &operator=(PressureUnit<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> PressureUnit<Child> &operator=(const PressureUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> PressureUnit<Child> &operator=(PressureUnit<T> &&other) { this->val = other.val; return *this;}
+        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const PressureUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(PressureUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
+        template<typename T> 
+        Child &operator=(const PressureUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        template<typename T> 
+        Child &operator=(PressureUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
         
 };
 }

@@ -28,11 +28,13 @@ class TimeUnit: public abstract::PhysicalUnit<TimeUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        TimeUnit<Child> &operator=(double value) {this->val=value; return *this;}
-        TimeUnit<Child> &operator=(const TimeUnit<Child> &other) { this->val = other.val; return *this;}
-        TimeUnit<Child> &operator=(TimeUnit<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> TimeUnit<Child> &operator=(const TimeUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> TimeUnit<Child> &operator=(TimeUnit<T> &&other) { this->val = other.val; return *this;}
+        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const TimeUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(TimeUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
+        template<typename T> 
+        Child &operator=(const TimeUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        template<typename T> 
+        Child &operator=(TimeUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
         
 };
 }

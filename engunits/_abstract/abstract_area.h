@@ -28,11 +28,13 @@ class AreaUnit: public abstract::PhysicalUnit<AreaUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        AreaUnit<Child> &operator=(double value) {this->val=value; return *this;}
-        AreaUnit<Child> &operator=(const AreaUnit<Child> &other) { this->val = other.val; return *this;}
-        AreaUnit<Child> &operator=(AreaUnit<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> AreaUnit<Child> &operator=(const AreaUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> AreaUnit<Child> &operator=(AreaUnit<T> &&other) { this->val = other.val; return *this;}
+        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const AreaUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(AreaUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
+        template<typename T> 
+        Child &operator=(const AreaUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        template<typename T> 
+        Child &operator=(AreaUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
         
 };
 }

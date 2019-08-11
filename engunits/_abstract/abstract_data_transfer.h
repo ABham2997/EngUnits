@@ -28,11 +28,13 @@ class DataTransferUnit: public abstract::PhysicalUnit<DataTransferUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        DataTransferUnit<Child> &operator=(double value) {this->val=value; return *this;}
-        DataTransferUnit<Child> &operator=(const DataTransferUnit<Child> &other) { this->val = other.val; return *this;}
-        DataTransferUnit<Child> &operator=(DataTransferUnit<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> DataTransferUnit<Child> &operator=(const DataTransferUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> DataTransferUnit<Child> &operator=(DataTransferUnit<T> &&other) { this->val = other.val; return *this;}
+        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const DataTransferUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(DataTransferUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
+        template<typename T> 
+        Child &operator=(const DataTransferUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        template<typename T> 
+        Child &operator=(DataTransferUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
         
 };
 }

@@ -28,11 +28,13 @@ class TemperatureUnit: public abstract::PhysicalUnit<TemperatureUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        TemperatureUnit<Child> &operator=(double value) {this->val=value; return *this;}
-        TemperatureUnit<Child> &operator=(const TemperatureUnit<Child> &other) { this->val = other.val; return *this;}
-        TemperatureUnit<Child> &operator=(TemperatureUnit<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> TemperatureUnit<Child> &operator=(const TemperatureUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> TemperatureUnit<Child> &operator=(TemperatureUnit<T> &&other) { this->val = other.val; return *this;}
+        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const TemperatureUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(TemperatureUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
+        template<typename T> 
+        Child &operator=(const TemperatureUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        template<typename T> 
+        Child &operator=(TemperatureUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
         
 };
 }

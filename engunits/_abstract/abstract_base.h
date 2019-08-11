@@ -70,7 +70,7 @@ class PhysicalUnit{
 
         virtual const std::string symbol() const = 0;
 
-        operator ValType() = delete;
+        operator ValType() = delete;//no implicit conversion to base class allowed
 
         constexpr ValType si_val() const { return this->val * Grandchild::conversion; }
         constexpr ValType scalar() const { return this->val; }
@@ -148,12 +148,12 @@ class PhysicalUnit{
         template<typename T> ProxyComp operator<(const Child<T> &other) {return ProxyComp(Grandchild{other}.val, (this->val)<Grandchild{other}.val);}
         template<typename T> ProxyComp operator>(const Child<T> &other) {return ProxyComp(Grandchild{other}.val, (this->val)>Grandchild{other}.val);}
 
-        ProxyComp &operator==(const ProxyComp &&other) {return *this==other.val;}
-        ProxyComp &operator!=(const ProxyComp &&other) {return *this!=other.val;}
-        ProxyComp &operator<=(const ProxyComp &&other) {return *this<=other.val;}
-        ProxyComp &operator>=(const ProxyComp &&other) {return *this>=other.val;}
-        ProxyComp &operator<(const ProxyComp &&other) {return *this<other.val;}
-        ProxyComp &operator>(const ProxyComp &&other) {return *this>other.val;}
+        ProxyComp &operator==(ProxyComp &&other) {return *this==other.val;}
+        ProxyComp &operator!=(ProxyComp &&other) {return *this!=other.val;}
+        ProxyComp &operator<=(ProxyComp &&other) {return *this<=other.val;}
+        ProxyComp &operator>=(ProxyComp &&other) {return *this>=other.val;}
+        ProxyComp &operator<(ProxyComp &&other) {return *this<other.val;}
+        ProxyComp &operator>(ProxyComp &&other) {return *this>other.val;}
 
         friend std::ostream &operator<<(std::ostream &os, const PhysicalUnit<Child, Grandchild> &self) {
             os << self.val << ' ' << self.symbol();

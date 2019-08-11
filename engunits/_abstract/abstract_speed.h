@@ -28,11 +28,13 @@ class SpeedUnit: public abstract::PhysicalUnit<SpeedUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        SpeedUnit<Child> &operator=(double value) {this->val=value; return *this;}
-        SpeedUnit<Child> &operator=(const SpeedUnit<Child> &other) { this->val = other.val; return *this;}
-        SpeedUnit<Child> &operator=(SpeedUnit<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> SpeedUnit<Child> &operator=(const SpeedUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> SpeedUnit<Child> &operator=(SpeedUnit<T> &&other) { this->val = other.val; return *this;}
+        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const SpeedUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(SpeedUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
+        template<typename T> 
+        Child &operator=(const SpeedUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        template<typename T> 
+        Child &operator=(SpeedUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
         
 };
 }

@@ -28,11 +28,13 @@ class VolumeUnit: public abstract::PhysicalUnit<VolumeUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        VolumeUnit<Child> &operator=(double value) {this->val=value; return *this;}
-        VolumeUnit<Child> &operator=(const VolumeUnit<Child> &other) { this->val = other.val; return *this;}
-        VolumeUnit<Child> &operator=(VolumeUnit<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> VolumeUnit<Child> &operator=(const VolumeUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> VolumeUnit<Child> &operator=(VolumeUnit<T> &&other) { this->val = other.val; return *this;}
+        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const VolumeUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(VolumeUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
+        template<typename T> 
+        Child &operator=(const VolumeUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        template<typename T> 
+        Child &operator=(VolumeUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
         
 };
 }

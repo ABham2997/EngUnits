@@ -28,11 +28,13 @@ class AngleUnit: public abstract::PhysicalUnit<AngleUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        AngleUnit<Child> &operator=(double value) {this->val=value; return *this;}
-        AngleUnit<Child> &operator=(const AngleUnit<Child> &other) { this->val = other.val; return *this;}
-        AngleUnit<Child> &operator=(AngleUnit<Child> &&other) { this->val = other.val; return *this;}     
-        template<typename T> AngleUnit<Child> &operator=(const AngleUnit<T> &other) { this->val = other.val; return *this;}
-        template<typename T> AngleUnit<Child> &operator=(AngleUnit<T> &&other) { this->val = other.val; return *this;}
+        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const AngleUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(AngleUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
+        template<typename T> 
+        Child &operator=(const AngleUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
+        template<typename T> 
+        Child &operator=(AngleUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
         
 };
 }
