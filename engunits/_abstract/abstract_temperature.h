@@ -8,13 +8,17 @@
 #include "../../engunits/_abstract/abstract_base.h"
 
 namespace engunits::temperature{
+class Kelvin; //forward declaration
+
 //Child of this class is GrandChild of base class(PhysicalUnit)
-template<typename Child> //TODO: constrain to children of this class
+template<typename Child=Kelvin> //TODO: constrain to children of this class
 class TemperatureUnit: public abstract::PhysicalUnit<TemperatureUnit, Child> {
     protected:
         using abstract::PhysicalUnit<TemperatureUnit, Child>::PhysicalUnit;
 
     public:
+        using SI_type = Kelvin;
+
         TemperatureUnit<Child>(const TemperatureUnit<Child> &other) : abstract::PhysicalUnit<TemperatureUnit, Child>{other.val} {};
         TemperatureUnit<Child>(TemperatureUnit<Child> &&other) : abstract::PhysicalUnit<TemperatureUnit, Child>{other.val} {};
         template <typename T>

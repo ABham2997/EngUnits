@@ -8,13 +8,17 @@
 #include "../../engunits/_abstract/abstract_base.h"
 
 namespace engunits::angle{
+class radians; //forward declaration
+
 //Child of this class is GrandChild of base class(PhysicalUnit)
-template<typename Child> //TODO: constrain to children of this class
+template<typename Child=radians> //TODO: constrain to children of this class
 class AngleUnit: public abstract::PhysicalUnit<AngleUnit, Child> {
     protected:
         using abstract::PhysicalUnit<AngleUnit, Child>::PhysicalUnit;
 
     public:
+        using SI_type = radians;
+
         AngleUnit<Child>(const AngleUnit<Child> &other) : abstract::PhysicalUnit<AngleUnit, Child>{other.val} {};
         AngleUnit<Child>(AngleUnit<Child> &&other) : abstract::PhysicalUnit<AngleUnit, Child>{other.val} {};
         template <typename T>

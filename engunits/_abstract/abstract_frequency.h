@@ -8,13 +8,17 @@
 #include "../../engunits/_abstract/abstract_base.h"
 
 namespace engunits::frequency{
+class Herts; //forward declaration
+
 //Child of this class is GrandChild of base class(PhysicalUnit)
-template<typename Child> //TODO: constrain to children of this class
+template<typename Child=Herts> //TODO: constrain to children of this class
 class FrequencyUnit: public abstract::PhysicalUnit<FrequencyUnit, Child> {
     protected:
         using abstract::PhysicalUnit<FrequencyUnit, Child>::PhysicalUnit;
 
     public:
+        using SI_type = Herts;
+
         FrequencyUnit<Child>(const FrequencyUnit<Child> &other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
         FrequencyUnit<Child>(FrequencyUnit<Child> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
         template <typename T>

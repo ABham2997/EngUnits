@@ -8,13 +8,17 @@
 #include "../../engunits/_abstract/abstract_base.h"
 
 namespace engunits::volume{
+class cubicMeters; //forward declaration
+
 //Child of this class is GrandChild of base class(PhysicalUnit)
-template<typename Child> //TODO: constrain to children of this class
+template<typename Child=cubicMeters> //TODO: constrain to children of this class
 class VolumeUnit: public abstract::PhysicalUnit<VolumeUnit, Child> {
     protected:
         using abstract::PhysicalUnit<VolumeUnit, Child>::PhysicalUnit;
 
     public:
+        using SI_type = cubicMeters;
+
         VolumeUnit<Child>(const VolumeUnit<Child> &other) : abstract::PhysicalUnit<VolumeUnit, Child>{other.val} {};
         VolumeUnit<Child>(VolumeUnit<Child> &&other) : abstract::PhysicalUnit<VolumeUnit, Child>{other.val} {};
         template <typename T>

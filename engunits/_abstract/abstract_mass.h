@@ -8,13 +8,17 @@
 #include "../../engunits/_abstract/abstract_base.h"
 
 namespace engunits::mass{
+class kilograms; //forward declaration
+
 //Child of this class is GrandChild of base class(PhysicalUnit)
-template<typename Child> //TODO: constrain to children of this class
+template<typename Child=kilograms> //TODO: constrain to children of this class
 class MassUnit: public abstract::PhysicalUnit<MassUnit, Child> {
     protected:
         using abstract::PhysicalUnit<MassUnit, Child>::PhysicalUnit;
 
     public:
+        using SI_type = kilograms;
+
         MassUnit<Child>(const MassUnit<Child> &other) : abstract::PhysicalUnit<MassUnit, Child>{other.val} {};
         MassUnit<Child>(MassUnit<Child> &&other) : abstract::PhysicalUnit<MassUnit, Child>{other.val} {};
         template <typename T>

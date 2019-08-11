@@ -8,13 +8,17 @@
 #include "../../engunits/_abstract/abstract_base.h"
 
 namespace engunits::speed{
+class metersPerSecond; //forward declaration
+
 //Child of this class is GrandChild of base class(PhysicalUnit)
-template<typename Child> //TODO: constrain to children of this class
+template<typename Child=metersPerSecond> //TODO: constrain to children of this class
 class SpeedUnit: public abstract::PhysicalUnit<SpeedUnit, Child> {
     protected:
         using abstract::PhysicalUnit<SpeedUnit, Child>::PhysicalUnit;
 
     public:
+        using SI_type = metersPerSecond;
+
         SpeedUnit<Child>(const SpeedUnit<Child> &other) : abstract::PhysicalUnit<SpeedUnit, Child>{other.val} {};
         SpeedUnit<Child>(SpeedUnit<Child> &&other) : abstract::PhysicalUnit<SpeedUnit, Child>{other.val} {};
         template <typename T>

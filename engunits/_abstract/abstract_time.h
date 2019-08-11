@@ -8,13 +8,17 @@
 #include "../../engunits/_abstract/abstract_base.h"
 
 namespace engunits::time{
+class seconds; //forward declaration
+
 //Child of this class is GrandChild of base class(PhysicalUnit)
-template<typename Child> //TODO: constrain to children of this class
+template<typename Child=seconds> //TODO: constrain to children of this class
 class TimeUnit: public abstract::PhysicalUnit<TimeUnit, Child> {
     protected:
         using abstract::PhysicalUnit<TimeUnit, Child>::PhysicalUnit;
 
     public:
+        using SI_type = seconds;
+
         TimeUnit<Child>(const TimeUnit<Child> &other) : abstract::PhysicalUnit<TimeUnit, Child>{other.val} {};
         TimeUnit<Child>(TimeUnit<Child> &&other) : abstract::PhysicalUnit<TimeUnit, Child>{other.val} {};
         template <typename T>

@@ -8,13 +8,17 @@
 #include "../../engunits/_abstract/abstract_base.h"
 
 namespace engunits::data_storage{
+class byte; //forward declaration
+
 //Child of this class is GrandChild of base class(PhysicalUnit)
-template<typename Child> //TODO: constrain to children of this class
+template<typename Child=byte> //TODO: constrain to children of this class
 class DataStorageUnit: public abstract::PhysicalUnit<DataStorageUnit, Child> {
     protected:
         using abstract::PhysicalUnit<DataStorageUnit, Child>::PhysicalUnit;
 
     public:
+        using SI_type = byte;
+
         DataStorageUnit<Child>(const DataStorageUnit<Child> &other) : abstract::PhysicalUnit<DataStorageUnit, Child>{other.val} {};
         DataStorageUnit<Child>(DataStorageUnit<Child> &&other) : abstract::PhysicalUnit<DataStorageUnit, Child>{other.val} {};
         template <typename T>

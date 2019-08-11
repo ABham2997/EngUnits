@@ -8,13 +8,17 @@
 #include "../../engunits/_abstract/abstract_base.h"
 
 namespace engunits::pressure{
+class Pascals; //forward declaration
+
 //Child of this class is GrandChild of base class(PhysicalUnit)
-template<typename Child> //TODO: constrain to children of this class
+template<typename Child=Pascals> //TODO: constrain to children of this class
 class PressureUnit: public abstract::PhysicalUnit<PressureUnit, Child> {
     protected:
         using abstract::PhysicalUnit<PressureUnit, Child>::PhysicalUnit;
 
     public:
+        using SI_type = Pascals;
+
         PressureUnit<Child>(const PressureUnit<Child> &other) : abstract::PhysicalUnit<PressureUnit, Child>{other.val} {};
         PressureUnit<Child>(PressureUnit<Child> &&other) : abstract::PhysicalUnit<PressureUnit, Child>{other.val} {};
         template <typename T>

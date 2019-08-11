@@ -8,13 +8,17 @@
 #include "../../engunits/_abstract/abstract_base.h"
 
 namespace engunits::fuel_economy{
+class milePerGallon; //forward declaration
+
 //Child of this class is GrandChild of base class(PhysicalUnit)
-template<typename Child> //TODO: constrain to children of this class
+template<typename Child=milePerGallon> //TODO: constrain to children of this class
 class FuelEconomyUnit: public abstract::PhysicalUnit<FuelEconomyUnit, Child> {
     protected:
         using abstract::PhysicalUnit<FuelEconomyUnit, Child>::PhysicalUnit;
 
     public:
+        using SI_type = milePerGallon;
+
         FuelEconomyUnit<Child>(const FuelEconomyUnit<Child> &other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{other.val} {};
         FuelEconomyUnit<Child>(FuelEconomyUnit<Child> &&other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{other.val} {};
         template <typename T>

@@ -8,13 +8,17 @@
 #include "../../engunits/_abstract/abstract_base.h"
 
 namespace engunits::energy{
+class Joules; //forward declaration
+
 //Child of this class is GrandChild of base class(PhysicalUnit)
-template<typename Child> //TODO: constrain to children of this class
+template<typename Child=Joules> //TODO: constrain to children of this class
 class EnergyUnit: public abstract::PhysicalUnit<EnergyUnit, Child> {
     protected:
         using abstract::PhysicalUnit<EnergyUnit, Child>::PhysicalUnit;
 
     public:
+        using SI_type = Joules;
+
         EnergyUnit<Child>(const EnergyUnit<Child> &other) : abstract::PhysicalUnit<EnergyUnit, Child>{other.val} {};
         EnergyUnit<Child>(EnergyUnit<Child> &&other) : abstract::PhysicalUnit<EnergyUnit, Child>{other.val} {};
         template <typename T>

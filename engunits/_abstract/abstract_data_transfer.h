@@ -8,13 +8,17 @@
 #include "../../engunits/_abstract/abstract_base.h"
 
 namespace engunits::data_transfer{
+class megabytePerSecond; //forward declaration
+
 //Child of this class is GrandChild of base class(PhysicalUnit)
-template<typename Child> //TODO: constrain to children of this class
+template<typename Child=megabytePerSecond> //TODO: constrain to children of this class
 class DataTransferUnit: public abstract::PhysicalUnit<DataTransferUnit, Child> {
     protected:
         using abstract::PhysicalUnit<DataTransferUnit, Child>::PhysicalUnit;
 
     public:
+        using SI_type = megabytePerSecond;
+
         DataTransferUnit<Child>(const DataTransferUnit<Child> &other) : abstract::PhysicalUnit<DataTransferUnit, Child>{other.val} {};
         DataTransferUnit<Child>(DataTransferUnit<Child> &&other) : abstract::PhysicalUnit<DataTransferUnit, Child>{other.val} {};
         template <typename T>

@@ -8,13 +8,17 @@
 #include "../../engunits/_abstract/abstract_base.h"
 
 namespace engunits::area{
+class sqMeters; //forward declaration
+
 //Child of this class is GrandChild of base class(PhysicalUnit)
-template<typename Child> //TODO: constrain to children of this class
+template<typename Child=sqMeters> //TODO: constrain to children of this class
 class AreaUnit: public abstract::PhysicalUnit<AreaUnit, Child> {
     protected:
         using abstract::PhysicalUnit<AreaUnit, Child>::PhysicalUnit;
 
     public:
+        using SI_type = sqMeters;
+
         AreaUnit<Child>(const AreaUnit<Child> &other) : abstract::PhysicalUnit<AreaUnit, Child>{other.val} {};
         AreaUnit<Child>(AreaUnit<Child> &&other) : abstract::PhysicalUnit<AreaUnit, Child>{other.val} {};
         template <typename T>
