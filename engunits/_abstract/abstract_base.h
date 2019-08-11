@@ -109,8 +109,8 @@ class PhysicalUnit{
         ValType operator/(const PhysicalUnit<C,G> &other){return val/other.val;}
         template<typename T> Grandchild operator+(const Child<T> &other){return val+Grandchild(other).val;}
         template<typename T> Grandchild operator-(const Child<T> &other){return val-Grandchild(other).val;}
-        //Grandchild operator+(const Grandchild &other){ return val+other.val; }
-        //Grandchild operator-(const Grandchild &other){ return val-other.val; }
+        Grandchild operator+(const Grandchild &other){ return val+other.val; }
+        Grandchild operator-(const Grandchild &other){ return val-other.val; }
 
         Grandchild &operator*=(const Grandchild &other) {this->val*=other.val;return *static_cast<Grandchild*>(this);}
         Grandchild &operator+=(const Grandchild &other) {this->val+=other.val;return *static_cast<Grandchild*>(this);}
