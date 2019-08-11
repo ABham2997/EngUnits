@@ -104,6 +104,13 @@ int main() {
     almost_equal(cpas6.si_val(),376.1232);
     almost_equal(cpas7.scalar(),0.9999999);
     cout << "success" << endl;
+    cout << "Assignment Chaining: ";
+    meters asch1{123.456};
+    meters asch2;
+    meters asch3;
+    asch3 = asch2 = asch1;
+    assert(asch1.scalar()==asch2.scalar() && asch2.scalar()==asch3.scalar() && asch1.scalar()==asch3.scalar());
+    cout << "success" << '\n';
     cout << endl;
 
     cout << endl;
