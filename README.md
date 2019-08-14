@@ -47,7 +47,7 @@ std::cout << f << '\n'; //prints "1 ft"
 ```c++
 using namespace engunits;
 
-auto s = make_unit<mass:stones>(10); //type-checked factory function
+auto s = make_unit<mass::stones>(10); //type-checked factory function
 
 pressure::pascal p{10000};
 
