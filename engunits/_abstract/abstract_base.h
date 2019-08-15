@@ -70,8 +70,6 @@ class PhysicalUnit{
 
         virtual const std::string symbol() const = 0;
 
-        operator ValType() = delete;//no implicit conversion to base class allowed
-
         constexpr ValType si_val() const { return this->val * Grandchild::conversion; }
         constexpr ValType scalar() const { return this->val; }
 
@@ -92,7 +90,7 @@ class PhysicalUnit{
         Grandchild operator--() { --val; return Grandchild{val+1};}
         Grandchild operator-() { return this->val * (-1); }
         Grandchild operator+() { return *this; }
-        operator bool() const { return val; }
+        explicit operator bool() const { return val; }
         ValType operator^(const ValType value) const { return std::pow(this->val,value); }
 
         Grandchild operator*(ValType value){return val*value;}
