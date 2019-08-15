@@ -19,10 +19,10 @@ class SpeedUnit: public abstract::PhysicalUnit<SpeedUnit, Child> {
     public:
         using SI_type = metersPerSecond;
 
-        SpeedUnit<Child>(const SpeedUnit<Child> &other) : abstract::PhysicalUnit<SpeedUnit, Child>{other.val} {};
+        constexpr SpeedUnit<Child>(const SpeedUnit<Child> &other) : abstract::PhysicalUnit<SpeedUnit, Child>{other.val} {};
         SpeedUnit<Child>(SpeedUnit<Child> &&other) : abstract::PhysicalUnit<SpeedUnit, Child>{other.val} {};
         template <typename T>
-        SpeedUnit<Child>(const SpeedUnit<T> &other) : abstract::PhysicalUnit<SpeedUnit, Child>{(convert<Child>(other))} {};
+        constexpr SpeedUnit<Child>(const SpeedUnit<T> &other) : abstract::PhysicalUnit<SpeedUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
         SpeedUnit<Child>(SpeedUnit<T> &&other) : abstract::PhysicalUnit<SpeedUnit, Child>{(convert<Child>(other))} {};
 

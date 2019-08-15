@@ -19,10 +19,10 @@ class DataStorageUnit: public abstract::PhysicalUnit<DataStorageUnit, Child> {
     public:
         using SI_type = byte;
 
-        DataStorageUnit<Child>(const DataStorageUnit<Child> &other) : abstract::PhysicalUnit<DataStorageUnit, Child>{other.val} {};
+        constexpr DataStorageUnit<Child>(const DataStorageUnit<Child> &other) : abstract::PhysicalUnit<DataStorageUnit, Child>{other.val} {};
         DataStorageUnit<Child>(DataStorageUnit<Child> &&other) : abstract::PhysicalUnit<DataStorageUnit, Child>{other.val} {};
         template <typename T>
-        DataStorageUnit<Child>(const DataStorageUnit<T> &other) : abstract::PhysicalUnit<DataStorageUnit, Child>{(convert<Child>(other))} {};
+        constexpr DataStorageUnit<Child>(const DataStorageUnit<T> &other) : abstract::PhysicalUnit<DataStorageUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
         DataStorageUnit<Child>(DataStorageUnit<T> &&other) : abstract::PhysicalUnit<DataStorageUnit, Child>{(convert<Child>(other))} {};
 

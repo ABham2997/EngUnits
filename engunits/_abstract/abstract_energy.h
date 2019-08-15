@@ -19,10 +19,10 @@ class EnergyUnit: public abstract::PhysicalUnit<EnergyUnit, Child> {
     public:
         using SI_type = Joules;
 
-        EnergyUnit<Child>(const EnergyUnit<Child> &other) : abstract::PhysicalUnit<EnergyUnit, Child>{other.val} {};
+        constexpr EnergyUnit<Child>(const EnergyUnit<Child> &other) : abstract::PhysicalUnit<EnergyUnit, Child>{other.val} {};
         EnergyUnit<Child>(EnergyUnit<Child> &&other) : abstract::PhysicalUnit<EnergyUnit, Child>{other.val} {};
         template <typename T>
-        EnergyUnit<Child>(const EnergyUnit<T> &other) : abstract::PhysicalUnit<EnergyUnit, Child>{(convert<Child>(other))} {};
+        constexpr EnergyUnit<Child>(const EnergyUnit<T> &other) : abstract::PhysicalUnit<EnergyUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
         EnergyUnit<Child>(EnergyUnit<T> &&other) : abstract::PhysicalUnit<EnergyUnit, Child>{(convert<Child>(other))} {};
 

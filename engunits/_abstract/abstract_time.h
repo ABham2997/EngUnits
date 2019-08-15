@@ -19,10 +19,10 @@ class TimeUnit: public abstract::PhysicalUnit<TimeUnit, Child> {
     public:
         using SI_type = seconds;
 
-        TimeUnit<Child>(const TimeUnit<Child> &other) : abstract::PhysicalUnit<TimeUnit, Child>{other.val} {};
+        constexpr TimeUnit<Child>(const TimeUnit<Child> &other) : abstract::PhysicalUnit<TimeUnit, Child>{other.val} {};
         TimeUnit<Child>(TimeUnit<Child> &&other) : abstract::PhysicalUnit<TimeUnit, Child>{other.val} {};
         template <typename T>
-        TimeUnit<Child>(const TimeUnit<T> &other) : abstract::PhysicalUnit<TimeUnit, Child>{(convert<Child>(other))} {};
+        constexpr TimeUnit<Child>(const TimeUnit<T> &other) : abstract::PhysicalUnit<TimeUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
         TimeUnit<Child>(TimeUnit<T> &&other) : abstract::PhysicalUnit<TimeUnit, Child>{(convert<Child>(other))} {};
 

@@ -19,10 +19,10 @@ class FrequencyUnit: public abstract::PhysicalUnit<FrequencyUnit, Child> {
     public:
         using SI_type = Herts;
 
-        FrequencyUnit<Child>(const FrequencyUnit<Child> &other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
+        constexpr FrequencyUnit<Child>(const FrequencyUnit<Child> &other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
         FrequencyUnit<Child>(FrequencyUnit<Child> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
         template <typename T>
-        FrequencyUnit<Child>(const FrequencyUnit<T> &other) : abstract::PhysicalUnit<FrequencyUnit, Child>{(convert<Child>(other))} {};
+        constexpr FrequencyUnit<Child>(const FrequencyUnit<T> &other) : abstract::PhysicalUnit<FrequencyUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
         FrequencyUnit<Child>(FrequencyUnit<T> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{(convert<Child>(other))} {};
 

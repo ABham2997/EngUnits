@@ -19,10 +19,10 @@ class AreaUnit: public abstract::PhysicalUnit<AreaUnit, Child> {
     public:
         using SI_type = sqMeters;
 
-        AreaUnit<Child>(const AreaUnit<Child> &other) : abstract::PhysicalUnit<AreaUnit, Child>{other.val} {};
+        constexpr AreaUnit<Child>(const AreaUnit<Child> &other) : abstract::PhysicalUnit<AreaUnit, Child>{other.val} {};
         AreaUnit<Child>(AreaUnit<Child> &&other) : abstract::PhysicalUnit<AreaUnit, Child>{other.val} {};
         template <typename T>
-        AreaUnit<Child>(const AreaUnit<T> &other) : abstract::PhysicalUnit<AreaUnit, Child>{(convert<Child>(other))} {};
+        constexpr AreaUnit<Child>(const AreaUnit<T> &other) : abstract::PhysicalUnit<AreaUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
         AreaUnit<Child>(AreaUnit<T> &&other) : abstract::PhysicalUnit<AreaUnit, Child>{(convert<Child>(other))} {};
 

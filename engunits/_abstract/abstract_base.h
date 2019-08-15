@@ -23,41 +23,34 @@ class PhysicalUnit{
 
                 constexpr ProxyComp(const ValType &value, bool bb) : val{value}, b{bb} {};
         
-                constexpr explicit operator bool() { return this->b; }
+                constexpr explicit operator bool() const { return this->b; }
 
-                constexpr ProxyComp &operator==(const ValType &value) {b=(this->val==value && b) ; this->val=value; return *this; }
-                constexpr ProxyComp &operator!=(const ValType &value) {b=(this->val!=value && b) ; this->val=value; return *this;}
-                constexpr ProxyComp &operator<=(const ValType &value) {b=(this->val<=value && b) ; this->val=value; return *this;}
-                constexpr ProxyComp &operator>=(const ValType &value) {b=(this->val>=value && b) ; this->val=value; return *this;}
-                constexpr ProxyComp &operator<(const ValType &value) {b=(this->val<value && b) ; this->val=value; return *this;}
-                constexpr ProxyComp &operator>(const ValType &value) {b=(this->val>value && b) ; this->val=value; return *this;}
+                constexpr ProxyComp operator==(const ValType &value) const {return ProxyComp(value, val==value&&b);}
+                constexpr ProxyComp operator!=(const ValType &value) const {return ProxyComp(value, val!=value&&b);}
+                constexpr ProxyComp operator<=(const ValType &value) const {return ProxyComp(value, val<=value&&b);}
+                constexpr ProxyComp operator>=(const ValType &value) const {return ProxyComp(value, val>=value&&b);}
+                constexpr ProxyComp operator<(const ValType &value) const {return ProxyComp(value, val<value&&b);}
+                constexpr ProxyComp operator>(const ValType &value) const {return ProxyComp(value, val>value&&b);}
 
-                constexpr ProxyComp &operator==(const Grandchild &other) { *this == other.val; return *this;}
-                constexpr ProxyComp &operator!=(const Grandchild &other) { *this != other.val; return *this;}
-                constexpr ProxyComp &operator<=(const Grandchild &other) { *this <= other.val; return *this;}
-                constexpr ProxyComp &operator>=(const Grandchild &other) { *this >= other.val; return *this;}
-                constexpr ProxyComp &operator<(const Grandchild &other) { *this < other.val; return *this;}
-                constexpr ProxyComp &operator>(const Grandchild &other) { *this > other.val; return *this;}
-
-                template<typename T> constexpr ProxyComp &operator==(const Child<T> &other) { *this == Grandchild{other}; return *this;}
-                template<typename T> constexpr ProxyComp &operator!=(const Child<T> &other) { *this != Grandchild{other}; return *this;}
-                template<typename T> constexpr ProxyComp &operator<=(const Child<T> &other) { *this <= Grandchild{other}; return *this;}
-                template<typename T> constexpr ProxyComp &operator>=(const Child<T> &other) { *this >= Grandchild{other}; return *this;}
-                template<typename T> constexpr ProxyComp &operator<(const Child<T> &other) { *this < Grandchild{other}; return *this;}
-                template<typename T> constexpr ProxyComp &operator>(const Child<T> &other) { *this > Grandchild{other}; return *this;}
+                constexpr ProxyComp operator==(const Grandchild &other) const {return ProxyComp(other.val, val==other.val&&b);}
+                constexpr ProxyComp operator!=(const Grandchild &other) const {return ProxyComp(other.val, val!=other.val&&b);}
+                constexpr ProxyComp operator<=(const Grandchild &other) const {return ProxyComp(other.val, val<=other.val&&b);}
+                constexpr ProxyComp operator>=(const Grandchild &other) const {return ProxyComp(other.val, val>=other.val&&b);}
+                constexpr ProxyComp operator<(const Grandchild &other) const {return ProxyComp(other.val, val<other.val&&b);}
+                constexpr ProxyComp operator>(const Grandchild &other) const {return ProxyComp(other.val, val>other.val&&b);}
                 
-                constexpr friend ProxyComp &operator==(const ValType value, ProxyComp &&self){ 
-                    self.b=(value==self.val && self.b); self.val=value; return self;}
-                constexpr friend ProxyComp &operator!=(const ValType value, ProxyComp &&self){ 
-                    self.b=(value!=self.val && self.b); self.val=value; return self;}
-                constexpr friend ProxyComp &operator<=(const ValType value, ProxyComp &&self){ 
-                    self.b=(value<=self.val && self.b); self.val=value; return self;}
-                constexpr friend ProxyComp &operator>=(const ValType value, ProxyComp &&self){ 
-                    self.b=(value>=self.val && self.b); self.val=value; return self;}
-                constexpr friend ProxyComp &operator<(const ValType value, ProxyComp &&self){ 
-                    self.b=(value<self.val && self.b); self.val=value; return self;}
-                constexpr friend ProxyComp &operator>(const ValType value, ProxyComp &&self){ 
-                    self.b=(value>self.val && self.b); self.val=value; return self;}
+                constexpr friend ProxyComp &operator==(const ValType &value, const ProxyComp &self){ 
+                    return ProxyComp(self.val, value==self.val&&self.b);}
+                constexpr friend ProxyComp &operator!=(const ValType &value, const ProxyComp &self){ 
+                    return ProxyComp(self.val, value!=self.val&&self.b);}
+                constexpr friend ProxyComp &operator<=(const ValType &value, const ProxyComp &self){ 
+                    return ProxyComp(self.val, value<=self.val&&self.b);}
+                constexpr friend ProxyComp &operator>=(const ValType &value, const ProxyComp &self){ 
+                    return ProxyComp(self.val, value>=self.val&&self.b);}
+                constexpr friend ProxyComp &operator<(const ValType &value, const ProxyComp &self){ 
+                    return ProxyComp(self.val, value<self.val&&self.b);}
+                constexpr friend ProxyComp &operator>(const ValType &value, const ProxyComp &self){ 
+                    return ProxyComp(self.val, value>self.val&&self.b);}
         };
 
     protected:
@@ -74,9 +67,9 @@ class PhysicalUnit{
 
         template <typename Other, 
             typename=std::enable_if_t<std::is_constructible<Other,ValType>::value&&!std::is_rvalue_reference<Other>::value>>
-        Other cast_to() { return val; }
+        Other cast_to() const { return val; }
 
-        std::string to_string(bool scientific=false) {
+        std::string to_string(bool scientific=false) const {
             std::stringstream ss;
             if (scientific) ss << std::scientific;
             ss << (*this);
@@ -84,30 +77,30 @@ class PhysicalUnit{
         }
 
         Grandchild &operator++(int) {val++; return *static_cast<Grandchild*>(this);}
-        constexpr Grandchild operator++() { ++val; return Grandchild{val-1};}
+        Grandchild operator++() { ++val; return Grandchild{val-1};}
         Grandchild &operator--(int) {val--; return *static_cast<Grandchild*>(this);}
-        constexpr Grandchild operator--() { --val; return Grandchild{val+1};}
-        constexpr Grandchild operator-() { return this->val * (-1); }
-        constexpr Grandchild operator+() { return *this; }
+        Grandchild operator--() { --val; return Grandchild{val+1};}
+        constexpr Grandchild operator-() const { return this->val * (-1); }
+        constexpr Grandchild operator+() const { return *this; }
         constexpr explicit operator bool() const { return val; }
         ValType operator^(const ValType &value) const { return std::pow(this->val,value); }
 
-        constexpr Grandchild operator*(ValType value){return val*value;}
-        constexpr Grandchild operator+(ValType value){return val+value;}
-        constexpr Grandchild operator-(ValType value){return val-value;}
-        constexpr Grandchild operator/(ValType value){return val/value;}
+        constexpr Grandchild operator*(const ValType &value) const {return val*value;}
+        constexpr Grandchild operator+(const ValType &value) const {return val+value;}
+        constexpr Grandchild operator-(const ValType &value) const {return val-value;}
+        constexpr Grandchild operator/(const ValType &value) const {return val/value;}
         // ValType operator*(const Grandchild &other){ return this->val * other.val; }
         // ValType operator/(const Grandchild &other){ return this->val / other.val; }
         // template<typename T> ValType operator*(const Child<T> other){return *this*Grandchild(other);}
         // template<typename T> ValType operator/(const Child<T> other){return *this/Grandchild(other);}
-        template<template<typename> typename C, typename G> 
-        ValType operator*(const PhysicalUnit<C,G> &other){return val*other.val;}
-        template<template<typename> typename C, typename G> 
-        ValType operator/(const PhysicalUnit<C,G> &other){return val/other.val;}
-        template<typename T> Grandchild operator+(const Child<T> &other){return val+Grandchild(other).val;}
-        template<typename T> Grandchild operator-(const Child<T> &other){return val-Grandchild(other).val;}
-        constexpr Grandchild operator+(const Grandchild &other){ return val+other.val; }
-        constexpr Grandchild operator-(const Grandchild &other){ return val-other.val; }
+        // template<template<typename> typename C, typename G> 
+        // ValType operator*(const PhysicalUnit<C,G> &other) const {return val*other.val;}
+        // template<template<typename> typename C, typename G> 
+        // ValType operator/(const PhysicalUnit<C,G> &other) const {return val/other.val;}
+        template<typename T> Grandchild operator+(const Child<T> &other) const {return val+Grandchild(other).val;}
+        template<typename T> Grandchild operator-(const Child<T> &other) const {return val-Grandchild(other).val;}
+        constexpr Grandchild operator+(const Grandchild &other) const { return val+other.val; }
+        constexpr Grandchild operator-(const Grandchild &other) const { return val-other.val; }
 
         Grandchild &operator*=(const Grandchild &other) {this->val*=other.val;return *static_cast<Grandchild*>(this);}
         Grandchild &operator+=(const Grandchild &other) {this->val+=other.val;return *static_cast<Grandchild*>(this);}
@@ -131,26 +124,26 @@ class PhysicalUnit{
         constexpr friend ProxyComp operator<(const ValType value, const Grandchild &self) {return ProxyComp(self.val, value<self.val);}
         constexpr friend ProxyComp operator>(const ValType value, const Grandchild &self) {return ProxyComp(self.val, value>self.val);}
 
-        constexpr ProxyComp operator==(const ValType &value) {return ProxyComp(value, (this->val)==value);}
-        constexpr ProxyComp operator!=(const ValType &value) {return ProxyComp(value, (this->val)!=value);}
-        constexpr ProxyComp operator<=(const ValType &value) {return ProxyComp(value, (this->val)<=value);}
-        constexpr ProxyComp operator>=(const ValType &value) {return ProxyComp(value, (this->val)>=value);}
-        constexpr ProxyComp operator<(const ValType &value) {return ProxyComp(value, (this->val)<value);}
-        constexpr ProxyComp operator>(const ValType &value) {return ProxyComp(value, (this->val)>value);}
+        constexpr ProxyComp operator==(const ValType &value) const {return ProxyComp(value, (this->val)==value);}
+        constexpr ProxyComp operator!=(const ValType &value) const {return ProxyComp(value, (this->val)!=value);}
+        constexpr ProxyComp operator<=(const ValType &value) const {return ProxyComp(value, (this->val)<=value);}
+        constexpr ProxyComp operator>=(const ValType &value) const {return ProxyComp(value, (this->val)>=value);}
+        constexpr ProxyComp operator<(const ValType &value) const {return ProxyComp(value, (this->val)<value);}
+        constexpr ProxyComp operator>(const ValType &value) const {return ProxyComp(value, (this->val)>value);}
 
-        template<typename T> constexpr ProxyComp operator==(const Child<T> &other) {return ProxyComp(Grandchild{other}.val, (this->val)==Grandchild{other}.val);}
-        template<typename T> constexpr ProxyComp operator!=(const Child<T> &other) {return ProxyComp(Grandchild{other}.val, (this->val)!=Grandchild{other}.val);}
-        template<typename T> constexpr ProxyComp operator<=(const Child<T> &other) {return ProxyComp(Grandchild{other}.val, (this->val)<=Grandchild{other}.val);}
-        template<typename T> constexpr ProxyComp operator>=(const Child<T> &other) {return ProxyComp(Grandchild{other}.val, (this->val)>=Grandchild{other}.val);}
-        template<typename T> constexpr ProxyComp operator<(const Child<T> &other) {return ProxyComp(Grandchild{other}.val, (this->val)<Grandchild{other}.val);}
-        template<typename T> constexpr ProxyComp operator>(const Child<T> &other) {return ProxyComp(Grandchild{other}.val, (this->val)>Grandchild{other}.val);}
+        constexpr ProxyComp operator==(const Grandchild &other) const {return ProxyComp(other.val, (this->val)==other.val);}
+        constexpr ProxyComp operator!=(const Grandchild &other) const {return ProxyComp(other.val, (this->val)!=other.val);}
+        constexpr ProxyComp operator<=(const Grandchild &other) const {return ProxyComp(other.val, (this->val)<=other.val);}
+        constexpr ProxyComp operator>=(const Grandchild &other) const {return ProxyComp(other.val, (this->val)>=other.val);}
+        constexpr ProxyComp operator<(const Grandchild &other) const {return ProxyComp(other.val, (this->val)<other.val);}
+        constexpr ProxyComp operator>(const Grandchild &other) const {return ProxyComp(other.val, (this->val)>other.val);}
 
-        constexpr ProxyComp &operator==(ProxyComp &&other) {return *this==other.val;}
-        constexpr ProxyComp &operator!=(ProxyComp &&other) {return *this!=other.val;}
-        constexpr ProxyComp &operator<=(ProxyComp &&other) {return *this<=other.val;}
-        constexpr ProxyComp &operator>=(ProxyComp &&other) {return *this>=other.val;}
-        constexpr ProxyComp &operator<(ProxyComp &&other) {return *this<other.val;}
-        constexpr ProxyComp &operator>(ProxyComp &&other) {return *this>other.val;}
+        constexpr ProxyComp operator==(const ProxyComp &other) const {return ProxyComp(other.val, val==other.val&&other.b);}
+        constexpr ProxyComp operator!=(const ProxyComp &other) const {return ProxyComp(other.val, val!=other.val&&other.b);}
+        constexpr ProxyComp operator<=(const ProxyComp &other) const {return ProxyComp(other.val, val<=other.val&&other.b);}
+        constexpr ProxyComp operator>=(const ProxyComp &other) const {return ProxyComp(other.val, val>=other.val&&other.b);}
+        constexpr ProxyComp operator<(const ProxyComp &other) const {return ProxyComp(other.val, val<other.val&&other.b);}
+        constexpr ProxyComp operator>(const ProxyComp &other) const {return ProxyComp(other.val, val>other.val&&other.b);}
 
         friend std::ostream &operator<<(std::ostream &os, const PhysicalUnit<Child, Grandchild> &self) {
             os << self.val << ' ' << self.symbol();

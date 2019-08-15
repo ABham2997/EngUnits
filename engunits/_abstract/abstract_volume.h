@@ -19,10 +19,10 @@ class VolumeUnit: public abstract::PhysicalUnit<VolumeUnit, Child> {
     public:
         using SI_type = cubicMeters;
 
-        VolumeUnit<Child>(const VolumeUnit<Child> &other) : abstract::PhysicalUnit<VolumeUnit, Child>{other.val} {};
+        constexpr VolumeUnit<Child>(const VolumeUnit<Child> &other) : abstract::PhysicalUnit<VolumeUnit, Child>{other.val} {};
         VolumeUnit<Child>(VolumeUnit<Child> &&other) : abstract::PhysicalUnit<VolumeUnit, Child>{other.val} {};
         template <typename T>
-        VolumeUnit<Child>(const VolumeUnit<T> &other) : abstract::PhysicalUnit<VolumeUnit, Child>{(convert<Child>(other))} {};
+        constexpr VolumeUnit<Child>(const VolumeUnit<T> &other) : abstract::PhysicalUnit<VolumeUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
         VolumeUnit<Child>(VolumeUnit<T> &&other) : abstract::PhysicalUnit<VolumeUnit, Child>{(convert<Child>(other))} {};
 
