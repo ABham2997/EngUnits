@@ -20,11 +20,11 @@ class LengthUnit: public abstract::PhysicalUnit<LengthUnit, Child> {
         using SI_type = meters;
 
         constexpr LengthUnit<Child>(const LengthUnit<Child> &other) : abstract::PhysicalUnit<LengthUnit, Child>{other.val} {};
-        LengthUnit<Child>(LengthUnit<Child> &&other) : abstract::PhysicalUnit<LengthUnit, Child>{other.val} {};
+        constexpr LengthUnit<Child>(LengthUnit<Child> &&other) : abstract::PhysicalUnit<LengthUnit, Child>{other.val} {};
         template <typename T>
         constexpr LengthUnit<Child>(const LengthUnit<T> &other) : abstract::PhysicalUnit<LengthUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
-        LengthUnit<Child>(LengthUnit<T> &&other) : abstract::PhysicalUnit<LengthUnit, Child>{(convert<Child>(other))} {};
+        constexpr LengthUnit<Child>(LengthUnit<T> &&other) : abstract::PhysicalUnit<LengthUnit, Child>{(convert<Child>(other))} {};
 
         virtual const std::string symbol() const = 0;
 

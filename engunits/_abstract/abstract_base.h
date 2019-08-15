@@ -102,10 +102,10 @@ class PhysicalUnit{
         // ValType operator*(const PhysicalUnit<C,G> &other) const {return val*other.val;}
         // template<template<typename> typename C, typename G> 
         // ValType operator/(const PhysicalUnit<C,G> &other) const {return val/other.val;}
-        template<typename T> Grandchild operator+(const Child<T> &other) const {return val+Grandchild(other).val;}
-        template<typename T> Grandchild operator-(const Child<T> &other) const {return val-Grandchild(other).val;}
-        constexpr Grandchild operator+(const Grandchild &other) const { return val+other.val; }
-        constexpr Grandchild operator-(const Grandchild &other) const { return val-other.val; }
+        template<typename T> constexpr Grandchild operator+(const Child<T> &other) const {return val+Grandchild(other).val;}
+        template<typename T> constexpr Grandchild operator-(const Child<T> &other) const {return val-Grandchild(other).val;}
+        constexpr Grandchild operator+(const Grandchild &other) const { return Grandchild(val+other.val); }
+        constexpr Grandchild operator-(const Grandchild &other) const { return Grandchild(val-other.val); }
 
         Grandchild &operator*=(const Grandchild &other) {this->val*=other.val;return *static_cast<Grandchild*>(this);}
         Grandchild &operator+=(const Grandchild &other) {this->val+=other.val;return *static_cast<Grandchild*>(this);}
@@ -149,6 +149,11 @@ class PhysicalUnit{
         constexpr ProxyComp operator>=(const ProxyComp &other) const {return ProxyComp(other.val, val>=other.val&&other.b);}
         constexpr ProxyComp operator<(const ProxyComp &other) const {return ProxyComp(other.val, val<other.val&&other.b);}
         constexpr ProxyComp operator>(const ProxyComp &other) const {return ProxyComp(other.val, val>other.val&&other.b);}
+
+        friend std::istream &operator>>(std::istream &is, PhysicalUnit<Child,Grandchild> &self){
+            is >> self.val;
+            return is;
+        }
 
         friend std::ostream &operator<<(std::ostream &os, const PhysicalUnit<Child, Grandchild> &self) {
             os << self.val << ' ' << self.symbol();
