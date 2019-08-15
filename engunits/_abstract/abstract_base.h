@@ -72,7 +72,7 @@ class PhysicalUnit{
 
         template <typename Other, 
             typename=std::enable_if_t<std::is_constructible<Other,ValType>::value&&!std::is_rvalue_reference<Other>::value>>
-        Other cast_to() const { return val; }
+        constexpr Other cast_to() const { return val; }
 
         std::string to_string(bool scientific=false) const {
             std::stringstream ss;
@@ -89,6 +89,21 @@ class PhysicalUnit{
         constexpr Grandchild operator+() const { return *this; }
         constexpr explicit operator bool() const { return val; }
         ValType operator^(const ValType &value) const { return std::pow(this->val,value); }
+        
+        template<int N> constexpr ValType pow() const {
+            switch (N){
+            case -1:
+                return 1 / val;
+            case 0:
+                return 1;
+            case 1:
+                return val;
+            }
+            if constexpr(N>1)
+                return val * pow<N-1>();
+            else
+                return (1 / val) * pow<N + 1>();
+        }
 
         constexpr Grandchild operator*(const ValType &value) const {return val*value;}
         constexpr Grandchild operator+(const ValType &value) const {return val+value;}
