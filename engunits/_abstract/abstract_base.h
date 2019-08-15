@@ -43,23 +43,23 @@ class PhysicalUnit{
                 constexpr ProxyComp operator<(const Grandchild &other) const {return ProxyComp(other.val, val<other.val&&b);}
                 constexpr ProxyComp operator>(const Grandchild &other) const {return ProxyComp(other.val, val>other.val&&b);}
                 
-                constexpr friend ProxyComp &operator==(const ValType &value, const ProxyComp &self){ 
+                constexpr friend ProxyComp operator==(const ValType &value, const ProxyComp &self){ 
                     return ProxyComp(self.val, value==self.val&&self.b);}
-                constexpr friend ProxyComp &operator!=(const ValType &value, const ProxyComp &self){ 
+                constexpr friend ProxyComp operator!=(const ValType &value, const ProxyComp &self){ 
                     return ProxyComp(self.val, value!=self.val&&self.b);}
-                constexpr friend ProxyComp &operator<=(const ValType &value, const ProxyComp &self){ 
+                constexpr friend ProxyComp operator<=(const ValType &value, const ProxyComp &self){ 
                     return ProxyComp(self.val, value<=self.val&&self.b);}
-                constexpr friend ProxyComp &operator>=(const ValType &value, const ProxyComp &self){ 
+                constexpr friend ProxyComp operator>=(const ValType &value, const ProxyComp &self){ 
                     return ProxyComp(self.val, value>=self.val&&self.b);}
-                constexpr friend ProxyComp &operator<(const ValType &value, const ProxyComp &self){ 
+                constexpr friend ProxyComp operator<(const ValType &value, const ProxyComp &self){ 
                     return ProxyComp(self.val, value<self.val&&self.b);}
-                constexpr friend ProxyComp &operator>(const ValType &value, const ProxyComp &self){ 
+                constexpr friend ProxyComp operator>(const ValType &value, const ProxyComp &self){ 
                     return ProxyComp(self.val, value>self.val&&self.b);}
         };
 
     protected:
-        void set_val(const ValType &value) { val == value; }
-        ValType get_val() const { return val; }
+        void set_val(const ValType &value) { val = value; }
+        constexpr ValType get_val() const { return val; }
 
     public:
         constexpr PhysicalUnit():val{} {};
@@ -89,7 +89,7 @@ class PhysicalUnit{
         constexpr Grandchild operator+() const { return *this; }
         constexpr explicit operator bool() const { return val; }
         ValType operator^(const ValType &value) const { return std::pow(this->val,value); }
-        
+
         template<int N> constexpr ValType pow() const {
             switch (N){
             case -1:
