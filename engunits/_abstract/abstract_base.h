@@ -16,6 +16,10 @@ class PhysicalUnit{
     private:
         using ValType = double;
 
+        ValType val;
+        
+        template<typename T> friend class Child;
+
         class ProxyComp {
             public:
                 ValType val;
@@ -54,7 +58,8 @@ class PhysicalUnit{
         };
 
     protected:
-        ValType val;
+        void set_val(const ValType &value) { val == value; }
+        ValType get_val() const { return val; }
 
     public:
         constexpr PhysicalUnit():val{} {};
