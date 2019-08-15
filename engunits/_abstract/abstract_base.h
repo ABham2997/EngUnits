@@ -94,7 +94,7 @@ class PhysicalUnit{
         constexpr explicit operator bool() const { return val; }
         ValType operator^(const ValType &value) const { return std::pow(this->val,value); }
 
-        template<int N> constexpr ValType pow() const {
+        template<int N, typename T=ValType> constexpr T pow() const {
             switch (N){
             case -1:
                 return 1 / val;
