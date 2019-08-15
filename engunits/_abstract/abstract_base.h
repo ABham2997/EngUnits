@@ -14,11 +14,11 @@ namespace engunits::abstract{
 template<template<typename> typename Child, typename Grandchild>
 class PhysicalUnit{
     private:
-        #ifdef ENGUNITS_UNDERLYING_TYPE
-        using ValType = ENGUNITS_UNDERLYING_TYPE
-        #else
+    #ifdef ENGUNITS_UNDERLYING_TYPE
+        using ValType = ENGUNITS_UNDERLYING_TYPE;
+    #else
         using ValType = double;
-        #endif
+    #endif
 
         ValType val;
         
