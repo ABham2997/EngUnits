@@ -32,21 +32,18 @@ double sin(const abstract::PhysicalUnit<S, T> &unit) { return std::sin(unit.scal
 template <template<typename> typename S, typename T>
 double tan(const abstract::PhysicalUnit<S, T> &unit) { return std::tan(unit.scalar()); }
 
-//enable this function if arg has member "scalar" that returns an arithmetic value
-template<typename T, typename=std::enable_if_t<std::is_arithmetic_v<decltype(std::declval<T>().scalar())>>>
-constexpr double sqrt(const T& unit) {
-    auto value = unit.scalar();
+constexpr double sqrt(const double &value) { //Newton-Raphson iterative
     double x0 = 1 + value * (0.18 + 0.009 * value);
-    for(int i = 0; i<=3; i++) {
-        double y0 = (x0 * x0) - value;
-        double m0 = x0 * 2;
-        x0 -= y0 / m0;
+    for(int i = 0; i<=4; i++) {
+        x0 -= (x0*x0-value) / (x0*2);
     }
     return x0;
 }
 
-constexpr double sqrt(const double &value) {
-    return sqrt(value);
+//enable this function if arg has member "scalar" that returns an arithmetic value
+template<typename T, typename=std::enable_if_t<std::is_arithmetic_v<decltype(std::declval<T>().scalar())>>>
+constexpr double sqrt(const T& unit) {
+    return sqrt(unit.scalar());
 }
 
 constexpr inline force::Newtons calculate_fgrav(const mass::kilograms& mass1, const mass::kilograms& mass2, 

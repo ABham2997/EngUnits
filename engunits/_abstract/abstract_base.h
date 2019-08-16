@@ -144,6 +144,7 @@ class PhysicalUnit{
         constexpr friend ProxyComp operator>=(const ValType value, const Grandchild &self) {return ProxyComp(self.val, value>=self.val);}
         constexpr friend ProxyComp operator<(const ValType value, const Grandchild &self) {return ProxyComp(self.val, value<self.val);}
         constexpr friend ProxyComp operator>(const ValType value, const Grandchild &self) {return ProxyComp(self.val, value>self.val);}
+        constexpr friend ProxyComp operator^=(const ValType value, const Grandchild &self) {return ProxyComp(self.val, value>self.val);}
 
         constexpr ProxyComp operator==(const ValType &value) const {return ProxyComp(value, (this->val)==value);}
         constexpr ProxyComp operator!=(const ValType &value) const {return ProxyComp(value, (this->val)!=value);}
