@@ -28,7 +28,7 @@ constexpr Other convert(Other other) {
 
 template<typename Unit, typename Value,
     typename=std::enable_if_t<traits::is_unit_v<Unit>&&std::is_arithmetic<Value>::value>>
-Unit make_unit(Value value){
+constexpr Unit make_unit(Value value){
     return Unit(value);
 }
 
