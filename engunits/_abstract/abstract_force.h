@@ -17,8 +17,6 @@ class ForceUnit: public abstract::PhysicalUnit<ForceUnit, Child> {
         using abstract::PhysicalUnit<ForceUnit, Child>::PhysicalUnit;
 
     public:
-        using SI_type = Newtons;
-
         constexpr ForceUnit<Child>(const ForceUnit<Child> &other) : abstract::PhysicalUnit<ForceUnit, Child>{other.val} {};
         constexpr ForceUnit<Child>(ForceUnit<Child> &&other) : abstract::PhysicalUnit<ForceUnit, Child>{other.val} {};
         template <typename T>

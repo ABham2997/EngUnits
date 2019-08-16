@@ -17,8 +17,6 @@ class VolumeUnit: public abstract::PhysicalUnit<VolumeUnit, Child> {
         using abstract::PhysicalUnit<VolumeUnit, Child>::PhysicalUnit;
 
     public:
-        using SI_type = cubicMeters;
-
         constexpr VolumeUnit<Child>(const VolumeUnit<Child> &other) : abstract::PhysicalUnit<VolumeUnit, Child>{other.val} {};
         constexpr VolumeUnit<Child>(VolumeUnit<Child> &&other) : abstract::PhysicalUnit<VolumeUnit, Child>{other.val} {};
         template <typename T>

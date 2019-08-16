@@ -17,8 +17,6 @@ class DataStorageUnit: public abstract::PhysicalUnit<DataStorageUnit, Child> {
         using abstract::PhysicalUnit<DataStorageUnit, Child>::PhysicalUnit;
 
     public:
-        using SI_type = byte;
-
         constexpr DataStorageUnit<Child>(const DataStorageUnit<Child> &other) : abstract::PhysicalUnit<DataStorageUnit, Child>{other.val} {};
         constexpr DataStorageUnit<Child>(DataStorageUnit<Child> &&other) : abstract::PhysicalUnit<DataStorageUnit, Child>{other.val} {};
         template <typename T>

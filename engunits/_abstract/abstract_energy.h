@@ -17,8 +17,6 @@ class EnergyUnit: public abstract::PhysicalUnit<EnergyUnit, Child> {
         using abstract::PhysicalUnit<EnergyUnit, Child>::PhysicalUnit;
 
     public:
-        using SI_type = Joules;
-
         constexpr EnergyUnit<Child>(const EnergyUnit<Child> &other) : abstract::PhysicalUnit<EnergyUnit, Child>{other.val} {};
         constexpr EnergyUnit<Child>(EnergyUnit<Child> &&other) : abstract::PhysicalUnit<EnergyUnit, Child>{other.val} {};
         template <typename T>

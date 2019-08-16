@@ -17,8 +17,6 @@ class MassUnit: public abstract::PhysicalUnit<MassUnit, Child> {
         using abstract::PhysicalUnit<MassUnit, Child>::PhysicalUnit;
 
     public:
-        using SI_type = kilograms;
-
         constexpr MassUnit<Child>(const MassUnit<Child> &other) : abstract::PhysicalUnit<MassUnit, Child>{other.val} {};
         constexpr MassUnit<Child>(MassUnit<Child> &&other) : abstract::PhysicalUnit<MassUnit, Child>{other.val} {};
         template <typename T>

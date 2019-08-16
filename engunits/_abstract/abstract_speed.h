@@ -17,8 +17,6 @@ class SpeedUnit: public abstract::PhysicalUnit<SpeedUnit, Child> {
         using abstract::PhysicalUnit<SpeedUnit, Child>::PhysicalUnit;
 
     public:
-        using SI_type = metersPerSecond;
-
         constexpr SpeedUnit<Child>(const SpeedUnit<Child> &other) : abstract::PhysicalUnit<SpeedUnit, Child>{other.val} {};
         constexpr SpeedUnit<Child>(SpeedUnit<Child> &&other) : abstract::PhysicalUnit<SpeedUnit, Child>{other.val} {};
         template <typename T>

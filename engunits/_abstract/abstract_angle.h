@@ -17,8 +17,6 @@ class AngleUnit: public abstract::PhysicalUnit<AngleUnit, Child> {
         using abstract::PhysicalUnit<AngleUnit, Child>::PhysicalUnit;
 
     public:
-        using SI_type = radians;
-
         constexpr AngleUnit<Child>(const AngleUnit<Child> &other) : abstract::PhysicalUnit<AngleUnit, Child>{other.val} {};
         constexpr AngleUnit<Child>(AngleUnit<Child> &&other) : abstract::PhysicalUnit<AngleUnit, Child>{other.val} {};
         template <typename T>

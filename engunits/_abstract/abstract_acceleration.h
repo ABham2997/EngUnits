@@ -17,8 +17,6 @@ class AccelerationUnit: public abstract::PhysicalUnit<AccelerationUnit, Child> {
         using abstract::PhysicalUnit<AccelerationUnit, Child>::PhysicalUnit;
 
     public:
-        using SI_type = metersPerSecondSq;
-
         constexpr AccelerationUnit<Child>(const AccelerationUnit<Child> &other) : abstract::PhysicalUnit<AccelerationUnit, Child>{other.val} {};
         constexpr AccelerationUnit<Child>(AccelerationUnit<Child> &&other) : abstract::PhysicalUnit<AccelerationUnit, Child>{other.val} {};
         template <typename T>

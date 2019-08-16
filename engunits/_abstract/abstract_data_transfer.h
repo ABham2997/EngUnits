@@ -17,8 +17,6 @@ class DataTransferUnit: public abstract::PhysicalUnit<DataTransferUnit, Child> {
         using abstract::PhysicalUnit<DataTransferUnit, Child>::PhysicalUnit;
 
     public:
-        using SI_type = megabytePerSecond;
-
         constexpr DataTransferUnit<Child>(const DataTransferUnit<Child> &other) : abstract::PhysicalUnit<DataTransferUnit, Child>{other.val} {};
         constexpr DataTransferUnit<Child>(DataTransferUnit<Child> &&other) : abstract::PhysicalUnit<DataTransferUnit, Child>{other.val} {};
         template <typename T>

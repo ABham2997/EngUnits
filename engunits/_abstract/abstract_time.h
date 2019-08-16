@@ -17,8 +17,6 @@ class TimeUnit: public abstract::PhysicalUnit<TimeUnit, Child> {
         using abstract::PhysicalUnit<TimeUnit, Child>::PhysicalUnit;
 
     public:
-        using SI_type = seconds;
-
         constexpr TimeUnit<Child>(const TimeUnit<Child> &other) : abstract::PhysicalUnit<TimeUnit, Child>{other.val} {};
         constexpr TimeUnit<Child>(TimeUnit<Child> &&other) : abstract::PhysicalUnit<TimeUnit, Child>{other.val} {};
         template <typename T>

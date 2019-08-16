@@ -17,8 +17,6 @@ class LengthUnit: public abstract::PhysicalUnit<LengthUnit, Child> {
         using abstract::PhysicalUnit<LengthUnit, Child>::PhysicalUnit;
 
     public:
-        using SI_type = meters;
-
         constexpr LengthUnit<Child>(const LengthUnit<Child> &other) : abstract::PhysicalUnit<LengthUnit, Child>{other.val} {};
         constexpr LengthUnit<Child>(LengthUnit<Child> &&other) : abstract::PhysicalUnit<LengthUnit, Child>{other.val} {};
         template <typename T>

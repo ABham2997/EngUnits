@@ -17,8 +17,6 @@ class FrequencyUnit: public abstract::PhysicalUnit<FrequencyUnit, Child> {
         using abstract::PhysicalUnit<FrequencyUnit, Child>::PhysicalUnit;
 
     public:
-        using SI_type = Herts;
-
         constexpr FrequencyUnit<Child>(const FrequencyUnit<Child> &other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
         constexpr FrequencyUnit<Child>(FrequencyUnit<Child> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
         template <typename T>

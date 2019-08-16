@@ -17,8 +17,6 @@ class AreaUnit: public abstract::PhysicalUnit<AreaUnit, Child> {
         using abstract::PhysicalUnit<AreaUnit, Child>::PhysicalUnit;
 
     public:
-        using SI_type = sqMeters;
-
         constexpr AreaUnit<Child>(const AreaUnit<Child> &other) : abstract::PhysicalUnit<AreaUnit, Child>{other.val} {};
         constexpr AreaUnit<Child>(AreaUnit<Child> &&other) : abstract::PhysicalUnit<AreaUnit, Child>{other.val} {};
         template <typename T>

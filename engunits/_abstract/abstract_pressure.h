@@ -17,8 +17,6 @@ class PressureUnit: public abstract::PhysicalUnit<PressureUnit, Child> {
         using abstract::PhysicalUnit<PressureUnit, Child>::PhysicalUnit;
 
     public:
-        using SI_type = Pascals;
-
         constexpr PressureUnit<Child>(const PressureUnit<Child> &other) : abstract::PhysicalUnit<PressureUnit, Child>{other.val} {};
         constexpr PressureUnit<Child>(PressureUnit<Child> &&other) : abstract::PhysicalUnit<PressureUnit, Child>{other.val} {};
         template <typename T>

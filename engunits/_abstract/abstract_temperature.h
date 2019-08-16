@@ -17,8 +17,6 @@ class TemperatureUnit: public abstract::PhysicalUnit<TemperatureUnit, Child> {
         using abstract::PhysicalUnit<TemperatureUnit, Child>::PhysicalUnit;
 
     public:
-        using SI_type = Kelvin;
-
         constexpr TemperatureUnit<Child>(const TemperatureUnit<Child> &other) : abstract::PhysicalUnit<TemperatureUnit, Child>{other.val} {};
         constexpr TemperatureUnit<Child>(TemperatureUnit<Child> &&other) : abstract::PhysicalUnit<TemperatureUnit, Child>{other.val} {};
         template <typename T>

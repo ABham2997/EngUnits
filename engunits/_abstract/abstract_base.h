@@ -117,18 +117,11 @@ class PhysicalUnit{
         constexpr Grandchild operator+(const ValType &value) const {return val+value;}
         constexpr Grandchild operator-(const ValType &value) const {return val-value;}
         constexpr Grandchild operator/(const ValType &value) const {return val/value;}
-        // ValType operator*(const Grandchild &other){ return this->val * other.val; }
-        // ValType operator/(const Grandchild &other){ return this->val / other.val; }
-        // template<typename T> ValType operator*(const Child<T> other){return *this*Grandchild(other);}
-        // template<typename T> ValType operator/(const Child<T> other){return *this/Grandchild(other);}
-        // template<template<typename> typename C, typename G> 
-        // ValType operator*(const PhysicalUnit<C,G> &other) const {return val*other.val;}
-        // template<template<typename> typename C, typename G> 
-        // ValType operator/(const PhysicalUnit<C,G> &other) const {return val/other.val;}
         template<typename T> constexpr Grandchild operator+(const Child<T> &other) const {return val+Grandchild(other).val;}
         template<typename T> constexpr Grandchild operator-(const Child<T> &other) const {return val-Grandchild(other).val;}
         constexpr Grandchild operator+(const Grandchild &other) const { return Grandchild(val+other.val); }
         constexpr Grandchild operator-(const Grandchild &other) const { return Grandchild(val-other.val); }
+        constexpr ValType operator/(const Grandchild &other) const { return this->val / other.val; }
 
         Grandchild &operator*=(const Grandchild &other) {this->val*=other.val;return *static_cast<Grandchild*>(this);}
         Grandchild &operator+=(const Grandchild &other) {this->val+=other.val;return *static_cast<Grandchild*>(this);}

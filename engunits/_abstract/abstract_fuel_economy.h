@@ -17,8 +17,6 @@ class FuelEconomyUnit: public abstract::PhysicalUnit<FuelEconomyUnit, Child> {
         using abstract::PhysicalUnit<FuelEconomyUnit, Child>::PhysicalUnit;
 
     public:
-        using SI_type = milePerGallon;
-
         constexpr FuelEconomyUnit<Child>(const FuelEconomyUnit<Child> &other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{other.val} {};
         constexpr FuelEconomyUnit<Child>(FuelEconomyUnit<Child> &&other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{other.val} {};
         template <typename T>

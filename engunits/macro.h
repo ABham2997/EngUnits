@@ -13,14 +13,13 @@ class abstract_unit_name: public abstract::PhysicalUnit<abstract_unit_name, Chil
         using abstract::PhysicalUnit<abstract_unit_name, Child>::PhysicalUnit;\
 \
     public:\
-        using SI_type = si_unit_name;\
 \
         constexpr abstract_unit_name<Child>(const abstract_unit_name<Child> &other) : abstract::PhysicalUnit<abstract_unit_name, Child>{other.val} {};\
-        abstract_unit_name<Child>(abstract_unit_name<Child> &&other) : abstract::PhysicalUnit<abstract_unit_name, Child>{other.val} {};\
+        constexpr abstract_unit_name<Child>(abstract_unit_name<Child> &&other) : abstract::PhysicalUnit<abstract_unit_name, Child>{other.val} {};\
         template <typename T>\
         constexpr abstract_unit_name<Child>(const abstract_unit_name<T> &other) : abstract::PhysicalUnit<abstract_unit_name, Child>{(convert<Child>(other))} {};\
         template<typename T>\
-        abstract_unit_name<Child>(abstract_unit_name<T> &&other) : abstract::PhysicalUnit<abstract_unit_name, Child>{(convert<Child>(other))} {};\
+        constexpr abstract_unit_name<Child>(abstract_unit_name<T> &&other) : abstract::PhysicalUnit<abstract_unit_name, Child>{(convert<Child>(other))} {};\
 \
         virtual const std::string symbol() const = 0;\
 \

@@ -32,15 +32,9 @@ double sin(const abstract::PhysicalUnit<S, T> &unit) { return std::sin(unit.scal
 template <template<typename> typename S, typename T>
 double tan(const abstract::PhysicalUnit<S, T> &unit) { return std::tan(unit.scalar()); }
 
-constexpr force::Newtons calculate_fgrav(const typename mass::MassUnit<>::SI_type& mass1, const typename mass::MassUnit<>::SI_type& mass2, 
-    const typename length::LengthUnit<>::SI_type& radius){
+constexpr force::Newtons calculate_fgrav(const mass::kilograms& mass1, const mass::kilograms& mass2, 
+    const length::meters& radius){
         return (constant::G * mass1.scalar() * mass2.scalar() / (radius.scalar() * radius.scalar()));
-}
-
-template<typename RT, typename=std::enable_if_t<traits::is_unit_of_type_v<RT, force::ForceUnit>>>
-constexpr RT calculate_fgrav_as(const mass::MassUnit<>::SI_type& mass1, const mass::MassUnit<>::SI_type& mass2, 
-    const length::LengthUnit<>::SI_type& radius){
-        return calculate_fgrav(mass1, mass2, radius);
 }
 
 } // namespace engunits::maths
