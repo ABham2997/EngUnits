@@ -20,11 +20,11 @@ class DataTransferUnit: public abstract::PhysicalUnit<DataTransferUnit, Child> {
         using SI_type = megabytePerSecond;
 
         constexpr DataTransferUnit<Child>(const DataTransferUnit<Child> &other) : abstract::PhysicalUnit<DataTransferUnit, Child>{other.val} {};
-        DataTransferUnit<Child>(DataTransferUnit<Child> &&other) : abstract::PhysicalUnit<DataTransferUnit, Child>{other.val} {};
+        constexpr DataTransferUnit<Child>(DataTransferUnit<Child> &&other) : abstract::PhysicalUnit<DataTransferUnit, Child>{other.val} {};
         template <typename T>
         constexpr DataTransferUnit<Child>(const DataTransferUnit<T> &other) : abstract::PhysicalUnit<DataTransferUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
-        DataTransferUnit<Child>(DataTransferUnit<T> &&other) : abstract::PhysicalUnit<DataTransferUnit, Child>{(convert<Child>(other))} {};
+        constexpr DataTransferUnit<Child>(DataTransferUnit<T> &&other) : abstract::PhysicalUnit<DataTransferUnit, Child>{(convert<Child>(other))} {};
 
         virtual const std::string symbol() const = 0;
 

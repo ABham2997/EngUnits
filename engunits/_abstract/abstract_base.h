@@ -25,11 +25,15 @@ class PhysicalUnit{
         template<typename T> friend class Child;
 
         class ProxyComp {
-            public:
+            private:
+                template<template<typename> typename C, typename G> friend class PhysicalUnit;
+
                 ValType val;
                 bool b;
 
                 constexpr ProxyComp(const ValType &value, bool bb) : val{value}, b{bb} {};
+
+            public:
         
                 constexpr explicit operator bool() const { return this->b; }
 

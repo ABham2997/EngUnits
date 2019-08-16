@@ -20,11 +20,11 @@ class MassUnit: public abstract::PhysicalUnit<MassUnit, Child> {
         using SI_type = kilograms;
 
         constexpr MassUnit<Child>(const MassUnit<Child> &other) : abstract::PhysicalUnit<MassUnit, Child>{other.val} {};
-        MassUnit<Child>(MassUnit<Child> &&other) : abstract::PhysicalUnit<MassUnit, Child>{other.val} {};
+        constexpr MassUnit<Child>(MassUnit<Child> &&other) : abstract::PhysicalUnit<MassUnit, Child>{other.val} {};
         template <typename T>
         constexpr MassUnit<Child>(const MassUnit<T> &other) : abstract::PhysicalUnit<MassUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
-        MassUnit<Child>(MassUnit<T> &&other) : abstract::PhysicalUnit<MassUnit, Child>{(convert<Child>(other))} {};
+        constexpr MassUnit<Child>(MassUnit<T> &&other) : abstract::PhysicalUnit<MassUnit, Child>{(convert<Child>(other))} {};
 
         virtual const std::string symbol() const = 0;
 

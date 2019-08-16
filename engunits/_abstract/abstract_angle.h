@@ -20,11 +20,11 @@ class AngleUnit: public abstract::PhysicalUnit<AngleUnit, Child> {
         using SI_type = radians;
 
         constexpr AngleUnit<Child>(const AngleUnit<Child> &other) : abstract::PhysicalUnit<AngleUnit, Child>{other.val} {};
-        AngleUnit<Child>(AngleUnit<Child> &&other) : abstract::PhysicalUnit<AngleUnit, Child>{other.val} {};
+        constexpr AngleUnit<Child>(AngleUnit<Child> &&other) : abstract::PhysicalUnit<AngleUnit, Child>{other.val} {};
         template <typename T>
         constexpr AngleUnit<Child>(const AngleUnit<T> &other) : abstract::PhysicalUnit<AngleUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
-        AngleUnit<Child>(AngleUnit<T> &&other) : abstract::PhysicalUnit<AngleUnit, Child>{(convert<Child>(other))} {};
+        constexpr AngleUnit<Child>(AngleUnit<T> &&other) : abstract::PhysicalUnit<AngleUnit, Child>{(convert<Child>(other))} {};
 
         virtual const std::string symbol() const = 0;
 

@@ -20,11 +20,11 @@ class EnergyUnit: public abstract::PhysicalUnit<EnergyUnit, Child> {
         using SI_type = Joules;
 
         constexpr EnergyUnit<Child>(const EnergyUnit<Child> &other) : abstract::PhysicalUnit<EnergyUnit, Child>{other.val} {};
-        EnergyUnit<Child>(EnergyUnit<Child> &&other) : abstract::PhysicalUnit<EnergyUnit, Child>{other.val} {};
+        constexpr EnergyUnit<Child>(EnergyUnit<Child> &&other) : abstract::PhysicalUnit<EnergyUnit, Child>{other.val} {};
         template <typename T>
         constexpr EnergyUnit<Child>(const EnergyUnit<T> &other) : abstract::PhysicalUnit<EnergyUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
-        EnergyUnit<Child>(EnergyUnit<T> &&other) : abstract::PhysicalUnit<EnergyUnit, Child>{(convert<Child>(other))} {};
+        constexpr EnergyUnit<Child>(EnergyUnit<T> &&other) : abstract::PhysicalUnit<EnergyUnit, Child>{(convert<Child>(other))} {};
 
         virtual const std::string symbol() const = 0;
 

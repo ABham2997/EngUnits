@@ -20,11 +20,11 @@ class AreaUnit: public abstract::PhysicalUnit<AreaUnit, Child> {
         using SI_type = sqMeters;
 
         constexpr AreaUnit<Child>(const AreaUnit<Child> &other) : abstract::PhysicalUnit<AreaUnit, Child>{other.val} {};
-        AreaUnit<Child>(AreaUnit<Child> &&other) : abstract::PhysicalUnit<AreaUnit, Child>{other.val} {};
+        constexpr AreaUnit<Child>(AreaUnit<Child> &&other) : abstract::PhysicalUnit<AreaUnit, Child>{other.val} {};
         template <typename T>
         constexpr AreaUnit<Child>(const AreaUnit<T> &other) : abstract::PhysicalUnit<AreaUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
-        AreaUnit<Child>(AreaUnit<T> &&other) : abstract::PhysicalUnit<AreaUnit, Child>{(convert<Child>(other))} {};
+        constexpr AreaUnit<Child>(AreaUnit<T> &&other) : abstract::PhysicalUnit<AreaUnit, Child>{(convert<Child>(other))} {};
 
         virtual const std::string symbol() const = 0;
 

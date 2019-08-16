@@ -20,11 +20,11 @@ class FrequencyUnit: public abstract::PhysicalUnit<FrequencyUnit, Child> {
         using SI_type = Herts;
 
         constexpr FrequencyUnit<Child>(const FrequencyUnit<Child> &other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
-        FrequencyUnit<Child>(FrequencyUnit<Child> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
+        constexpr FrequencyUnit<Child>(FrequencyUnit<Child> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
         template <typename T>
         constexpr FrequencyUnit<Child>(const FrequencyUnit<T> &other) : abstract::PhysicalUnit<FrequencyUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
-        FrequencyUnit<Child>(FrequencyUnit<T> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{(convert<Child>(other))} {};
+        constexpr FrequencyUnit<Child>(FrequencyUnit<T> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{(convert<Child>(other))} {};
 
         virtual const std::string symbol() const = 0;
 

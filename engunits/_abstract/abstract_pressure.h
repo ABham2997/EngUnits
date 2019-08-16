@@ -20,11 +20,11 @@ class PressureUnit: public abstract::PhysicalUnit<PressureUnit, Child> {
         using SI_type = Pascals;
 
         constexpr PressureUnit<Child>(const PressureUnit<Child> &other) : abstract::PhysicalUnit<PressureUnit, Child>{other.val} {};
-        PressureUnit<Child>(PressureUnit<Child> &&other) : abstract::PhysicalUnit<PressureUnit, Child>{other.val} {};
+        constexpr PressureUnit<Child>(PressureUnit<Child> &&other) : abstract::PhysicalUnit<PressureUnit, Child>{other.val} {};
         template <typename T>
         constexpr PressureUnit<Child>(const PressureUnit<T> &other) : abstract::PhysicalUnit<PressureUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
-        PressureUnit<Child>(PressureUnit<T> &&other) : abstract::PhysicalUnit<PressureUnit, Child>{(convert<Child>(other))} {};
+        constexpr PressureUnit<Child>(PressureUnit<T> &&other) : abstract::PhysicalUnit<PressureUnit, Child>{(convert<Child>(other))} {};
 
         virtual const std::string symbol() const = 0;
 

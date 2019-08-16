@@ -20,11 +20,11 @@ class FuelEconomyUnit: public abstract::PhysicalUnit<FuelEconomyUnit, Child> {
         using SI_type = milePerGallon;
 
         constexpr FuelEconomyUnit<Child>(const FuelEconomyUnit<Child> &other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{other.val} {};
-        FuelEconomyUnit<Child>(FuelEconomyUnit<Child> &&other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{other.val} {};
+        constexpr FuelEconomyUnit<Child>(FuelEconomyUnit<Child> &&other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{other.val} {};
         template <typename T>
         constexpr FuelEconomyUnit<Child>(const FuelEconomyUnit<T> &other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{(convert<Child>(other))} {};
         template<typename T>
-        FuelEconomyUnit<Child>(FuelEconomyUnit<T> &&other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{(convert<Child>(other))} {};
+        constexpr FuelEconomyUnit<Child>(FuelEconomyUnit<T> &&other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{(convert<Child>(other))} {};
 
         virtual const std::string symbol() const = 0;
 
