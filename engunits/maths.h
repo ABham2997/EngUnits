@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include<type_traits>
+#include<limits>
 
 #include "../engunits/_abstract/abstract_base.h"
 #include "../engunits/length.h"
@@ -33,11 +34,16 @@ template <template<typename> typename S, typename T>
 double tan(const abstract::PhysicalUnit<S, T> &unit) { return std::tan(unit.scalar()); }
 
 constexpr double sqrt(const double &value) { //Newton-Raphson iterative
-    double x0 = 1 + value * (0.18 + 0.009 * value);
-    for(int i = 0; i<=4; i++) {
-        x0 -= (x0*x0-value) / (x0*2);
+    if (value<0 || value > std::numeric_limits<double>::infinity()){
+        return std::numeric_limits<double>::quiet_NaN();
     }
-    return x0;
+    double x1 = 1 + value * (0.18 + 0.009 * value);
+    double x0=0;
+    while(x1!=x0) {
+        x0 = x1;
+        x1 = x0 - (x0 * x0 - value) / (x0 * 2);
+    }
+    return x0;  
 }
 
 //enable this function if arg has member "scalar" that returns an arithmetic value
