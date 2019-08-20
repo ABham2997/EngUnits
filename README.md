@@ -11,18 +11,6 @@ using namespace engunits::length;
 
 if (feet{10} < meters{10} < miles{10}) //...//;
 ```
-
-- intuitive mathematical operations
-```c++
-using namespace engunits;
-
-length::meters m = 5;
-
-area::sqmeters a = m^2; //a equals m to the power of 2
-
-std::cout << a << '\n'; //prints "25 m2"
-```
-
 - readable literal operators
 ```c++
 using namespace engunits::literals;

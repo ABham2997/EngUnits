@@ -3,12 +3,12 @@
 
 #include<string>
 #include<iostream>
-#include<cmath>
 #include<sstream>
 #include<type_traits>
 #include<limits>
 
 #include "../../engunits/_abstract/core.h"
+#include "../../engunits/_abstract/coremaths.h"
 
 namespace engunits::abstract{
 template<template<typename> typename Child, typename Grandchild>
@@ -96,22 +96,9 @@ class PhysicalUnit{
         constexpr Grandchild operator-() const { return this->val * (-1); }
         constexpr Grandchild operator+() const { return *this; }
         constexpr explicit operator bool() const { return val; }
-        ValType operator^(const ValType &value) const { return std::pow(this->val,value); }
 
-        template<int N, typename T=ValType> constexpr T pow() const {
-            switch (N){
-            case -1:
-                return 1 / val;
-            case 0:
-                return 1;
-            case 1:
-                return val;
-            }
-            if constexpr(N>1)
-                return val * pow<N-1>();
-            else
-                return (1 / val) * pow<N + 1>();
-        }
+        template<typename Exp, typename=std::enable_if_t<std::is_arithmetic_v<Exp>>> 
+        constexpr auto pow(const Exp &value) const {return maths::pow(val, value);}
 
         constexpr Grandchild operator*(const double &value) const {return val*value;}
         constexpr Grandchild operator+(const double &value) const {return val+value;}
