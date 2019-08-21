@@ -5,7 +5,9 @@
 #include<type_traits>
 #include<limits>
 
-#include "../engunits/staticmaths.h"
+#include "../engunits/maths/pow.h"
+#include "../engunits/maths/sqrt.h"
+#include "../engunits/maths/fraction.h"
 #include "../engunits/length.h"
 #include "../engunits/mass.h"
 #include "../engunits/constants.h"

@@ -1,7 +1,5 @@
-#ifndef __ENGUNITS_COREMATHS_H
-#define __ENGUNITS_COREMATHS_H
-
-#include<cmath>
+#ifndef __ENGUNITS_MATHS_POW_H
+#define __ENGUNITS_MATHS_POW_H
 
 namespace engunits::maths{
 

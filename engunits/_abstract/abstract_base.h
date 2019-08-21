@@ -8,7 +8,7 @@
 #include<limits>
 
 #include "../../engunits/_abstract/core.h"
-#include "../../engunits/_abstract/coremaths.h"
+#include "../../engunits/maths/pow.h"
 
 namespace engunits::abstract{
 template<template<typename> typename Child, typename Grandchild>
