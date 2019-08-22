@@ -17,6 +17,8 @@ class EnergyUnit: public abstract::PhysicalUnit<EnergyUnit, Child> {
         using abstract::PhysicalUnit<EnergyUnit, Child>::PhysicalUnit;
 
     public:
+        using si_t = Joules;
+
         constexpr EnergyUnit<Child>(const EnergyUnit<Child> &other) : abstract::PhysicalUnit<EnergyUnit, Child>{other.val} {};
         constexpr EnergyUnit<Child>(EnergyUnit<Child> &&other) : abstract::PhysicalUnit<EnergyUnit, Child>{other.val} {};
         template <typename T>
@@ -26,15 +28,12 @@ class EnergyUnit: public abstract::PhysicalUnit<EnergyUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const double &value) {this->val=value; return *static_cast<Child*>(this);}
         Child &operator=(const EnergyUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        Child &operator=(EnergyUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
-        template<typename T> 
-        Child &operator=(const EnergyUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        template<typename T> 
-        Child &operator=(EnergyUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(EnergyUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}  
         
 };
+
 }
 
 #endif

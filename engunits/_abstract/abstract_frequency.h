@@ -17,6 +17,8 @@ class FrequencyUnit: public abstract::PhysicalUnit<FrequencyUnit, Child> {
         using abstract::PhysicalUnit<FrequencyUnit, Child>::PhysicalUnit;
 
     public:
+        using si_t = Herts;
+
         constexpr FrequencyUnit<Child>(const FrequencyUnit<Child> &other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
         constexpr FrequencyUnit<Child>(FrequencyUnit<Child> &&other) : abstract::PhysicalUnit<FrequencyUnit, Child>{other.val} {};
         template <typename T>
@@ -26,15 +28,12 @@ class FrequencyUnit: public abstract::PhysicalUnit<FrequencyUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const double &value) {this->val=value; return *static_cast<Child*>(this);}
         Child &operator=(const FrequencyUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        Child &operator=(FrequencyUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
-        template<typename T> 
-        Child &operator=(const FrequencyUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        template<typename T> 
-        Child &operator=(FrequencyUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(FrequencyUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}  
         
 };
+
 }
 
 #endif

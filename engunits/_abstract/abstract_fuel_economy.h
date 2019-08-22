@@ -17,6 +17,8 @@ class FuelEconomyUnit: public abstract::PhysicalUnit<FuelEconomyUnit, Child> {
         using abstract::PhysicalUnit<FuelEconomyUnit, Child>::PhysicalUnit;
 
     public:
+        using si_t = milePerGallon;
+
         constexpr FuelEconomyUnit<Child>(const FuelEconomyUnit<Child> &other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{other.val} {};
         constexpr FuelEconomyUnit<Child>(FuelEconomyUnit<Child> &&other) : abstract::PhysicalUnit<FuelEconomyUnit, Child>{other.val} {};
         template <typename T>
@@ -26,15 +28,12 @@ class FuelEconomyUnit: public abstract::PhysicalUnit<FuelEconomyUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const double &value) {this->val=value; return *static_cast<Child*>(this);}
         Child &operator=(const FuelEconomyUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        Child &operator=(FuelEconomyUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
-        template<typename T> 
-        Child &operator=(const FuelEconomyUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        template<typename T> 
-        Child &operator=(FuelEconomyUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(FuelEconomyUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}  
         
 };
+
 }
 
 #endif

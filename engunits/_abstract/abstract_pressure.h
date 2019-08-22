@@ -17,6 +17,8 @@ class PressureUnit: public abstract::PhysicalUnit<PressureUnit, Child> {
         using abstract::PhysicalUnit<PressureUnit, Child>::PhysicalUnit;
 
     public:
+        using si_t = Pascals;
+
         constexpr PressureUnit<Child>(const PressureUnit<Child> &other) : abstract::PhysicalUnit<PressureUnit, Child>{other.val} {};
         constexpr PressureUnit<Child>(PressureUnit<Child> &&other) : abstract::PhysicalUnit<PressureUnit, Child>{other.val} {};
         template <typename T>
@@ -26,15 +28,12 @@ class PressureUnit: public abstract::PhysicalUnit<PressureUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const double &value) {this->val=value; return *static_cast<Child*>(this);}
         Child &operator=(const PressureUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        Child &operator=(PressureUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
-        template<typename T> 
-        Child &operator=(const PressureUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        template<typename T> 
-        Child &operator=(PressureUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(PressureUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}  
         
 };
+
 }
 
 #endif

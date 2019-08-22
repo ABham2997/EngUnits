@@ -17,6 +17,8 @@ class MassUnit: public abstract::PhysicalUnit<MassUnit, Child> {
         using abstract::PhysicalUnit<MassUnit, Child>::PhysicalUnit;
 
     public:
+        using si_t = kilograms;
+
         constexpr MassUnit<Child>(const MassUnit<Child> &other) : abstract::PhysicalUnit<MassUnit, Child>{other.val} {};
         constexpr MassUnit<Child>(MassUnit<Child> &&other) : abstract::PhysicalUnit<MassUnit, Child>{other.val} {};
         template <typename T>
@@ -26,15 +28,12 @@ class MassUnit: public abstract::PhysicalUnit<MassUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const double &value) {this->val=value; return *static_cast<Child*>(this);}
         Child &operator=(const MassUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        Child &operator=(MassUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
-        template<typename T> 
-        Child &operator=(const MassUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        template<typename T> 
-        Child &operator=(MassUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(MassUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}  
         
 };
+
 }
 
 #endif

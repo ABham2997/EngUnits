@@ -11,15 +11,16 @@
 #include "../../engunits/maths/pow.h"
 
 namespace engunits::abstract{
+
+#ifdef ENGUNITS_UNDERLYING_TYPE
+    using ValType = ENGUNITS_UNDERLYING_TYPE;
+#else
+    using ValType = double;
+#endif
+
 template<template<typename> typename Child, typename Grandchild>
 class PhysicalUnit{
     private:
-    #ifdef ENGUNITS_UNDERLYING_TYPE
-        using ValType = ENGUNITS_UNDERLYING_TYPE;
-    #else
-        using ValType = double;
-    #endif
-
         ValType val;
         
         template<typename T> friend class Child;
@@ -101,8 +102,6 @@ class PhysicalUnit{
         constexpr auto pow(const Exp &value) const {return maths::pow(val, value);}
 
         constexpr Grandchild operator*(const double &value) const {return val*value;}
-        constexpr Grandchild operator+(const double &value) const {return val+value;}
-        constexpr Grandchild operator-(const double &value) const {return val-value;}
         constexpr Grandchild operator/(const double &value) const {return val/value;}
         template<typename T> constexpr Grandchild operator+(const Child<T> &other) const {return val+Grandchild(other).val;}
         template<typename T> constexpr Grandchild operator-(const Child<T> &other) const {return val-Grandchild(other).val;}
@@ -110,19 +109,12 @@ class PhysicalUnit{
         constexpr Grandchild operator-(const Grandchild &other) const { return Grandchild(val-other.val); }
         constexpr ValType operator/(const Grandchild &other) const { return this->val / other.val; }
 
-        Grandchild &operator*=(const Grandchild &other) {this->val*=other.val;return *static_cast<Grandchild*>(this);}
+        Grandchild &operator*=(const double &other) {this->val*=other;return *static_cast<Grandchild*>(this);}
         Grandchild &operator+=(const Grandchild &other) {this->val+=other.val;return *static_cast<Grandchild*>(this);}
         Grandchild &operator-=(const Grandchild &other) {this->val-=other.val;return *static_cast<Grandchild*>(this);}
-        Grandchild &operator/=(const Grandchild &other) {this->val/=other.val;return *static_cast<Grandchild*>(this);}
-
-        friend ValType &operator*=(ValType &value, const Grandchild &self) { value*=self.val; return value; }
-        friend ValType &operator-=(ValType &value, const Grandchild &self) { value-=self.val; return value; }
-        friend ValType &operator+=(ValType &value, const Grandchild &self) { value+=self.val; return value; }
-        friend ValType &operator/=(ValType &value, const Grandchild &self) { value/=self.val; return value; }
+        Grandchild &operator/=(const double &other) {this->val/=other;return *static_cast<Grandchild*>(this);}
 
         constexpr friend Grandchild operator*(const ValType &value, const Grandchild &self) { return value*self.val; }
-        constexpr friend Grandchild operator+(const ValType &value, const Grandchild &self) { return value+self.val; }
-        constexpr friend Grandchild operator-(const ValType &value, const Grandchild &self) { return value-self.val; }
         constexpr friend Grandchild operator/(const ValType &value, const Grandchild &self) { return value/self.val; }
 
         constexpr friend ProxyComp operator==(const double &value, const Grandchild &self) {return ProxyComp(self.val, value==self.val); }

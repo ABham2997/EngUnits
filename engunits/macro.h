@@ -13,6 +13,7 @@ class abstract_unit_name: public abstract::PhysicalUnit<abstract_unit_name, Chil
         using abstract::PhysicalUnit<abstract_unit_name, Child>::PhysicalUnit;\
 \
     public:\
+        using si_t=si_unit_name;\
 \
         constexpr abstract_unit_name<Child>(const abstract_unit_name<Child> &other) : abstract::PhysicalUnit<abstract_unit_name, Child>{other.val} {};\
         constexpr abstract_unit_name<Child>(abstract_unit_name<Child> &&other) : abstract::PhysicalUnit<abstract_unit_name, Child>{other.val} {};\
@@ -23,13 +24,9 @@ class abstract_unit_name: public abstract::PhysicalUnit<abstract_unit_name, Chil
 \
         virtual const std::string symbol() const = 0;\
 \
-        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}\
+        Child &operator=(const double &value) {this->val=value; return *static_cast<Child*>(this);}\
         Child &operator=(const abstract_unit_name<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}\
         Child &operator=(abstract_unit_name<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     \
-        template<typename T> \
-        Child &operator=(const abstract_unit_name<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}\
-        template<typename T> \
-        Child &operator=(abstract_unit_name<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}\
         \
 };\
 }\

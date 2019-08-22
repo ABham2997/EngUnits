@@ -17,6 +17,8 @@ class DataStorageUnit: public abstract::PhysicalUnit<DataStorageUnit, Child> {
         using abstract::PhysicalUnit<DataStorageUnit, Child>::PhysicalUnit;
 
     public:
+        using si_t = byte;
+
         constexpr DataStorageUnit<Child>(const DataStorageUnit<Child> &other) : abstract::PhysicalUnit<DataStorageUnit, Child>{other.val} {};
         constexpr DataStorageUnit<Child>(DataStorageUnit<Child> &&other) : abstract::PhysicalUnit<DataStorageUnit, Child>{other.val} {};
         template <typename T>
@@ -26,15 +28,12 @@ class DataStorageUnit: public abstract::PhysicalUnit<DataStorageUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const double &value) {this->val=value; return *static_cast<Child*>(this);}
         Child &operator=(const DataStorageUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        Child &operator=(DataStorageUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
-        template<typename T> 
-        Child &operator=(const DataStorageUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        template<typename T> 
-        Child &operator=(DataStorageUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(DataStorageUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}  
         
 };
+
 }
 
 #endif

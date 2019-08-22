@@ -17,6 +17,8 @@ class LengthUnit: public abstract::PhysicalUnit<LengthUnit, Child> {
         using abstract::PhysicalUnit<LengthUnit, Child>::PhysicalUnit;
 
     public:
+        using si_t = meters;
+
         constexpr LengthUnit<Child>(const LengthUnit<Child> &other) : abstract::PhysicalUnit<LengthUnit, Child>{other.val} {};
         constexpr LengthUnit<Child>(LengthUnit<Child> &&other) : abstract::PhysicalUnit<LengthUnit, Child>{other.val} {};
         template <typename T>
@@ -26,15 +28,12 @@ class LengthUnit: public abstract::PhysicalUnit<LengthUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const double &value) {this->val=value; return *static_cast<Child*>(this);}
         Child &operator=(const LengthUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        Child &operator=(LengthUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
-        template<typename T> 
-        Child &operator=(const LengthUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        template<typename T> 
-        Child &operator=(LengthUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(LengthUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}  
         
 };
+
 }
 
 #endif

@@ -17,6 +17,8 @@ class AccelerationUnit: public abstract::PhysicalUnit<AccelerationUnit, Child> {
         using abstract::PhysicalUnit<AccelerationUnit, Child>::PhysicalUnit;
 
     public:
+        using si_t = metersPerSecondSq;
+
         constexpr AccelerationUnit<Child>(const AccelerationUnit<Child> &other) : abstract::PhysicalUnit<AccelerationUnit, Child>{other.val} {};
         constexpr AccelerationUnit<Child>(AccelerationUnit<Child> &&other) : abstract::PhysicalUnit<AccelerationUnit, Child>{other.val} {};
         template <typename T>
@@ -26,15 +28,12 @@ class AccelerationUnit: public abstract::PhysicalUnit<AccelerationUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const double &value) {this->val=value; return *static_cast<Child*>(this);}
         Child &operator=(const AccelerationUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        Child &operator=(AccelerationUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
-        template<typename T> 
-        Child &operator=(const AccelerationUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        template<typename T> 
-        Child &operator=(AccelerationUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(AccelerationUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}  
         
 };
+
 }
 
 #endif

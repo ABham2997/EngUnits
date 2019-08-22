@@ -17,6 +17,8 @@ class AngleUnit: public abstract::PhysicalUnit<AngleUnit, Child> {
         using abstract::PhysicalUnit<AngleUnit, Child>::PhysicalUnit;
 
     public:
+        using si_t = radians;
+
         constexpr AngleUnit<Child>(const AngleUnit<Child> &other) : abstract::PhysicalUnit<AngleUnit, Child>{other.val} {};
         constexpr AngleUnit<Child>(AngleUnit<Child> &&other) : abstract::PhysicalUnit<AngleUnit, Child>{other.val} {};
         template <typename T>
@@ -26,15 +28,12 @@ class AngleUnit: public abstract::PhysicalUnit<AngleUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const double &value) {this->val=value; return *static_cast<Child*>(this);}
         Child &operator=(const AngleUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        Child &operator=(AngleUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
-        template<typename T> 
-        Child &operator=(const AngleUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        template<typename T> 
-        Child &operator=(AngleUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(AngleUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}  
         
 };
+
 }
 
 #endif

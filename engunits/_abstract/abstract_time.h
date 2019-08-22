@@ -17,6 +17,8 @@ class TimeUnit: public abstract::PhysicalUnit<TimeUnit, Child> {
         using abstract::PhysicalUnit<TimeUnit, Child>::PhysicalUnit;
 
     public:
+        using si_t = seconds;
+
         constexpr TimeUnit<Child>(const TimeUnit<Child> &other) : abstract::PhysicalUnit<TimeUnit, Child>{other.val} {};
         constexpr TimeUnit<Child>(TimeUnit<Child> &&other) : abstract::PhysicalUnit<TimeUnit, Child>{other.val} {};
         template <typename T>
@@ -26,15 +28,12 @@ class TimeUnit: public abstract::PhysicalUnit<TimeUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const double &value) {this->val=value; return *static_cast<Child*>(this);}
         Child &operator=(const TimeUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        Child &operator=(TimeUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
-        template<typename T> 
-        Child &operator=(const TimeUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        template<typename T> 
-        Child &operator=(TimeUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(TimeUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}  
         
 };
+
 }
 
 #endif

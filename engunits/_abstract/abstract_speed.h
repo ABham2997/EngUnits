@@ -8,15 +8,17 @@
 #include "../../engunits/_abstract/abstract_base.h"
 
 namespace engunits::speed{
-class metersPerSecond; //forward declaration
+class meters_per_second; //forward declaration
 
 //Child of this class is GrandChild of base class(PhysicalUnit)
-template<typename Child=metersPerSecond> //TODO: constrain to children of this class
+template<typename Child=meters_per_second> //TODO: constrain to children of this class
 class SpeedUnit: public abstract::PhysicalUnit<SpeedUnit, Child> {
     protected:
         using abstract::PhysicalUnit<SpeedUnit, Child>::PhysicalUnit;
 
     public:
+        using si_t = meters_per_second;
+
         constexpr SpeedUnit<Child>(const SpeedUnit<Child> &other) : abstract::PhysicalUnit<SpeedUnit, Child>{other.val} {};
         constexpr SpeedUnit<Child>(SpeedUnit<Child> &&other) : abstract::PhysicalUnit<SpeedUnit, Child>{other.val} {};
         template <typename T>
@@ -26,15 +28,12 @@ class SpeedUnit: public abstract::PhysicalUnit<SpeedUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const double &value) {this->val=value; return *static_cast<Child*>(this);}
         Child &operator=(const SpeedUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        Child &operator=(SpeedUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
-        template<typename T> 
-        Child &operator=(const SpeedUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        template<typename T> 
-        Child &operator=(SpeedUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(SpeedUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}  
         
 };
+
 }
 
 #endif

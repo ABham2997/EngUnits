@@ -17,6 +17,8 @@ class VolumeUnit: public abstract::PhysicalUnit<VolumeUnit, Child> {
         using abstract::PhysicalUnit<VolumeUnit, Child>::PhysicalUnit;
 
     public:
+        using si_t = cubicMeters;
+
         constexpr VolumeUnit<Child>(const VolumeUnit<Child> &other) : abstract::PhysicalUnit<VolumeUnit, Child>{other.val} {};
         constexpr VolumeUnit<Child>(VolumeUnit<Child> &&other) : abstract::PhysicalUnit<VolumeUnit, Child>{other.val} {};
         template <typename T>
@@ -26,15 +28,12 @@ class VolumeUnit: public abstract::PhysicalUnit<VolumeUnit, Child> {
 
         virtual const std::string symbol() const = 0;
 
-        Child &operator=(double value) {this->val=value; return *static_cast<Child*>(this);}
+        Child &operator=(const double &value) {this->val=value; return *static_cast<Child*>(this);}
         Child &operator=(const VolumeUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        Child &operator=(VolumeUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}     
-        template<typename T> 
-        Child &operator=(const VolumeUnit<T> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        template<typename T> 
-        Child &operator=(VolumeUnit<T> &&other) { this->val = other.val; return *static_cast<Child*>(this);}
+        Child &operator=(VolumeUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}  
         
 };
+
 }
 
 #endif
