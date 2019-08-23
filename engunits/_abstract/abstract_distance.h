@@ -1,11 +1,9 @@
 #ifndef __ENGUNITS_ABSTRACT_DISTANCE_H
 #define __ENGUNITS_ABSTRACT_DISTANCE_H
 
-#include<iostream>
-#include<string>
-#include<type_traits>
-
 #include "../../engunits/_abstract/abstract_base.h"
+#include "../../engunits/_abstract/abstract_speed.h"
+#include "../../engunits/_abstract/abstract_time.h"
 
 namespace engunits::distance{
 class meters; //forward declaration
@@ -43,6 +41,18 @@ class meters : public DistanceUnit<meters> {
         const std::string symbol() const override { return "m"; }
 };
 
+}//namespace engunits::distance
+
+#define SPEED typename engunits::speed::meters_per_second
+#define TIME typename engunits::time::seconds
+#define DISTANCE typename engunits::distance::meters
+
+constexpr SPEED operator*(const DISTANCE& distance, const TIME& time) {
+    return distance.scalar() * time.scalar();
 }
+
+#undef SPEED
+#undef TIME
+#undef DISTANCE
 
 #endif

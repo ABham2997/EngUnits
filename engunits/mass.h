@@ -9,15 +9,6 @@
 
 namespace engunits::mass{
 
-class kilograms : public MassUnit<kilograms> {
-    public:
-        using MassUnit<kilograms>::MassUnit;
-
-        static constexpr double conversion = conversion::M_KILOGRAMS;
-
-        const std::string symbol() const override { return "kg"; }
-};
-
 class pounds : public MassUnit<pounds> {
     public:
         using MassUnit<pounds>::MassUnit;

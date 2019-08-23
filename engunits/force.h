@@ -9,15 +9,6 @@
 
 namespace engunits::force{
 
-class Newtons: public ForceUnit<Newtons> {
-    public:
-        using ForceUnit<Newtons>::ForceUnit;
-
-        constexpr static double conversion = conversion::FO_NEWTONS;
-
-        const std::string symbol() const override { return "N"; }
-};
-
 class MegaNewtons: public ForceUnit<MegaNewtons> {
     public:
         using ForceUnit<MegaNewtons>::ForceUnit;
