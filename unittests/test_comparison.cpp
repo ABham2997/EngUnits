@@ -1,7 +1,7 @@
 #include <cassert>
 #include <iostream>
 
-#include "../engunits/length.h"
+#include "../engunits/distance.h"
 #include "../engunits/mass.h"
 
 int main () {

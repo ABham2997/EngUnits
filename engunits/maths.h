@@ -8,7 +8,7 @@
 #include "../engunits/maths/pow.h"
 #include "../engunits/maths/sqrt.h"
 #include "../engunits/maths/fraction.h"
-#include "../engunits/length.h"
+#include "../engunits/distance.h"
 #include "../engunits/mass.h"
 #include "../engunits/constants.h"
 #include "../engunits/force.h"
@@ -29,7 +29,7 @@ constexpr double pow(const T& unit, const V& exp) {
 }
 
 constexpr inline force::Newtons calculate_fgrav(const mass::kilograms& mass1, const mass::kilograms& mass2, 
-    const length::meters& radius){
+    const distance::meters& radius){
         return (constant::G * mass1.scalar() * mass2.scalar() / (radius.scalar() * radius.scalar()));
 }
 

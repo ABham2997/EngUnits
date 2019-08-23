@@ -1,7 +1,7 @@
 #include<iostream>
 #include<cassert>
 
-#include "../engunits/length.h"
+#include "../engunits/distance.h"
 
 void almost_equal(double self, double other) {
     if (self==0 || other==0) {
@@ -13,7 +13,7 @@ void almost_equal(double self, double other) {
 
 int main() {
     using namespace std;
-    using namespace engunits::length;
+    using namespace engunits::distance;
 
     cout << "---Testing Arithmetic Operations with Doubles---" << endl;
     cout << "Addition: ";

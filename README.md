@@ -1,5 +1,5 @@
 # EngUnits --IN PROGRESS--
-EngUnits is a C++ compile-time header-only library of engineering unit types(meters, stones, feet, kilograms etc.) and tools, with an emphasis on type safety, efficiency, readability and ease of extension and use. This library is ideal for scientific or engineering problems where consistency and type safety between unit types is required (e.g, a length and a mass cannot be added, a volume and a velocity cannot be compared, dividing pressure by pressure does not yield pressure etc.)
+EngUnits is a C++ compile-time header-only library of engineering unit types(meters, stones, feet, kilograms etc.) and tools, with an emphasis on type safety, efficiency, readability and ease of extension and use. This library is ideal for scientific or engineering problems where consistency and type safety between unit types is required (e.g, a distance and a mass cannot be added, a volume and a velocity cannot be compared, dividing pressure by pressure does not yield pressure etc.)
 
 There is built-in support for:
 
@@ -7,7 +7,7 @@ There is built-in support for:
 ```c++
 #include "engunits/engunits.h"
 
-using namespace engunits::length;
+using namespace engunits::distance;
 
 if (feet{10} < meters{10} < miles{10}) //...//;
 ```
@@ -22,7 +22,7 @@ std::cout << unit << '\n'; //prints "250 ft"
 
 - accurate implicit conversion between unit types of the same measurement type
 ```c++
-using namespace engunits::length;
+using namespace engunits::distance;
 
 inches i{12};
 
@@ -44,29 +44,29 @@ p+=s //ERROR: you can't add a mass to a pressure
 
 Although this library includes support for a number of different unit types, it is trivial to add your own...
 ```c++
-namespace engunits::length{
-class MyLength: public LengthUnit<MyLength> {
+namespace engunits::distance{
+class MyDist: public DistanceUnit<MyDist> {
     public:
-        using LengthUnit<MyLength>::LengthUnit;
+        using DistanceUnit<MyDist>::DistanceUnit;
         
         static constexpr double conversion = 12345; //conversion to si(how many meters make up this unit)
         
-        std::string symbol() const override {return "MyLen";} //your unit symbol
+        std::string symbol() const override {return "MyDist";} //your unit symbol
 };
-} //namespace engunits::length
+} //namespace engunits::distance
 
 namespace engunits::literals{
-MyLength operator""_MyLen(long double value) {return value;}//OPTIONAL literal operator 
+MyDistance operator""_MyDist(long double value) {return value;}//OPTIONAL literal operator 
 }//literals are kept in a separate namespace to prevent pollution of literals
 
 ``` 
 
 Thats less than 10 lines of code! Heres how you can use your custom unit:
 ```c++
-using namespace engunits::length;
-using namespace engunits::length::literals;
+using namespace engunits::distance;
+using namespace engunits::distance::literals;
 
-MyLength custom{10};
+MyDistance custom{10};
 
 std::cout << custom << '\n'; //prints "10 MyLen"
 
@@ -91,7 +91,7 @@ mass::kilograms MEarth{5.9722e+24};
 
 mass::kilograms MMoon{7.342e+22};
 
-length::meters R{3.844e+8};
+distance::meters R{3.844e+8};
 
 force::Newtons FGrav = constants::G*MEarth*MMoon*(R^-2);
 ```
@@ -102,7 +102,7 @@ using namespace engunits;
 
 angle::radians r{constants::pi/2};
 
-length::meters m = meters{10}*maths::sin(r);
+distance::meters m = meters{10}*maths::sin(r);
 
 std::cout << m << '\n'; //prints "10 m"
 ```
@@ -116,16 +116,16 @@ engunits::traits::is_unit_of_type
 ```c++
 #include<type_traits>
 #include "engunits/type_traits.h"
-#include "engunits/length.h"
+#include "engunits/distance.h"
 
 using namespace engunits;
-using namespace engunits::length;
+using namespace engunits::distance;
 
 static_assert(traits::is_unit_v<feet>); //OK
 static_assert(traits::is_unit_v<int>); //fails assert
 
 feet f;
-if constexpr(traits::is_unit_of_type<decltype(f),LengthUnit>::value) {
+if constexpr(traits::is_unit_of_type<decltype(f),DistanceUnit>::value) {
     //...//
 }
 

@@ -4,7 +4,7 @@
 #include<cassert>
 #include<sstream>
 
-#include "../engunits/length.h"
+#include "../engunits/distance.h"
 
 void print_bool (bool b){
     std::cout<< (b ? "true" : "false") << std::endl;
@@ -19,7 +19,7 @@ void almost_equal(double self, double other) {
 }
 
 int main() {
-    using namespace engunits::length;
+    using namespace engunits::distance;
     using namespace std;
 
     cout << "---Testing Constructors---" << endl;

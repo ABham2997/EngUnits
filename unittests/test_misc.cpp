@@ -2,10 +2,10 @@
 #include<sstream>
 #include<cassert>
 
-#include "../engunits/length.h"
+#include "../engunits/distance.h"
 
 int main () {
-    using namespace engunits::length;
+    using namespace engunits::distance;
     using namespace std;
     cout << "---Testing Misc---" << endl;
     cout << "cout: ";

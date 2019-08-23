@@ -3,7 +3,7 @@
 #include "../engunits/angle.h"
 #include "../engunits/equations.h"
 #include "../engunits/fuel_economy.h"
-#include "../engunits/length.h"
+#include "../engunits/distance.h"
 #include "../engunits/energy.h"
 #include "../engunits/temperature.h"
 #include "../engunits/acceleration.h"
