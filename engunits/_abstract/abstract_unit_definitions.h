@@ -123,6 +123,12 @@ ADD_ABSTRACT_UNIT_TYPE(TimeUnit,seconds,s);
 
 }//namespace engunits::time
 
+namespace engunits::torque{
+
+ADD_ABSTRACT_UNIT_TYPE(TorqueUnit,Newton_meter,N.m);
+
+}//namespace engunits::torque
+
 namespace engunits::volume{
 
 ADD_ABSTRACT_UNIT_TYPE(VolumeUnit,cubic_meters,m3);

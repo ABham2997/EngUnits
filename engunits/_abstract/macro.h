@@ -57,7 +57,7 @@ class si_unit_name : public abstract_unit_name<si_unit_name> {\
         constexpr Res_unit operator/(const double &value, const Unit_to_inv &unit) { return value / unit.scalar(); }\
         constexpr Unit_to_inv operator/(const double &value, const Res_unit &unit) { return value / unit.scalar();}
 
-#define ADD_MULT_ONLY_OPERATOR(Unit1, Unit2, Unit3)                                                                   \
+#define ADD_MULT_ONLY_OPERATORS(Unit1, Unit2, Unit3)                                                                   \
         constexpr Unit1 operator*(const Unit2 &unit2, const Unit3 &unit3) { return unit2.scalar() * unit3.scalar(); } \
         constexpr Unit1 operator*(const Unit3 &unit3, const Unit2 &unit2) { return unit2.scalar() * unit3.scalar(); }
 

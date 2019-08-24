@@ -23,6 +23,7 @@
 #define TEMPERATURE typename engunits::temperature::Kelvin
 #define ENERGY typename engunits::energy::Joules
 #define TIME typename engunits::time::seconds
+#define TORQUE typename engunits::torque::Newton_meter
 #define POWER typename engunits::power::watt
 
 ADD_TRI_OPERATORS(DISTANCE, SPEED, TIME);
@@ -33,10 +34,13 @@ ADD_TRI_OPERATORS(ENERGY, POWER, TIME);
 ADD_TRI_OPERATORS(POWER, SPEED, FORCE);
 ADD_TRI_OPERATORS(FORCE, PRESSURE, AREA);
 ADD_TRI_OPERATORS(DATA_STORAGE, DATA_TRANSFER, TIME);
+ADD_TRI_OPERATORS(SPEED, FREQUENCY, DISTANCE);
 
 ADD_SQ_OPERATORS(DISTANCE, AREA);
 
 ADD_RECIPROCAL_OPERATORS(FREQUENCY, TIME);
+
+ADD_MULT_ONLY_OPERATORS(DISTANCE, ANGLE, DISTANCE);
 
 #undef DISTANCE 
 #undef SPEED 
