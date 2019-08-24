@@ -8,15 +8,12 @@
 #include<limits>
 
 #include "../../engunits/_abstract/core.h"
+#include "../../engunits/_abstract/underlying_type.h"
 #include "../../engunits/maths/pow.h"
 
 namespace engunits::abstract{
 
-#ifdef ENGUNITS_UNDERLYING_TYPE
-    using ValType = ENGUNITS_UNDERLYING_TYPE;
-#else
-    using ValType = double;
-#endif
+using ValType = typename underlying::type;
 
 template<template<typename> typename Child, typename Grandchild>
 class PhysicalUnit{
@@ -37,13 +34,6 @@ class PhysicalUnit{
             public:
         
                 constexpr explicit operator bool() const { return this->b; }
-
-                // constexpr ProxyComp operator==(const double &value) const {return ProxyComp(value, val==value&&b);}
-                // constexpr ProxyComp operator!=(const double &value) const {return ProxyComp(value, val!=value&&b);}
-                // constexpr ProxyComp operator<=(const double &value) const {return ProxyComp(value, val<=value&&b);}
-                // constexpr ProxyComp operator>=(const double &value) const {return ProxyComp(value, val>=value&&b);}
-                // constexpr ProxyComp operator<(const double &value) const {return ProxyComp(value, val<value&&b);}
-                // constexpr ProxyComp operator>(const double &value) const {return ProxyComp(value, val>value&&b);}
 
                 constexpr ProxyComp operator==(const Grandchild &other) const {return ProxyComp(other.val, val==other.val&&b);}
                 constexpr ProxyComp operator!=(const Grandchild &other) const {return ProxyComp(other.val, val!=other.val&&b);}
@@ -83,9 +73,11 @@ class PhysicalUnit{
             typename=std::enable_if_t<std::is_constructible<Other,ValType>::value&&!std::is_rvalue_reference<Other>::value>>
         constexpr Other cast_to() const { return val; }
 
-        std::string to_string(bool scientific=false) const {
+        //enable only if all args can be streamed into stringstreams
+        template<typename...Ts, typename=std::void_t<decltype(std::declval<std::stringstream>()<<std::declval<Ts>())...>>
+        std::string to_string(Ts...modifiers) const {
             std::stringstream ss;
-            if (scientific) ss << std::scientific;
+            if constexpr(sizeof...(Ts)>0) (ss << ... << modifiers);
             ss << (*this);
             return ss.str();
         }
@@ -123,13 +115,6 @@ class PhysicalUnit{
         constexpr friend ProxyComp operator<(const double &value, const Grandchild &self) {return ProxyComp(self.val, value<self.val);}
         constexpr friend ProxyComp operator>(const double &value, const Grandchild &self) {return ProxyComp(self.val, value>self.val);}
         constexpr friend ProxyComp operator^=(const double &value, const Grandchild &self) {return ProxyComp(self.val, value>self.val);}
-
-        //constexpr ProxyComp operator==(const double &value) const {return ProxyComp(value, (this->val)==value);}
-        // constexpr ProxyComp operator!=(const double &value) const {return ProxyComp(value, (this->val)!=value);}
-        // constexpr ProxyComp operator<=(const double &value) const {return ProxyComp(value, (this->val)<=value);}
-        // constexpr ProxyComp operator>=(const double &value) const {return ProxyComp(value, (this->val)>=value);}
-        // constexpr ProxyComp operator<(const double &value) const {return ProxyComp(value, (this->val)<value);}
-        // constexpr ProxyComp operator>(const double &value) const {return ProxyComp(value, (this->val)>value);}
 
         constexpr ProxyComp operator==(const Grandchild &other) const {return ProxyComp(other.val, (this->val)==other.val);}
         constexpr ProxyComp operator!=(const Grandchild &other) const {return ProxyComp(other.val, (this->val)!=other.val);}
