@@ -6,13 +6,13 @@
 
 namespace engunits::acceleration{
 
-ADD_ABSTRACT_UNIT_TYPE(AccelerationUnit,meters_per_second_sq,ms-1);
+ADD_ABSTRACT_UNIT_TYPE(AccelerationUnit,meters_per_second_sq,ms-2);
 
 }//namespace engunits::acceleration
 
 namespace engunits::angle{
 
-ADD_ABSTRACT_UNIT_TYPE(AngleUnit,radians,r);
+ADD_ABSTRACT_UNIT_TYPE(AngleUnit,radians,rad);
 
 }//namespace engunits::angle
 
@@ -35,37 +35,8 @@ ADD_ABSTRACT_UNIT_TYPE(DataTransferUnit,megabyte_per_second,mbps);
 }//namespace engunits::data_transfer
 
 namespace engunits::distance{
-class meters; //forward declaration
 
-//Child of this class is GrandChild of base class(PhysicalUnit)
-template<typename Child=meters> //TODO: constrain to children of this class
-class DistanceUnit: public abstract::PhysicalUnit<DistanceUnit, Child> {
-    public:
-        using abstract::PhysicalUnit<DistanceUnit, Child>::PhysicalUnit;
-        using si_t = meters;
-
-        constexpr DistanceUnit<Child>(const DistanceUnit<Child> &other) : abstract::PhysicalUnit<DistanceUnit, Child>{other.val} {};
-        constexpr DistanceUnit<Child>(DistanceUnit<Child> &&other) : abstract::PhysicalUnit<DistanceUnit, Child>{other.val} {};
-        template <typename T>
-        constexpr DistanceUnit<Child>(const DistanceUnit<T> &other) : abstract::PhysicalUnit<DistanceUnit, Child>{(convert<Child>(other))} {};
-        template<typename T>
-        constexpr DistanceUnit<Child>(DistanceUnit<T> &&other) : abstract::PhysicalUnit<DistanceUnit, Child>{(convert<Child>(other))} {};
-
-        virtual const std::string symbol() const = 0;
-
-        Child &operator=(const DistanceUnit<Child> &other) { this->val = other.val; return *static_cast<Child*>(this);}
-        Child &operator=(DistanceUnit<Child> &&other) { this->val = other.val; return *static_cast<Child*>(this);}  
-        
-};
-
-class meters : public DistanceUnit<meters> {
-    public:
-        using DistanceUnit<meters>::DistanceUnit;
-
-        static constexpr double conversion = 1;
-
-        const std::string symbol() const override { return "m"; }
-};
+ADD_ABSTRACT_UNIT_TYPE(DistanceUnit, meters, m);
 
 }//namespace engunits::distance
 
