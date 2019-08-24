@@ -4,8 +4,8 @@
 #include<iostream>
 #include<string>
 
-#include "../engunits/_abstract/abstract_distance.h"
 #include "../engunits/_conversion/distance_conversion.h"
+#include "../engunits/_abstract/abstract_unit.h"
 
 namespace engunits::distance{
 
@@ -29,9 +29,10 @@ class feet : public DistanceUnit<feet> {
 }
 
 namespace engunits::literals{
-using namespace distance;
 
-feet operator""_ft(long double value) { return value; }
+ADD_LITERALS(distance, feet, ft);
+ADD_LITERALS(distance, meters, m);
+ADD_LITERALS(distance, inches, in);
 
 }
 

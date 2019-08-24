@@ -4,7 +4,7 @@
 #include<iostream>
 #include<string>
 
-#include "../engunits/_abstract/abstract_frequency.h"
+#include "../engunits/_abstract/abstract_unit.h"
 #include "../engunits/_conversion/frequency_conversion.h"
 
 namespace engunits::frequency{

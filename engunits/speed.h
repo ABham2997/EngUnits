@@ -4,7 +4,7 @@
 #include<iostream>
 #include<string>
 
-#include "../engunits/_abstract/abstract_speed.h"
+#include "../engunits/_abstract/abstract_unit.h"
 #include "../engunits/_conversion/speed_conversion.h"
 
 namespace engunits::speed{

@@ -71,7 +71,7 @@ class PhysicalUnit{
         constexpr ValType get_val() const { return val; }
 
     public:
-        constexpr PhysicalUnit():val{} {};
+        constexpr PhysicalUnit() = default;
         constexpr PhysicalUnit(const ValType &value) : val{value} {};
 
         virtual const std::string symbol() const = 0;
@@ -115,7 +115,6 @@ class PhysicalUnit{
         Grandchild &operator/=(const double &other) {this->val/=other;return *static_cast<Grandchild*>(this);}
 
         constexpr friend Grandchild operator*(const ValType &value, const Grandchild &self) { return value*self.val; }
-        constexpr friend Grandchild operator/(const ValType &value, const Grandchild &self) { return value/self.val; }
 
         constexpr friend ProxyComp operator==(const double &value, const Grandchild &self) {return ProxyComp(self.val, value==self.val); }
         constexpr friend ProxyComp operator!=(const double &value, const Grandchild &self) {return ProxyComp(self.val, value!=self.val);}

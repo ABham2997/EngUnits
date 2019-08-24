@@ -4,7 +4,7 @@
 #include<iostream>
 #include<string>
 
-#include "../engunits/_abstract/abstract_mass.h"
+#include "../engunits/_abstract/abstract_unit.h"
 #include "../engunits/_conversion/mass_conversion.h"
 
 namespace engunits::mass{
