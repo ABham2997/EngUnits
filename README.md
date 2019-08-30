@@ -69,17 +69,17 @@ using namespace engunits::distance::literals;
 
 MyDistance custom{10};
 
-std::cout << custom << '\n'; //prints "10 MyLen"
+std::cout << custom << '\n'; //prints "10 MyDist"
 
 meters m{12345};
 
 custom = m;
 
-std::cout << custom << '\n' //prints "1 MyLen"
+std::cout << custom << '\n' //prints "1 MyDist"
 
-auto literal = 250.0_MyLen;
+auto literal = 250.0_MyDist;
 
-std::cout << literal << '\n' //prints "250 MyLen"
+std::cout << literal << '\n' //prints "250 MyDist"
 
 ```
 
