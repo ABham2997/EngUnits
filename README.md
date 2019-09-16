@@ -1,8 +1,11 @@
 # EngUnits --IN PROGRESS--
 EngUnits is a C++ compile-time header-only library of engineering unit types(meters, stones, feet, kilograms etc.) and tools, with an emphasis on type safety, efficiency, readability and ease of extension and use. This library is ideal for scientific or engineering problems where consistency and type safety between unit types is required (e.g, a distance and a mass cannot be added, a volume and a velocity cannot be compared, dividing pressure by pressure does not yield pressure etc.)
 
-To build and install the library, download the source code, then run the following command in the base directory:
+To build and install the library, download the source code, then run the following commands in the base directory:
 ```bash
+mkdir build
+cd build 
+cmake ..
 sudo cmake --build . --config Release --target install -- -j $(nproc)
 ```
 

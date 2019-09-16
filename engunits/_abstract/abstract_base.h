@@ -22,39 +22,7 @@ class PhysicalUnit{
         
         template<typename T> friend class Child;
 
-        class ProxyComp {
-            private:
-                template<template<typename> typename C, typename G> friend class PhysicalUnit;
-
-                ValType val;
-                bool b;
-
-                constexpr ProxyComp(const ValType &value, bool bb) : val{value}, b{bb} {};
-
-            public:
-        
-                constexpr explicit operator bool() const { return this->b; }
-
-                constexpr ProxyComp operator==(const Grandchild &other) const {return ProxyComp(other.val, val==other.val&&b);}
-                constexpr ProxyComp operator!=(const Grandchild &other) const {return ProxyComp(other.val, val!=other.val&&b);}
-                constexpr ProxyComp operator<=(const Grandchild &other) const {return ProxyComp(other.val, val<=other.val&&b);}
-                constexpr ProxyComp operator>=(const Grandchild &other) const {return ProxyComp(other.val, val>=other.val&&b);}
-                constexpr ProxyComp operator<(const Grandchild &other) const {return ProxyComp(other.val, val<other.val&&b);}
-                constexpr ProxyComp operator>(const Grandchild &other) const {return ProxyComp(other.val, val>other.val&&b);}
-                
-                constexpr friend ProxyComp operator==(const double &value, const ProxyComp &self){ 
-                    return ProxyComp(self.val, value==self.val&&self.b);}
-                constexpr friend ProxyComp operator!=(const double &value, const ProxyComp &self){ 
-                    return ProxyComp(self.val, value!=self.val&&self.b);}
-                constexpr friend ProxyComp operator<=(const double &value, const ProxyComp &self){ 
-                    return ProxyComp(self.val, value<=self.val&&self.b);}
-                constexpr friend ProxyComp operator>=(const double &value, const ProxyComp &self){ 
-                    return ProxyComp(self.val, value>=self.val&&self.b);}
-                constexpr friend ProxyComp operator<(const double &value, const ProxyComp &self){ 
-                    return ProxyComp(self.val, value<self.val&&self.b);}
-                constexpr friend ProxyComp operator>(const double &value, const ProxyComp &self){ 
-                    return ProxyComp(self.val, value>self.val&&self.b);}
-        };
+        class ProxyComp;
 
     protected:
         void set_val(const ValType &value) { val = value; }
@@ -141,5 +109,42 @@ class PhysicalUnit{
         }
 
 };
+
+template<template<typename> typename Child, typename Grandchild>
+class PhysicalUnit<Child, Grandchild>::ProxyComp{
+    private:
+        template<template<typename> typename C, typename G> friend class PhysicalUnit;
+
+        ValType val;
+        bool b;
+
+        constexpr ProxyComp(const ValType &value, bool bb) : val{value}, b{bb} {};
+
+    public:
+
+        constexpr explicit operator bool() const { return this->b; }
+
+        constexpr ProxyComp operator==(const Grandchild &other) const {return ProxyComp(other.val, val==other.val&&b);}
+        constexpr ProxyComp operator!=(const Grandchild &other) const {return ProxyComp(other.val, val!=other.val&&b);}
+        constexpr ProxyComp operator<=(const Grandchild &other) const {return ProxyComp(other.val, val<=other.val&&b);}
+        constexpr ProxyComp operator>=(const Grandchild &other) const {return ProxyComp(other.val, val>=other.val&&b);}
+        constexpr ProxyComp operator<(const Grandchild &other) const {return ProxyComp(other.val, val<other.val&&b);}
+        constexpr ProxyComp operator>(const Grandchild &other) const {return ProxyComp(other.val, val>other.val&&b);}
+        
+        constexpr friend ProxyComp operator==(const double &value, const ProxyComp &self){ 
+            return ProxyComp(self.val, value==self.val&&self.b);}
+        constexpr friend ProxyComp operator!=(const double &value, const ProxyComp &self){ 
+            return ProxyComp(self.val, value!=self.val&&self.b);}
+        constexpr friend ProxyComp operator<=(const double &value, const ProxyComp &self){ 
+            return ProxyComp(self.val, value<=self.val&&self.b);}
+        constexpr friend ProxyComp operator>=(const double &value, const ProxyComp &self){ 
+            return ProxyComp(self.val, value>=self.val&&self.b);}
+        constexpr friend ProxyComp operator<(const double &value, const ProxyComp &self){ 
+            return ProxyComp(self.val, value<self.val&&self.b);}
+        constexpr friend ProxyComp operator>(const double &value, const ProxyComp &self){ 
+            return ProxyComp(self.val, value>self.val&&self.b);}
+};
+
 }//namespace engunits::abstract
+
 #endif
