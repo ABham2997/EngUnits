@@ -92,8 +92,7 @@ class MyDist: public DistanceUnit<MyDist> {
 } //namespace engunits::distance
 
 namespace engunits::literals{
-MyDistance operator""_MyDist(long double value) {return value;}
-MyDistance operator""_MyDist(unsigned long long value) {return value;} //OPTIONAL literal operators
+ADD_LITERALS(distance::MyDist, MyDist)//OPTIONAL literal operators
 }//literals are kept in a separate namespace to prevent pollution of literals
 
 ``` 

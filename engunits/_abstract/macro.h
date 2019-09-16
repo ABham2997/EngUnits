@@ -39,9 +39,9 @@ class si_unit_name : public abstract_unit_name<si_unit_name> {\
         const std::string symbol() const override { return #si_unit_symbol; }\
 };
 
-#define ADD_LITERALS(namespace, unit, symbol)                                               \
-        constexpr namespace ::unit operator""_##symbol(long double value) { return value; } \
-        constexpr namespace ::unit operator""_##symbol(unsigned long long value) { return value; }
+#define ADD_LITERALS(namespace_unit, symbol)                                               \
+        constexpr namespace_unit operator""_##symbol(long double value) { return value; } \
+        constexpr namespace_unit operator""_##symbol(unsigned long long value) { return value; }
 
 #define ADD_TRI_OPERATORS(Unit1, Unit2, Unit3)                                                                           \
         constexpr Unit1 operator*(const Unit2 &unit2, const Unit3 &unit3) { return unit2.scalar() * unit3.scalar(); } \

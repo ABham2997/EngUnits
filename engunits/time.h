@@ -12,7 +12,7 @@ namespace engunits::time{
 }
 
 namespace engunits::literals{
-ADD_LITERALS(time, seconds, s);
+ADD_LITERALS(time::seconds, s);
 }
 
 #endif

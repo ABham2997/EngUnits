@@ -30,9 +30,9 @@ class feet : public DistanceUnit<feet> {
 
 namespace engunits::literals{
 
-ADD_LITERALS(distance, feet, ft);
-ADD_LITERALS(distance, meters, m);
-ADD_LITERALS(distance, inches, in);
+ADD_LITERALS(distance::feet, ft);
+ADD_LITERALS(distance::meters, m);
+ADD_LITERALS(distance::inches, in);
 
 }
 
