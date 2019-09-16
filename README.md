@@ -61,7 +61,8 @@ class MyDist: public DistanceUnit<MyDist> {
 } //namespace engunits::distance
 
 namespace engunits::literals{
-MyDistance operator""_MyDist(long double value) {return value;}//OPTIONAL literal operator 
+MyDistance operator""_MyDist(long double value) {return value;}
+MyDistance operator""_MyDist(unsigned long long value) {return value;} //OPTIONAL literal operators
 }//literals are kept in a separate namespace to prevent pollution of literals
 
 ``` 
@@ -73,17 +74,17 @@ using namespace engunits::distance::literals;
 
 MyDistance custom{10};
 
-std::cout << custom << '\n'; //prints "10 MyLen"
+std::cout << custom << '\n'; //prints "10 MyDist"
 
 meters m{12345};
 
 custom = m;
 
-std::cout << custom << '\n' //prints "1 MyLen"
+std::cout << custom << '\n' //prints "1 MyDist"
 
-auto literal = 250.0_MyLen;
+auto literal = 250.0_MyDist;
 
-std::cout << literal << '\n' //prints "250 MyLen"
+std::cout << literal << '\n' //prints "250 MyDist"
 
 ```
 
