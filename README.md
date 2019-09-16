@@ -35,7 +35,7 @@ std::cout << 25_m/5_s << '\n'; //prints "5 ms-1"
 std::cout << distance::meters{10}*distance::meters{20} << '\n'; //print "200 m2"
 
 auto length = angle::radians{2}*5_m;
-std::cout << length << '\n'; prints "10 m"
+std::cout << length << '\n'; //prints "10 m"
 
 ```
 
