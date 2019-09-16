@@ -26,6 +26,19 @@ auto unit = 250.0_ft;
 
 std::cout << unit << '\n'; //prints "250 ft"
 ```
+- intelligent unit-type deduction 
+```c++
+using namespace engunits::literals;
+using namespace engunits;
+
+std::cout << 25_m/5_s << '\n'; //prints "5 ms-1"
+std::cout << distance::meters{10}*distance::meters{20} << '\n'; //print "200 m2"
+
+auto length = angle::radians{2}*5_m;
+std::cout << length << '\n'; prints "10 m"
+
+```
+
 - extensive compile-time computation
 ```c++
 using namespace engunits::literals;
@@ -35,6 +48,10 @@ constexpr auto dist = 100_m;
 constexpr auto time = 2_s;
 constexpr auto speed = dist/time;
 static_assert(speed == 50_mps); //OK
+
+if constexpr(25_mps<speed<75_mps){
+    //..//
+}
 
 constexpr double sqrtDist = maths::sqrt(dist);
 static_assert(sqrtDist==10); //OK 
