@@ -1,6 +1,6 @@
 #include<iostream>
 
-#include "../engunits/engunits.h"
+#include <engunits/engunits.h>
 
 template<typename C>
 struct DummyTemplate{

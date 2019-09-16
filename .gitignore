@@ -8,3 +8,5 @@ engunits/_abstract/a.py
 engunits/a.py
 doc/units\ supported/a.py
 engunits/_conversion/d.txt
+.idea
+build

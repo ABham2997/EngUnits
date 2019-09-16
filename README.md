@@ -1,11 +1,16 @@
 # EngUnits --IN PROGRESS--
 EngUnits is a C++ compile-time header-only library of engineering unit types(meters, stones, feet, kilograms etc.) and tools, with an emphasis on type safety, efficiency, readability and ease of extension and use. This library is ideal for scientific or engineering problems where consistency and type safety between unit types is required (e.g, a distance and a mass cannot be added, a volume and a velocity cannot be compared, dividing pressure by pressure does not yield pressure etc.)
 
+To build and install the library, download the source code, then run the following command in the base directory:
+```bash
+sudo cmake --build . --config Release --target install -- -j $(nproc)
+```
+
 There is built-in support for:
 
 - efficient comparison operator chaining
 ```c++
-#include "engunits/engunits.h"
+#include <engunits/engunits.h>
 
 using namespace engunits::distance;
 
@@ -115,8 +120,8 @@ engunits::traits::is_unit_of_type
 ...these traits follow convention with the standard library and can be used, for example, in the following ways...
 ```c++
 #include<type_traits>
-#include "engunits/type_traits.h"
-#include "engunits/distance.h"
+#include <engunits/type_traits.h>
+#include <engunits/distance.h>
 
 using namespace engunits;
 using namespace engunits::distance;

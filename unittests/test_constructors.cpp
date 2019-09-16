@@ -4,7 +4,7 @@
 #include<cassert>
 #include<sstream>
 
-#include "../engunits/distance.h"
+#include <engunits/distance.h>
 
 void print_bool (bool b){
     std::cout<< (b ? "true" : "false") << std::endl;

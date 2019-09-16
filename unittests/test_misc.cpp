@@ -2,7 +2,7 @@
 #include<sstream>
 #include<cassert>
 
-#include "../engunits/distance.h"
+#include <engunits/distance.h>
 
 int main () {
     using namespace engunits::distance;

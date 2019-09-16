@@ -1,7 +1,7 @@
 #include<iostream>
 #include<cassert>
 
-#include "../engunits/distance.h"
+#include <engunits/distance.h>
 
 void almost_equal(double self, double other) {
     if (self==0 || other==0) {
@@ -25,13 +25,6 @@ int main() {
     fp += 20;
     assert(fp.scalar() == 40);
     assert((meters{} + 5).scalar() == 5);
-    auto mpres = 10+mp;
-    assert(mpres.scalar() == 30);
-    auto fpres = 20+fp;
-    assert(fpres.scalar() == 60);
-    double dub = 100;
-    dub += mp+15;
-    assert(dub == 135);
     cout << "success" << endl;
     cout << endl;
 
@@ -45,8 +38,6 @@ int main() {
     meters mma2{0.2323};
     feet ffa2{5203};
     inches inna2{1022};
-
-    mma2 = (5+ mma2 + ffa2 + inna2 + 10 + inna2);
 
     cout << endl;
 
