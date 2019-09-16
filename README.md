@@ -26,13 +26,14 @@ auto unit = 250.0_ft;
 
 std::cout << unit << '\n'; //prints "250 ft"
 ```
-- intelligent unit-type deduction 
+- intelligent unit-type deduction (to SI units only)
 ```c++
 using namespace engunits::literals;
 using namespace engunits;
 
 std::cout << 25_m/5_s << '\n'; //prints "5 ms-1"
-std::cout << distance::meters{10}*distance::meters{20} << '\n'; //print "200 m2"
+std::cout << distance::feet{10}*distance::inches{20} << '\n'; //print "1.54838 m2"
+std::cout << 1000_MN * 50_ft << '\n'; prints "1.524e+10 J"
 
 auto length = angle::radians{2}*5_m;
 std::cout << length << '\n'; //prints "10 m"

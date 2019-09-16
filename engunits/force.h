@@ -21,11 +21,8 @@ class MegaNewtons: public ForceUnit<MegaNewtons> {
 }
 
 namespace engunits::literals{
-using namespace force;
-
-Newtons operator""_N(long double value) { return value; }
-MegaNewtons operator""_MN(long double value) { return value; }
-
+ADD_LITERALS(force::Newtons, N);
+ADD_LITERALS(force::MegaNewtons, MN);
 }
 
 #endif
