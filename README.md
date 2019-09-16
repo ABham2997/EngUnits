@@ -10,7 +10,6 @@ sudo cmake --build . --config Release --target install -- -j $(nproc)
 ```
 
 There is built-in support for:
-
 - efficient comparison operator chaining
 ```c++
 #include <engunits/engunits.h>
@@ -27,7 +26,19 @@ auto unit = 250.0_ft;
 
 std::cout << unit << '\n'; //prints "250 ft"
 ```
+- extensive compile-time computation
+```c++
+using namespace engunits::literals;
+using namespace engunits;
 
+constexpr auto dist = 100_m;
+constexpr auto time = 2_s;
+constexpr auto speed = dist/time;
+static_assert(speed == 50_mps); //OK
+
+constexpr double sqrtDist = maths::sqrt(dist);
+static_assert(sqrtDist==10); //OK 
+```
 - accurate implicit conversion between unit types of the same measurement type
 ```c++
 using namespace engunits::distance;
