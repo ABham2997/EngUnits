@@ -10,3 +10,4 @@ doc/units\ supported/a.py
 engunits/_conversion/d.txt
 .idea
 build
+cmake-build-debug

@@ -6,7 +6,7 @@ To build and install the library, download the source code, then run the followi
 mkdir build
 cd build 
 cmake ..
-sudo cmake --build . --config Release --target install -- -j $(nproc)
+cmake --build . --config Release --target install -- -j $(nproc)
 ```
 
 There is built-in support for:
